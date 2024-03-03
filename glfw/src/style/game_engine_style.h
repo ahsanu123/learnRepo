@@ -1,0 +1,6 @@
+#ifndef INCLUDE_STYLE_GAME_ENGIN_STYLE_H_
+#define INCLUDE_STYLE_GAME_ENGIN_STYLE_H_
+
+#endif // INCLUDE_STYLE_GAME_ENGIN_STYLE_H_
+
+void GameEngineStyle();

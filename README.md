@@ -56,6 +56,7 @@ Good Resource
 
 - CMake 
   - https://cliutils.gitlab.io/modern-cmake
+  - https://coderefinery.github.io/cmake-workshop/
 
 <!-- LICENSE -->
 ## License
