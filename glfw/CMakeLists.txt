@@ -6,7 +6,6 @@ find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIRS})
 
 include(FetchContent)
-# add_subdirectory(glfw)
 cmake_policy(SET CMP0135 NEW)
 
 FetchContent_Declare(
