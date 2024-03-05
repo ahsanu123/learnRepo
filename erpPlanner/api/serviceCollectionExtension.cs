@@ -1,9 +1,15 @@
+using erpPlanner.Services;
+using erpPlanner.Repository;
 
-public static class ServiceCollection
+namespace erpPlanner.ExtensionMethod;
+
+public static class ServiceCollectionCustom
 {
-    static void addServiceCollectionExtension(this IServiceCollection services)
+    public static IServiceCollection AddServiceCollectionExtension(this IServiceCollection services)
     {
         services.AddSingleton<PostgresqlConnectionProvider>();
+        services.AddScoped<IMaterialRepository, MaterialRepository>();
+        return services;
     }
 }
 

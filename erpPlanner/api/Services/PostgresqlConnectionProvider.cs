@@ -1,3 +1,8 @@
+using System.Data;
+using Dapper;
+using Npgsql;
+
+namespace erpPlanner.Services;
 
 
 public class PostgresqlConnectionProvider
@@ -8,6 +13,11 @@ public class PostgresqlConnectionProvider
     public PostgresqlConnectionProvider(IConfiguration configuration)
     {
         _configuration = configuration;
-        _connectionString = configuration.GetConnectionString("postgresql");
+        _connectionString = _configuration.GetConnectionString("postgresql");
+    }
+
+    public IDbConnection CreateConnection()
+    {
+        return new NpgsqlConnection(_connectionString);
     }
 }
