@@ -11,7 +11,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
     RouterModule
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'PlannerP';
