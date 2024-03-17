@@ -4,8 +4,11 @@ import { Directive, ElementRef, EventEmitter, Input, OnInit, Output } from '@ang
   selector: 'input[inputNoBorder]',
   standalone: true,
   host: {
-    'class': 'custom-text-view outline-none bg-transparent '
-  }
+    'style.width': '35ch',
+    'style.max-width': '30ch',
+    'style.height': '3ch',
+    'class': 'outline-none bg-transparent ',
+  },
 })
 export class InputNoBorderDirective implements OnInit {
 

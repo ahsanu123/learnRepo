@@ -1,7 +1,9 @@
-<div class="indicator w-full max-w-screen-sm">
+<div class="indicator w-full max-w-lg">
   <div class="indicator-item indicator-start ml-2 mt-8 ">
-    <ng-icon name="bootstrapMarkdownFill" class="tooltip" data-tip="markdown support"></ng-icon>
+    <div class="tooltip" data-tip="you can use basic markdown here">
+      <ng-icon name="bootstrapMarkdownFill"></ng-icon>
+    </div>
   </div>
-  <div class="indicator rounded-md outline-1 py-3 my-5" #editorRef>
+  <div class=" indicator rounded-md py-3 my-5 max-h-80 overflow-auto" #editorRef>
   </div>
 </div>

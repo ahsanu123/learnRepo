@@ -1,17 +1,26 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import {
+  bootstrapBoxSeamFill,
+  bootstrapChevronDown,
+  bootstrapMemory,
+  bootstrapStack,
+  bootstrapHddStackFill
+} from '@ng-icons/bootstrap-icons';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
   heroArchiveBoxSolid,
   heroBeakerSolid,
+  heroChartPieSolid,
   heroCurrencyDollarSolid,
-  heroPencilSolid,
-  heroChartPieSolid
+  heroPencilSolid
 } from '@ng-icons/heroicons/solid';
-import { ProsemirrorBasicEditorComponent } from '../prosemirror-basic-editor/prosemirror-basic-editor.component';
-import { CommonModule } from '@angular/common';
+import { InputNoBorderDirective } from '../../directive';
+import { CardWithIconOnSideComponent } from '../../sharedComponent/card-with-icon-on-side/card-with-icon-on-side.component';
 import { DialogComponent } from '../../sharedComponent/dialog/dialog.component';
 import { MilkdownEditorComponent } from '../../sharedComponent/milkdown-editor/milkdown-editor.component';
-import { InputNoBorderDirective } from '../../directive';
+import { TableComponent } from '../../sharedComponent/table/table.component';
+import { ProsemirrorBasicEditorComponent } from '../prosemirror-basic-editor/prosemirror-basic-editor.component';
 
 @Component({
   selector: 'app-project-summary',
@@ -22,7 +31,9 @@ import { InputNoBorderDirective } from '../../directive';
     ProsemirrorBasicEditorComponent,
     DialogComponent,
     InputNoBorderDirective,
-    CommonModule
+    CommonModule,
+    CardWithIconOnSideComponent,
+    TableComponent
   ],
   templateUrl: './project-summary.component.html',
   styleUrl: './project-summary.component.scss',
@@ -32,7 +43,12 @@ import { InputNoBorderDirective } from '../../directive';
       heroBeakerSolid,
       heroCurrencyDollarSolid,
       heroArchiveBoxSolid,
-      heroChartPieSolid
+      heroChartPieSolid,
+      bootstrapBoxSeamFill,
+      bootstrapChevronDown,
+      bootstrapMemory,
+      bootstrapStack,
+      bootstrapHddStackFill
     })
   ]
 })

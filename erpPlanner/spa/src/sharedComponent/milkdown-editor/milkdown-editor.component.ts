@@ -1,12 +1,13 @@
 import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { defaultValueCtx, Editor, rootCtx } from '@milkdown/core';
+import { Editor, defaultValueCtx, rootCtx } from '@milkdown/core';
 import { history } from '@milkdown/plugin-history';
 import { math } from '@milkdown/plugin-math';
 import { commonmark } from '@milkdown/preset-commonmark';
 import { nord } from '@milkdown/theme-nord';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { bootstrapMarkdownFill } from '@ng-icons/bootstrap-icons';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
 
+import { clipboard } from '@milkdown/plugin-clipboard';
 import 'katex/dist/katex.min.css';
 import { InputNoBorderDirective } from '../../directive/input-no-border.directive';
 
@@ -42,6 +43,7 @@ export class MilkdownEditorComponent implements OnDestroy {
       .use(commonmark)
       .use(history)
       .use(math)
+      .use(clipboard)
       .create();
 
   }
