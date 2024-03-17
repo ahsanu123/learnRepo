@@ -1,3 +1,26 @@
+<p align="center">
+  <a href="https://github.com/ahsanu123/solder-reflow">
+   <img src="https://github.com/ahsanu123/learnRepo/blob/main/resource/planerp1.png" alt="SoreIcon">
+  </a>
+</p>
+<h1 align="center">PlanerP</h1>
+<p align="center">Your Personal Project Planner and Management 
+<p align="center">
+  <a href="">
+    <img alt="npm version" src="https://badgen.net/github/commits/ahsanu123/learnRepo/">
+  </a>
+  <a href="">
+    <img alt="npm" src="https://badgen.net/github/contributors/ahsanu123/learnRepo/">
+  </a>
+  <a href="">
+    <img alt="npm" src="https://badgen.net/github/branches/ahsanu123/learnRepo/">
+  </a>
+  <br />
+  <a href="https://github.com/ahsanu123/erpPlanner/blob/main/LICENSE">
+    <img alt="licence" src="https://badgen.net/github/license/ahsanu123/learnRepo/">
+  </a>
+</p>
+
 ## PlannerP
 this would be project use dotnet and angular to make ERP for electronic project and price/sales planning
 
