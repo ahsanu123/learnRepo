@@ -1,0 +1,9 @@
+{
+  "ConnectionString": "enter your connectionString",
+  "ConnectionModel": {
+    "server": "servername",
+    "database": "databasename",
+    "username": "username",
+    "password": "password"
+  }
+}
