@@ -1,27 +1,20 @@
 ﻿using Dapper;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using DB2PUML.Model;
 
 namespace DB2PUML.Service;
 
-public class GenerateSqlServerTables
+
+public class GenerateSqlServerTables : IGenerateTables
 {
     private SqlConnection m_sqlConn;
-    private string m_connStr;
     private List<SqlTable> m_tableList = new List<SqlTable>();
     private string m_database;
 
     public GenerateSqlServerTables(string dbConnString)
     {
-        m_connStr = dbConnString;
-        m_sqlConn = new SqlConnection(m_connStr);
+        m_sqlConn = new SqlConnection(dbConnString);
     }
 
     public List<SqlTable> Execute(List<string> tablesToInclude = null, List<string> tablesToExclude = null)
@@ -54,11 +47,11 @@ public class GenerateSqlServerTables
                     Console.WriteLine($"[{row.schema_name}].[{row.table_name}]");
 
                     var table = new SqlTable();
-                    table.schema_id = row.schema_id;
-                    table.schema_name = row.schema_name;
-                    table.table_name = row.table_name;
-                    table.object_id = row.object_id;
-                    table.full_name = row.full_name;
+                    table.SchemaId = row.schema_id;
+                    table.SchemaName = row.schema_name;
+                    table.TableName = row.table_name;
+                    table.ObjectId = row.object_id;
+                    table.FullName = row.full_name;
 
                     GetTableColumns(table);
                     GetTablePrimaryKeys(table);
@@ -79,7 +72,6 @@ public class GenerateSqlServerTables
         return m_tableList;
     }
 
-
     public void GetForeignKeyConstraint(SqlTable table)
     {
         var sql = $@"SELECT 
@@ -90,9 +82,9 @@ public class GenerateSqlServerTables
                   OBJECT_SCHEMA_NAME(referenced_object_id) as [pk_schema_name],
                   OBJECT_NAME(referenced_object_id) AS [pk_table_name]
                 FROM sys.foreign_keys
-                WHERE parent_object_id = OBJECT_ID('{table.full_name}')";
+                WHERE parent_object_id = OBJECT_ID('{table.FullName}')";
 
-        table.foreign_key_list = m_sqlConn.Query<ForeignKeyConstraint>(sql).ToList();
+        table.ForeignKeyList = m_sqlConn.Query<ForeignKeyConstraint>(sql).ToList();
         //table.foreign_key_list = list;
         //foreach (var row in list)
         //{
@@ -117,8 +109,8 @@ public class GenerateSqlServerTables
                 INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS KU
                     ON TC.CONSTRAINT_TYPE = 'FOREIGN KEY' 
                     AND TC.CONSTRAINT_NAME = KU.CONSTRAINT_NAME 
-                    AND KU.table_name='{table.table_name}'
-	                AND KU.TABLE_SCHEMA = '{table.schema_name}'
+                    AND KU.table_name='{table.TableName}'
+	                AND KU.TABLE_SCHEMA = '{table.SchemaName}'
                 ORDER BY 
                      KU.TABLE_NAME
                     ,KU.ORDINAL_POSITION";
@@ -127,10 +119,10 @@ public class GenerateSqlServerTables
 
         foreach (var row in foreighnKeyList)
         {
-            var col = table.columnList.Where(x => x.column_name == row.foreign_key_column).FirstOrDefault();
+            var col = table.ColumnList.Where(x => x.ColumnName == row.foreign_key_column).FirstOrDefault();
             if (col != null)
             {
-                col.is_foreign_key = true;
+                col.IsForeignKey = true;
             }
         }
     }
@@ -143,8 +135,8 @@ public class GenerateSqlServerTables
                 INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS KU
                     ON TC.CONSTRAINT_TYPE = 'PRIMARY KEY' 
                     AND TC.CONSTRAINT_NAME = KU.CONSTRAINT_NAME 
-                    AND KU.table_name='{table.table_name}'
-	                AND KU.TABLE_SCHEMA = '{table.schema_name}'
+                    AND KU.table_name='{table.TableName}'
+	                AND KU.TABLE_SCHEMA = '{table.SchemaName}'
                 ORDER BY 
                      KU.TABLE_NAME
                     ,KU.ORDINAL_POSITION";
@@ -153,28 +145,36 @@ public class GenerateSqlServerTables
 
         foreach (var row in primaryKeyList)
         {
-            var col = table.columnList.Where(x => x.column_name == row.primary_key_column).FirstOrDefault();
+            var col = table.ColumnList.Where(x => x.ColumnName == row.primary_key_column).FirstOrDefault();
             if (col != null)
             {
-                col.is_primary_key = true;
+                col.IsPrimaryKey = true;
             }
         }
     }
 
     public void GetTableColumns(SqlTable table)
     {
-        var sql = $"select COLUMN_NAME, IS_NULLABLE,DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_SCHEMA = '{table.schema_name}' and TABLE_NAME = '{table.table_name}' order by ORDINAL_POSITION";
+        var sql = $@"
+                  select COLUMN_NAME, 
+                  IS_NULLABLE,
+                  DATA_TYPE
+                  from 
+                  INFORMATION_SCHEMA.COLUMNS 
+                  where TABLE_SCHEMA = '{table.SchemaName}' 
+                  and TABLE_NAME = '{table.TableName}' 
+                  order by ORDINAL_POSITION";
 
         dynamic columnList = m_sqlConn.Query<dynamic>(sql);
 
         foreach (var row in columnList)
         {
             var c = new SqlColumn();
-            c.column_name = row.COLUMN_NAME;
-            c.is_nullable = row.IS_NULLABLE;
-            c.data_type = row.DATA_TYPE;
+            c.ColumnName = row.COLUMN_NAME;
+            c.IsNullable = row.IS_NULLABLE;
+            c.DataType = row.DATA_TYPE;
 
-            table.columnList.Add(c);
+            table.ColumnList.Add(c);
         }
     }
 }

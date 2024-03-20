@@ -1,10 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using Spectre.Console;
-using Spectre.Console.Json;
+﻿using Spectre.Console;
 using Spectre.Console.Cli;
 
 using DB2PUML.Model;
-using DB2PUML.Shared;
 
 string banner = """
 
@@ -16,10 +13,15 @@ string banner = """
 
 """;
 
-SpectreHelper.UnderlineTextln("", banner, Color.LightSalmon3_1);
+
+var BannerPanel = new Panel(banner)
+{
+    Border = BoxBorder.Double
+};
+
+AnsiConsole.Write(BannerPanel);
 
 var app = new CommandApp();
-
 app.Configure((config) =>
 {
     config.AddBranch<BaseSetting>("add", branch =>
@@ -37,6 +39,7 @@ app.Configure((config) =>
     });
 
     config.AddExample(new[] { "generate", "-n", "filename.puml" });
+
 
 });
 

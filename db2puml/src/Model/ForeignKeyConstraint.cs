@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace DB2PUML.Model;
 
-[DebuggerDisplay("FK = {foreign_key_name}")]
+[DebuggerDisplay("FK = {ForeignKeyName}")]
 public class ForeignKeyConstraint
 {
-    public int object_id { get; set; }
-    public int parent_object_id { get; set; }
-    public string fk_schema_name { get; set; }
-    public string fk_table_name { get; set; }
-    public string foreign_key_name { get; set; }
-    public string pk_schema_name { get; set; }
-    public string pk_table_name { get; set; }
+    public int ObjectId { get; set; }
+    public int ParentObjectID { get; set; }
+    public string? FkSchemaName { get; set; }
+    public string? FkTableName { get; set; }
+    public string? ForeignKeyName { get; set; }
+    public string? PkSchemaName { get; set; }
+    public string? PkTableName { get; set; }
 }
