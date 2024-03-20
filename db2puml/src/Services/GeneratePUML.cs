@@ -4,7 +4,6 @@ using DB2PUML.Shared;
 
 namespace DB2PUML.Service;
 
-
 public static class GeneratePUML
 {
     public static string GenerateAllTables(
