@@ -1,3 +1,24 @@
+<p >
+  <a href="">
+    <img alt="npm version" src="https://badgen.net/github/commits/ahsanu123/learnRepo/">
+  </a>
+  <a href="">
+    <img alt="npm" src="https://badgen.net/github/contributors/ahsanu123/learnRepo/">
+  </a>
+  <a href="">
+    <img alt="npm" src="https://badgen.net/github/branches/ahsanu123/learnRepo/">
+  </a>
+  <a href="https://github.com/ahsanu123/erpPlanner/blob/main/LICENSE">
+    <img alt="licence" src="https://badgen.net/github/license/ahsanu123/learnRepo/">
+  </a>
+</p>
+
+<h1 align="center">DB2PUML</h1>
+<p align="center">Toy Project To Generate Databse Server Entity Diagram </p>
+
+<p align="center">  
+   <img src="./db2puml.png" alt="db2puml">
+</p>
 
 # DB2PUML
 Generate PlantUML Entity Relationship Diagram From Database Tables
