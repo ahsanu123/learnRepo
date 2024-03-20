@@ -9,7 +9,12 @@ public class AddDbConnectionCommand : Command<AddDbConnection>
     public override int Execute(CommandContext context, AddDbConnection settings)
     {
 
-        SpectreHelper.UnderlineTextln("Adding Setting to json file", " ", Color.Green4);
+        Console.WriteLine($"adding new Connection string with name {settings.ConnectionStringName} with value {settings.value}");
         return 0;
+    }
+
+    public override ValidationResult Validate(CommandContext context, AddDbConnection settings)
+    {
+        return base.Validate(context, settings);
     }
 }
