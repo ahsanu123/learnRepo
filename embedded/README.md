@@ -36,7 +36,7 @@ make
 you also can generate documentation by
 
 ```shell
-cd build/_deps/libopencm3src/doc
+cd build/_deps/libopencm3-src/doc
 make
 ```
 
@@ -44,4 +44,7 @@ make
 
 most of cmake configuration come from official libopencm3 documentation, cmake documentation and
 - https://github.com/plusk01/stm32-libopencm3-cmake-blink : copied basic structure
-- https://github.com/libopencm3/libopencm3/blob/master/mk/genlink-config.mk : converting this configuration makefiles to cmake function 
+- https://github.com/libopencm3/libopencm3/blob/master/mk/genlink-config.mk : converting this configuration makefiles to cmake function
+
+
+<sub><sup> Sunday 04:28 2024 in the morning, Made with ♥️ by AH...</sup></sub>
