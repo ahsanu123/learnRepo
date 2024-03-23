@@ -1,1 +1,8 @@
-TODO ADD README
+
+### Build Step
+
+```shell
+cmake -S . -B build
+cd build
+make
+```
