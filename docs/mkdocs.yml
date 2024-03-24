@@ -1,0 +1,55 @@
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+site_name: Random Docs Collection 
+theme:
+  features:
+    - navigation.tabs
+    - search.highlight
+    - navigation.footer
+    - content.code.copy
+
+  name: material  
+  palette:
+    scheme: slate
+    primary: indigo 
+  icon:
+    logo: fontawesome/solid/robot
+
+plugins:
+  - blog
+  - search
+
+markdown_extensions:
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - attr_list
+  - tables
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+
+extra_javascript:
+  - javascripts/katex.js
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
+
+extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
+
+repo_url: https://github.com/ahsanu123/learnRepo
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ahsanu123
