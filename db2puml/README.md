@@ -17,7 +17,7 @@
 <p align="center">Toy Project To Generate Databse Server Entity Diagram </p>
 
 <p align="center">  
-   <img src="./db2puml.png" alt="db2puml">
+   <img src="https://raw.githubusercontent.com/ahsanu123/learnRepo/main/db2puml/db2puml.png" alt="db2puml">
 </p>
 
 # DB2PUML
