@@ -13,7 +13,7 @@
         <link rel="next" href="blog/">
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="assets/logo.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
     
     
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#welcome" class="md-skip">
+        <a href="#introduction" class="md-skip">
           Skip to content
         </a>
       
@@ -329,11 +329,71 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#welcome" class="md-nav__link">
+  <a href="#introduction" class="md-nav__link">
     <span class="md-ellipsis">
-      Welcome
+      Introduction
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db2puml" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB2PUML
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libopencm3-stm32" class="md-nav__link">
+    <span class="md-ellipsis">
+      Libopencm3 STM32
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erpplanner" class="md-nav__link">
+    <span class="md-ellipsis">
+      ErpPlanner
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glfw" class="md-nav__link">
+    <span class="md-ellipsis">
+      GLFW
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sore" class="md-nav__link">
+    <span class="md-ellipsis">
+      SORE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sudi-split-keyboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sudi - Split Keyboard
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -525,11 +585,71 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#welcome" class="md-nav__link">
+  <a href="#introduction" class="md-nav__link">
     <span class="md-ellipsis">
-      Welcome
+      Introduction
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db2puml" class="md-nav__link">
+    <span class="md-ellipsis">
+      DB2PUML
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#libopencm3-stm32" class="md-nav__link">
+    <span class="md-ellipsis">
+      Libopencm3 STM32
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erpplanner" class="md-nav__link">
+    <span class="md-ellipsis">
+      ErpPlanner
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glfw" class="md-nav__link">
+    <span class="md-ellipsis">
+      GLFW
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sore" class="md-nav__link">
+    <span class="md-ellipsis">
+      SORE
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sudi-split-keyboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sudi - Split Keyboard
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -553,41 +673,21 @@
 
   <h1>Welcome</h1>
 
-<h2 id="welcome">Welcome</h2>
-<p>welcome to this random documentation collection by me</p>
-<pre class="mermaid"><code>graph LR
-  A[Start] --&gt; B{Error?};
-  B --&gt;|Yes| C[Hmm...];
-  C --&gt; D[Debug];
-  D --&gt; B;
-  B ----&gt;|No| E[Yay!];</code></pre>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>GET</code></td>
-<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 7 9 19l-5.5-5.5 1.41-1.41L9 16.17 19.59 5.59 21 7Z"/></svg></span>     Fetch resource</td>
-</tr>
-<tr>
-<td><code>PUT</code></td>
-<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M.41 13.41 6 19l1.41-1.42L1.83 12m20.41-6.42L11.66 16.17 7.5 12l-1.43 1.41L11.66 19l12-12M18 7l-1.41-1.42-6.35 6.35 1.42 1.41L18 7Z"/></svg></span> Update resource</td>
-</tr>
-<tr>
-<td><code>DELETE</code></td>
-<td><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg></span>     Delete resource</td>
-</tr>
-</tbody>
-</table>
-<p>The homomorphism <span class="arithmatex">\(f\)</span> is injective if and only if its kernel is only the
-singleton set <span class="arithmatex">\(e_G\)</span>, because otherwise <span class="arithmatex">\(\exists a,b\in G\)</span> with <span class="arithmatex">\(a\neq b\)</span> such
-that <span class="arithmatex">\(f(a)=f(b)\)</span>.</p>
-<div class="language-py highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-</span></code></pre></div>
+<h2 id="introduction">Introduction</h2>
+<p>welcome to this random documentation collection by me. 
+currently i working on my several personal project (mostly do for learning).</p>
+<h3 id="db2puml">DB2PUML</h3>
+<p><a href="https://github.com/ahsanu123/learnRepo/tree/main/db2puml">go here</a></p>
+<h3 id="libopencm3-stm32">Libopencm3 STM32</h3>
+<p>open tab above <a href="./embedded/">embedded</a></p>
+<h3 id="erpplanner">ErpPlanner</h3>
+<p><a href="https://github.com/ahsanu123/learnRepo/tree/main/erpPlanner">go here</a></p>
+<h3 id="glfw">GLFW</h3>
+<p><a href="https://github.com/ahsanu123/learnRepo/tree/main/glfw">go here</a></p>
+<h3 id="sore">SORE</h3>
+<p><a href="https://github.com/ahsanu123/solder-reflow">go here</a></p>
+<h3 id="sudi-split-keyboard">Sudi - Split Keyboard</h3>
+<p><a href="https://github.com/ahsanu123/sudi-keyboard">go here</a></p>
 
 
 

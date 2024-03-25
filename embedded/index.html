@@ -13,7 +13,7 @@
       
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../assets/logo.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
     
     
@@ -499,6 +499,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#working-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Working Principle
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#reference" class="md-nav__link">
     <span class="md-ellipsis">
       Reference
@@ -566,6 +575,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#working-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Working Principle
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#reference" class="md-nav__link">
     <span class="md-ellipsis">
       Reference
@@ -607,7 +625,7 @@
   </a>
 </p>
 
-<h1 align="center">Libopencm3 CMake</h1>
+<h1 align="center"><a href="https://github.com/ahsanu123/learnRepo/tree/main/embedded">Libopencm3 CMake</a></h1>
 <p align="center">  
    <img src="https://raw.githubusercontent.com/ahsanu123/learnRepo/main/embedded/resource/vbat.png" alt="vbat">
 </p>
@@ -616,15 +634,63 @@
 <h2 id="introduction">Introduction</h2>
 <p>cmake configuration for stm32 libopencm3, with automatic linker script generator</p>
 <h2 id="build-step">Build Step</h2>
-<p>clone this repo and change directory to this folder then...
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>build
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>make
+<p>Prerequisite:</p>
+<ul>
+<li>cmake </li>
+<li>arm-none-eabi-gcc</li>
+<li>mkdocs (optional <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 2a2 2 0 0 0-2 2v8h2V8h2v4h2V4a2 2 0 0 0-2-2H4m0 2h2v2H4m18 9.5V14a2 2 0 0 0-2-2h-4v10h4a2 2 0 0 0 2-2v-1.5a1.54 1.54 0 0 0-1.5-1.5 1.54 1.54 0 0 0 1.5-1.5M20 20h-2v-2h2v2m0-4h-2v-2h2M5.79 21.61l-1.58-1.22 14-18 1.58 1.22Z"/></svg></span> ) </li>
+<li>make (optional, if you build with gnu-make <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 2a2 2 0 0 0-2 2v8h2V8h2v4h2V4a2 2 0 0 0-2-2H4m0 2h2v2H4m18 9.5V14a2 2 0 0 0-2-2h-4v10h4a2 2 0 0 0 2-2v-1.5a1.54 1.54 0 0 0-1.5-1.5 1.54 1.54 0 0 0 1.5-1.5M20 20h-2v-2h2v2m0-4h-2v-2h2M5.79 21.61l-1.58-1.22 14-18 1.58 1.22Z"/></svg></span> ) </li>
+<li>doxygen (optional, to build libopencm3 documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 2a2 2 0 0 0-2 2v8h2V8h2v4h2V4a2 2 0 0 0-2-2H4m0 2h2v2H4m18 9.5V14a2 2 0 0 0-2-2h-4v10h4a2 2 0 0 0 2-2v-1.5a1.54 1.54 0 0 0-1.5-1.5 1.54 1.54 0 0 0 1.5-1.5M20 20h-2v-2h2v2m0-4h-2v-2h2M5.79 21.61l-1.58-1.22 14-18 1.58 1.22Z"/></svg></span>)</li>
+</ul>
+<p>Almost all prerequisite available in <code>pacman</code>(arch linux), clone <a href="https://github.com/ahsanu123/learnRepo/d">this</a> repo and change directory to this folder then...
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ahsanu123/learnRepo.git
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>embedded
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">cd</span><span class="w"> </span>build
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>make
 </span></code></pre></div></p>
 <p>you also can generate documentation by</p>
 <div class="language-shell highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>build/_deps/libopencm3-src/doc
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>make
 </span></code></pre></div>
+<h2 id="working-principle">Working Principle</h2>
+<p>to use this script you only need to fill <code>arch</code> and <code>device</code>for your stm32 on main <code>CMakeLists.txt</code>, then let cmake do the job</p>
+<div class="language-cmake highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c"># ============================================</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c"># THIS VALUE MUST BE SET BASED ON</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c"># STM32 ARCHITECTURE AND</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c"># DEVICE SERIES</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c"># ============================================</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nb">set</span><span class="p">(</span><span class="s">auto_stm32_arch</span><span class="w"> </span><span class="s2">&quot;f4&quot;</span><span class="p">)</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="nb">set</span><span class="p">(</span><span class="s">auto_stm32_device</span><span class="w"> </span><span class="s2">&quot;stm32f407vgt6&quot;</span><span class="p">)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c"># ============================================</span>
+</span></code></pre></div>
+<p>then link your project </p>
+<div class="language-cmake highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c"># ============================================</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c"># CHANGE YOUR TARGET BASED ON YOUR PROJECT</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c"># ============================================</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nb">project</span><span class="p">(</span><span class="s">blink</span><span class="w"> </span><span class="s">VERSION</span><span class="w"> </span><span class="s">0.0.1</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">CXX</span><span class="w"> </span><span class="s">C</span><span class="w"> </span><span class="s">ASM</span><span class="p">)</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="err">.....</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="nb">add_executable</span><span class="p">(</span><span class="s">blink</span><span class="w"> </span><span class="s">src/blink.cpp</span><span class="p">)</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">blink</span><span class="w"> </span><span class="s">auto_stm32</span><span class="p">)</span>
+</span></code></pre></div>
+<p>basic principle for this cmake script.
+<pre class="mermaid"><code>graph TD
+  A(Start) --&gt; B{Detected Arch \nand Device?};
+  B --&gt;|No| Z
+  B --&gt;|Yes| C{libopencm3 \ndownloaded?}
+  C --&gt;|No| D[Fetch Content]
+  C --&gt;|Yes| E[build libopencm3]
+  D --&gt; C
+  E --&gt; F[Generate Linker \nscript based on \ndevice and arch]
+  F --&gt; G[Compile All Source File]
+  G --&gt; H[Link all Object]
+  H --&gt; I[.elf generated]
+  I --&gt; J
+  J(Stop)
+  Z[Error!!] --&gt; J[Stop]
+</code></pre></p>
 <h2 id="reference">Reference</h2>
 <p>most of cmake configuration come from official libopencm3 documentation, cmake documentation and</p>
 <ul>
