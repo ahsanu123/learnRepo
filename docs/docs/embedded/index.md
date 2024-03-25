@@ -17,7 +17,7 @@ title: Introduction
   </a>
 </p>
 
-<h1 align="center">Libopencm3 CMake</h1>
+<h1 align="center"><a href="https://github.com/ahsanu123/learnRepo/tree/main/embedded">Libopencm3 CMake</a></h1>
 <p align="center">  
    <img src="https://raw.githubusercontent.com/ahsanu123/learnRepo/main/embedded/resource/vbat.png" alt="vbat">
 </p>
@@ -30,8 +30,20 @@ title: Introduction
 cmake configuration for stm32 libopencm3, with automatic linker script generator
 
 ## Build Step
-clone this repo and change directory to this folder then...
+
+Prerequisite:
+
+- cmake 
+- arm-none-eabi-gcc
+- mkdocs (optional :material-ab-testing: ) 
+- make (optional, if you build with gnu-make :material-ab-testing: ) 
+- doxygen (optional, to build libopencm3 documentation :material-ab-testing:)
+
+
+Almost all prerequisite available in `pacman`(arch linux), clone [this](https://github.com/ahsanu123/learnRepo/d) repo and change directory to this folder then...
 ```shell
+git clone https://github.com/ahsanu123/learnRepo.git
+cd embedded
 cmake -S . -B build
 cd build
 make
@@ -42,6 +54,55 @@ you also can generate documentation by
 ```shell
 cd build/_deps/libopencm3-src/doc
 make
+```
+
+## Working Principle 
+
+to use this script you only need to fill `arch` and `device `for your stm32 on main `CMakeLists.txt`, then let cmake do the job
+
+```cmake
+# ============================================
+# THIS VALUE MUST BE SET BASED ON
+# STM32 ARCHITECTURE AND
+# DEVICE SERIES
+# ============================================
+set(auto_stm32_arch "f4")
+set(auto_stm32_device "stm32f407vgt6")
+# ============================================
+```
+
+then link your project 
+
+```cmake
+# ============================================
+# CHANGE YOUR TARGET BASED ON YOUR PROJECT
+# ============================================
+project(blink VERSION 0.0.1 LANGUAGES CXX C ASM)
+
+.....
+
+add_executable(blink src/blink.cpp)
+target_link_libraries(blink auto_stm32)
+
+```
+
+basic principle for this cmake script.
+``` mermaid
+graph TD
+  A(Start) --> B{Detected Arch \nand Device?};
+  B -->|No| Z
+  B -->|Yes| C{libopencm3 \ndownloaded?}
+  C -->|No| D[Fetch Content]
+  C -->|Yes| E[build libopencm3]
+  D --> C
+  E --> F[Generate Linker \nscript based on \ndevice and arch]
+  F --> G[Compile All Source File]
+  G --> H[Link all Object]
+  H --> I[.elf generated]
+  I --> J
+  J(Stop)
+  Z[Error!!] --> J[Stop]
+
 ```
 
 ## Reference 

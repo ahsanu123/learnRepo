@@ -1,6 +1,7 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 site_name: Random Docs Collection 
 theme:
+  favicon: assets/logo.png
   features:
     - navigation.tabs
     - search.highlight

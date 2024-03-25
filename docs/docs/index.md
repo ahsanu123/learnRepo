@@ -2,32 +2,31 @@
 title: Welcome 
 ---
 
-## Welcome 
+## Introduction 
 
-welcome to this random documentation collection by me
+welcome to this random documentation collection by me. 
+currently i working on my several personal project (mostly do for learning).
 
-``` mermaid
-graph LR
-  A[Start] --> B{Error?};
-  B -->|Yes| C[Hmm...];
-  C --> D[Debug];
-  D --> B;
-  B ---->|No| E[Yay!];
-```
+### DB2PUML
 
-| Method      | Description                          |
-| ----------- | ------------------------------------ |
-| `GET`       | :material-check:     Fetch resource  |
-| `PUT`       | :material-check-all: Update resource |
-| `DELETE`    | :material-close:     Delete resource |
+[go here](https://github.com/ahsanu123/learnRepo/tree/main/db2puml)
 
+### Libopencm3 STM32 
 
+open tab above [embedded](./embedded/)
 
-The homomorphism $f$ is injective if and only if its kernel is only the
-singleton set $e_G$, because otherwise $\exists a,b\in G$ with $a\neq b$ such
-that $f(a)=f(b)$.
+### ErpPlanner
 
+[go here](https://github.com/ahsanu123/learnRepo/tree/main/erpPlanner)
 
-``` py
-import tensorflow as tf
-```
+### GLFW
+
+[go here](https://github.com/ahsanu123/learnRepo/tree/main/glfw)
+
+### SORE
+
+[go here](https://github.com/ahsanu123/solder-reflow)
+
+### Sudi - Split Keyboard
+
+[go here](https://github.com/ahsanu123/sudi-keyboard)
