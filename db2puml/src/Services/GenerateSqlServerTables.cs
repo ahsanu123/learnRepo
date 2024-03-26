@@ -2,74 +2,96 @@
 using System.Data.SqlClient;
 
 using DB2PUML.Model;
+using Spectre.Console.Json;
+using Newtonsoft.Json;
+using Spectre.Console;
 
 namespace DB2PUML.Service;
 
 
+public interface IGenerateTables
+{
+    public List<SqlTable> Execute(List<string> tablesToInclude = null, List<string> tablesToExclude = null);
+
+    public void GetForeignKeyConstraint(SqlTable table);
+    public void GetTableColumns(SqlTable table);
+    public void GetTablePrimaryKeys(SqlTable table);
+    public void GetTableForeignKeys(SqlTable table);
+}
+
 public class GenerateSqlServerTables : IGenerateTables
 {
+    private string _connString;
     private SqlConnection m_sqlConn;
     private List<SqlTable> m_tableList = new List<SqlTable>();
     private string m_database;
 
     public GenerateSqlServerTables(string dbConnString)
     {
-        m_sqlConn = new SqlConnection(dbConnString);
+
+        _connString = dbConnString;
+        /* m_sqlConn = new SqlConnection(dbConnString); */
     }
 
     public List<SqlTable> Execute(List<string> tablesToInclude = null, List<string> tablesToExclude = null)
     {
-        m_tableList = new List<SqlTable>();
-
-        try
+        using (var sqlConn = new SqlConnection(_connString))
         {
+            Console.WriteLine($"Query function: {_connString}");
+            m_tableList = new List<SqlTable>();
+
             var sql = @"SELECT 
-              schema_id, 
-              SCHEMA_NAME(schema_id) as [schema_name],
-              name as table_name,
-              object_id,
-              '['+SCHEMA_NAME(schema_id)+'].['+name+']' AS full_name 
-                FROM sys.tables where is_ms_shipped = 0";
-            dynamic list = m_sqlConn.Query<dynamic>(sql);
+                        schema_id, 
+                        SCHEMA_NAME(schema_id) as [schemaName],
+                        name as tableName,
+                        object_id as objectId,
+                        '['+SCHEMA_NAME(schema_id)+'].['+name+']' AS fullName 
+                        FROM sys.tables where is_ms_shipped = 0";
+            var list = sqlConn.Query<List<SqlTable>>(sql);
 
-            foreach (var row in list)
-            {
-                try
-                {
-                    var fullName = $"{row.schema_name}.{row.table_name}";
-                    Console.WriteLine("List From database" + fullName); ;
-                    if (tablesToExclude != null && tablesToExclude.Contains(fullName))
-                        continue;
+            Console.WriteLine(JsonConvert.SerializeObject(list));
 
-                    if (tablesToInclude != null && !tablesToInclude.Contains(fullName))
-                        continue;
-
-                    Console.WriteLine($"[{row.schema_name}].[{row.table_name}]");
-
-                    var table = new SqlTable();
-                    table.SchemaId = row.schema_id;
-                    table.SchemaName = row.schema_name;
-                    table.TableName = row.table_name;
-                    table.ObjectId = row.object_id;
-                    table.FullName = row.full_name;
-
-                    GetTableColumns(table);
-                    GetTablePrimaryKeys(table);
-                    GetTableForeignKeys(table);
-                    GetForeignKeyConstraint(table);
-
-                    m_tableList.Add(table);
-                }
-                catch (Exception ex)
-                {
-                }
-            }
+            /* foreach (var row in list) */
+            /* { */
+            /*     try */
+            /*     { */
+            /*         var fullName = $"{row.schema_name}.{row.table_name}"; */
+            /*         Console.WriteLine("List From database" + fullName); ; */
+            /*         if (tablesToExclude != null && tablesToExclude.Contains(fullName)) */
+            /*             continue; */
+            /**/
+            /*         if (tablesToInclude != null && !tablesToInclude.Contains(fullName)) */
+            /*             continue; */
+            /**/
+            /*         Console.WriteLine($"[{row.schema_name}].[{row.table_name}]"); */
+            /**/
+            /*         var table = new SqlTable(); */
+            /*         table.SchemaId = row.schema_id; */
+            /*         table.SchemaName = row.schema_name; */
+            /*         table.TableName = row.table_name; */
+            /*         table.ObjectId = row.object_id; */
+            /*         table.FullName = row.full_name; */
+            /**/
+            /*         GetTableColumns(table); */
+            /*         GetTablePrimaryKeys(table); */
+            /*         GetTableForeignKeys(table); */
+            /*         GetForeignKeyConstraint(table); */
+            /**/
+            /*         var json = new JsonText(JsonConvert.SerializeObject(row)); */
+            /*         AnsiConsole.Write( */
+            /*             new Panel(json) */
+            /*                 .Header($"Row - ${row.schema_name}") */
+            /*                 .RoundedBorder() */
+            /*             ); */
+            /**/
+            /*         m_tableList.Add(table); */
+            /*     } */
+            /*     catch (Exception ex) */
+            /*     { */
+            /*     } */
+            /* } */
+            return m_tableList;
         }
-        catch (Exception ex)
-        {
-        }
-
-        return m_tableList;
     }
 
     public void GetForeignKeyConstraint(SqlTable table)

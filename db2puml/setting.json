@@ -1,9 +1,9 @@
 {
-  "ConnectionString": "enter your connectionString",
+  "ConnectionString": "Server=localhost;Database=DMC;Trusted_Connection=True;TrustServerCertificate=true;",
   "ConnectionModel": {
-    "server": "servername",
-    "database": "databasename",
-    "username": "username",
-    "password": "password"
+    "Server": "servername",
+    "Database": "databasename",
+    "Username": "username",
+    "Password": "password"
   }
 }

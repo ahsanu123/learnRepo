@@ -1,0 +1,16 @@
+
+namespace DB2PUML.Shared;
+
+public class SettingJson
+{
+    public string ConnectionString { get; set; }
+    public ConnectionModel ConnectionModel { get; set; }
+}
+
+public class ConnectionModel
+{
+    public string Server { get; set; }
+    public string Database { get; set; }
+    public string Username { get; set; }
+    public string Password { get; set; }
+}
