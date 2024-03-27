@@ -30,7 +30,7 @@ public static class SpectreHelper
 
             case MessageType.Error:
                 AnsiConsole.Markup(":skull:");
-                AnsiConsole.Markup($"[bold underline{Color.Red}]Error: [/] {message}\n");
+                AnsiConsole.Markup($"[bold {Color.Red}]Error: [/] {message}\n");
                 break;
 
             default:

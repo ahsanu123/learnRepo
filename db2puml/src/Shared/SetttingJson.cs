@@ -4,6 +4,8 @@ namespace DB2PUML.Shared;
 public class SettingJson
 {
     public string ConnectionString { get; set; }
+    public string PlantUmlPath { get; set; }
+    public string PlantUmlDownloadUrl { get; set; }
     public ConnectionModel ConnectionModel { get; set; }
 }
 
