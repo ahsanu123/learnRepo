@@ -25,16 +25,32 @@ JObject settingFile = JObject.Parse(File.ReadAllText(Path.GetFullPath("./setting
 SettingJson setting = settingFile.ToObject<SettingJson>();
 var genTable = new GenerateSqlServerTables(setting.ConnectionString);
 
-var generatedTable = genTable.Execute();
+List<SqlTable> generatedTable = new List<SqlTable>();
 
-foreach (var tab in generatedTable)
-{
-    string stringTable = JsonConvert.SerializeObject(tab);
-    AnsiConsole.Write(
-        new Panel(new JsonText(stringTable))
-            .RoundedBorder()
-        );
-}
+AnsiConsole.Progress()
+          .Columns(new ProgressColumn[]
+          {
+              new SpinnerColumn(),
+              new ElapsedTimeColumn(),
+              new ProgressBarColumn(),
+              new PercentageColumn(),
+              new TaskDescriptionColumn(),
+          })
+          .Start(ctx =>
+          {
+              var GenerateTableProgress = ctx.AddTask("Generate Table");
+              var generatePumlProgress = ctx.AddTask("Generate Puml");
+
+              while (!ctx.IsFinished)
+              {
+                  generatedTable = genTable.Execute(ref GenerateTableProgress);
+
+                  generatePumlProgress.Increment(1);
+                  GeneratePUML.GenerateAllRelationships(generatedTable, "DMC", "./dmc.puml");
+                  generatePumlProgress.Increment(100);
+              }
+
+          });
 
 app.Run(args);
 
