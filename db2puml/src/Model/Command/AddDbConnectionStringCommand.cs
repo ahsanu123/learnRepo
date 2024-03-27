@@ -8,7 +8,6 @@ public class AddDbConnectionCommand : Command<AddDbConnection>
 {
     public override int Execute(CommandContext context, AddDbConnection settings)
     {
-
         Console.WriteLine($"adding new Connection string with name {settings.ConnectionStringName} with value {settings.value}");
         return 0;
     }

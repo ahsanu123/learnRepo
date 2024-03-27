@@ -10,6 +10,8 @@ public class GenerateCommand : Command<GenerateSetting>
     public override int Execute(CommandContext context, GenerateSetting settings)
     {
         SharedMethod.Dump(settings, "Setting");
+        SharedMethod.GeneratePumlOutput(settings);
+        string outputPath = Task.Run(async () => await SharedMethod.GenerateGraphicOutput(settings)).Result;
         return 0;
     }
 
@@ -28,8 +30,8 @@ public class GenerateCommand : Command<GenerateSetting>
 
         else
         {
-            SpectreHelper.SpectreMessage("Please Add File Extension to argument", MessageType.Warning);
-            settings.OutputPath = Path.Combine(settings.OutputPath, $"db2puml.{context.Name}");
+            /* SpectreHelper.SpectreMessage("Please Add File Extension to argument", MessageType.Warning); */
+            settings.OutputPath = Path.Combine(settings.OutputPath, $"db2puml.puml");
         }
 
         return base.Validate(context, settings);

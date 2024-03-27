@@ -20,3 +20,11 @@ public static class SharedPuml
 
 """;
 }
+
+public enum Filetype
+{
+    SVG = 0,
+    PDF,
+    PNG
+}
+

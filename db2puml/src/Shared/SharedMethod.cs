@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using DB2PUML.Model;
+using DB2PUML.Service;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Spectre.Console;
@@ -73,7 +75,7 @@ public static class SharedMethod
 
     }
 
-    public static async Task CheckRequirement()
+    public static async Task<string> CheckRequirement()
     {
         SharedMethod.IsCommandExists("java");
         SharedMethod.IsCommandExists("dot");
@@ -82,6 +84,7 @@ public static class SharedMethod
              File.Exists(Path.GetFullPath(SharedMethod.GetSettingJSon().PlantUmlPath)))
         {
             SpectreHelper.SpectreMessage($"PlantUmlJar Found in {Path.GetFullPath(SharedMethod.GetSettingJSon().PlantUmlPath)}", MessageType.Status);
+            return Path.GetFullPath(SharedMethod.GetSettingJSon().PlantUmlPath);
         }
         else
         {
@@ -115,8 +118,8 @@ public static class SharedMethod
                     await AnsiConsole.Progress()
                       .Columns(new ProgressColumn[]
                       {
-                new SpinnerColumn(),
-                new TaskDescriptionColumn()
+                        new SpinnerColumn(),
+                        new TaskDescriptionColumn()
                       })
                       .StartAsync(async ctx =>
                       {
@@ -129,7 +132,78 @@ public static class SharedMethod
                       });
                 }
             }
+            return plantumlFilePath;
         }
+    }
+
+    public static void GeneratePumlOutput(GenerateSetting setting)
+    {
+
+        var genTable = new GenerateSqlServerTables(SharedMethod.GetSettingJSon().ConnectionString);
+
+        List<SqlTable> generatedTable = new List<SqlTable>();
+
+        AnsiConsole.Progress()
+            .Columns(new ProgressColumn[]
+            {
+              new SpinnerColumn(),
+              new ElapsedTimeColumn(),
+              new ProgressBarColumn(),
+              new PercentageColumn(),
+              new TaskDescriptionColumn(),
+            })
+            .Start(ctx =>
+            {
+                var GenerateTableProgress = ctx.AddTask("Generate Table");
+                var generatePumlProgress = ctx.AddTask("Generate Puml", false);
+
+                while (!ctx.IsFinished)
+                {
+                    generatedTable = genTable.Execute(ref GenerateTableProgress);
+
+                    generatePumlProgress.Increment(1);
+                    GeneratePUML.GenerateAllRelationships(generatedTable, setting.FileName, setting.OutputPath);
+                    generatePumlProgress.Increment(100);
+                }
+
+            });
+    }
+
+    public static async Task<string> GenerateGraphicOutput(GenerateSetting setting)
+    {
+        string plantumlFilePath = await SharedMethod.CheckRequirement();
+
+        await AnsiConsole.Progress()
+          .Columns(new ProgressColumn[]
+          {
+            new SpinnerColumn(),
+            new TaskDescriptionColumn()
+          })
+          .StartAsync(async ctx =>
+          {
+              var generateOutputTask = ctx.AddTask($"[green]Generating output in {setting.Filetype} type to {setting.OutputPath}[/]");
+
+              using (var process = new Process())
+              {
+                  process.StartInfo.UseShellExecute = false;
+                  process.StartInfo.CreateNoWindow = true;
+                  process.StartInfo.FileName = "java";
+                  process.StartInfo.Arguments = $"-jar {plantumlFilePath} {setting.OutputPath} -t{setting.Filetype.ToString().ToLower()} ";
+
+                  Console.WriteLine($"java -jar {plantumlFilePath} {setting.OutputPath} -t{setting.Filetype.ToString().ToLower()} ");
+
+                  process.Start();
+                  await process.WaitForExitAsync();
+
+                  /* var stdOutput = process.StandardOutput; */
+                  /* string stringStdOutput = await stdOutput.ReadToEndAsync(); */
+                  /* AnsiConsole.WriteLine(stringStdOutput); */
+              }
+              generateOutputTask.Increment(100);
+
+          });
+
+        return setting.OutputPath;
     }
 
     // copied from https://stackoverflow.com/a/22733709/19270838

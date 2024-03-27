@@ -13,17 +13,14 @@ public static class AppConfiguration
             branch.AddCommand<AddDbConnectionCommand>("connectionstring");
         });
 
-        config.AddBranch<BaseSetting>("generate", branch =>
+        config.AddBranch("generate", branch =>
         {
-            branch.AddCommand<GenerateCommand>("puml")
-            .WithExample(new[] { "generate", "-n", "filename.puml" });
-
             branch.AddCommand<GenerateCommand>("svg")
-            .WithExample(new[] { "generate", "-n", "filename.svg" });
+            .WithExample(new[] { "generate", "svg", "--name", "filename", "--type", "svg" });
 
         });
 
-        config.AddExample(new[] { "generate", "-n", "filename.puml" });
+        /* config.AddExample(new[] { "generate", "-n", "filename.puml" }); */
 
     }
 
