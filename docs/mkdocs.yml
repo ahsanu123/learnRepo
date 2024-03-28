@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
-site_name: Random Docs Collection 
+site_name: Ahsanu's Personal Project
 theme:
   favicon: assets/logo.png
   features:
