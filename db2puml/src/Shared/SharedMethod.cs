@@ -139,6 +139,7 @@ public static class SharedMethod
     public static void GeneratePumlOutput(GenerateSetting setting)
     {
 
+        SpectreHelper.SpectreMessage("Reading Setting.json...", MessageType.Status);
         var genTable = new GenerateSqlServerTables(SharedMethod.GetSettingJSon().ConnectionString);
 
         List<SqlTable> generatedTable = new List<SqlTable>();
@@ -161,6 +162,7 @@ public static class SharedMethod
                 {
                     generatedTable = genTable.Execute(ref GenerateTableProgress);
 
+                    generatePumlProgress.StartTask();
                     generatePumlProgress.Increment(1);
                     GeneratePUML.GenerateAllRelationships(generatedTable, setting.FileName, setting.OutputPath);
                     generatePumlProgress.Increment(100);
@@ -181,7 +183,7 @@ public static class SharedMethod
           })
           .StartAsync(async ctx =>
           {
-              var generateOutputTask = ctx.AddTask($"[green]Generating output in {setting.Filetype} type to {setting.OutputPath}[/]");
+              var generateOutputTask = ctx.AddTask($"[green]Generating output in {setting.Filetype} type from {setting.OutputPath}[/]");
 
               using (var process = new Process())
               {
@@ -190,17 +192,10 @@ public static class SharedMethod
                   process.StartInfo.FileName = "java";
                   process.StartInfo.Arguments = $"-jar {plantumlFilePath} {setting.OutputPath} -t{setting.Filetype.ToString().ToLower()} ";
 
-                  Console.WriteLine($"java -jar {plantumlFilePath} {setting.OutputPath} -t{setting.Filetype.ToString().ToLower()} ");
-
                   process.Start();
                   await process.WaitForExitAsync();
-
-                  /* var stdOutput = process.StandardOutput; */
-                  /* string stringStdOutput = await stdOutput.ReadToEndAsync(); */
-                  /* AnsiConsole.WriteLine(stringStdOutput); */
               }
               generateOutputTask.Increment(100);
-
           });
 
         return setting.OutputPath;

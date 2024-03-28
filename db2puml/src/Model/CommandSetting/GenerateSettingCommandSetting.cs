@@ -5,7 +5,7 @@ namespace DB2PUML.Model;
 
 public class GenerateSetting : CommandSettings
 {
-    [CommandArgument(0, "[output]")]
+    [CommandOption("-o|--output")]
     public string OutputPath { get; set; } = Directory.GetCurrentDirectory();
 
     [CommandOption("-n|--name <filename>")]

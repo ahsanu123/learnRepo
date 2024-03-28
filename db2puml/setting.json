@@ -7,5 +7,6 @@
     "Database": "databasename",
     "Username": "username",
     "Password": "password"
-  }
+  },
+  "DbProvider": "SQLSERVER"
 }

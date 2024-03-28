@@ -8,20 +8,27 @@ public static class AppConfiguration
 {
     public static void Configure(IConfigurator config)
     {
-        config.AddBranch<BaseSetting>("add", branch =>
+        config.AddBranch("config", branch =>
         {
-            branch.AddCommand<AddDbConnectionCommand>("connectionstring");
+            branch.AddCommand<ListCommand>("list")
+              .WithExample(new[] { "list" });
         });
 
         config.AddBranch("generate", branch =>
         {
             branch.AddCommand<GenerateCommand>("svg")
-            .WithExample(new[] { "generate", "svg", "--name", "filename", "--type", "svg" });
+              .WithExample(new[] { "generate", "svg", "--name", "mysvg" })
+              .WithExample(new[] { "generate", "svg", "--name", "mysvg", "--output", "svg_output_folder" });
+
+            branch.AddCommand<GenerateCommand>("pdf")
+              .WithExample(new[] { "generate", "pdf", "--name", "mydiagrampdf" })
+              .WithExample(new[] { "generate", "pdf", "--name", "mydiagrampdf", "--output", "myCustomOutputFolder" });
+
+            branch.AddCommand<GenerateCommand>("png")
+              .WithExample(new[] { "generate", "png", "--name", "outputdiagrampng" })
+              .WithExample(new[] { "generate", "png", "--name", "pngFile", "--output", "pngOutput" });
 
         });
-
-        /* config.AddExample(new[] { "generate", "-n", "filename.puml" }); */
-
     }
 
 }
