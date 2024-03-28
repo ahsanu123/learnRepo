@@ -1,5 +1,6 @@
 {
-  "ConnectionString": "Server=localhost;Database=DMC;Trusted_Connection=True;TrustServerCertificate=true;",
+
+  "ConnectionString": "Server=DESKTOP-HD67VPS\\sqlexpress;Database=TSQLV6;Trusted_Connection=True;TrustServerCertificate=true;",
   "PlantUmlPath": "plantuml/plantuml-gplv2-1.2024.3.jar",
   "PlantUmlDownloadUrl":"https://github.com/plantuml/plantuml/releases/download/v1.2024.3/plantuml-gplv2-1.2024.3.jar",
   "ConnectionModel": {

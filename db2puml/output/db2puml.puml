@@ -1,0 +1,118 @@
+
+@startuml 
+!define primary_key(x) <b><color:#b8861b><&key></color> x</b>
+!define foreign_key(x) <color:#aaaaaa><&key></color> x
+!define column(x) <color:#efefef><&media-record></color> x
+!define table(x) entity "x" << (T, white) >>
+table( HR.Employees )
+{
+   primary_key( empid ): int <<PK>>
+   column( lastname ): nvarchar
+   column( firstname ): nvarchar
+   column( title ): nvarchar
+   column( titleofcourtesy ): nvarchar
+   column( birthdate ): date
+   column( hiredate ): date
+   column( address ): nvarchar
+   column( city ): nvarchar
+   column( region ): nvarchar
+   column( postalcode ): nvarchar
+   column( country ): nvarchar
+   column( phone ): nvarchar
+   foreign_key( mgrid ): int <<FK>>
+}
+table( Production.Suppliers )
+{
+   primary_key( supplierid ): int <<PK>>
+   column( companyname ): nvarchar
+   column( contactname ): nvarchar
+   column( contacttitle ): nvarchar
+   column( address ): nvarchar
+   column( city ): nvarchar
+   column( region ): nvarchar
+   column( postalcode ): nvarchar
+   column( country ): nvarchar
+   column( phone ): nvarchar
+   column( fax ): nvarchar
+}
+table( Production.Categories )
+{
+   primary_key( categoryid ): int <<PK>>
+   column( categoryname ): nvarchar
+   column( description ): nvarchar
+}
+table( Production.Products )
+{
+   primary_key( productid ): int <<PK>>
+   column( productname ): nvarchar
+   foreign_key( supplierid ): int <<FK>>
+   foreign_key( categoryid ): int <<FK>>
+   column( unitprice ): money
+   column( discontinued ): bit
+}
+table( Sales.Customers )
+{
+   primary_key( custid ): int <<PK>>
+   column( companyname ): nvarchar
+   column( contactname ): nvarchar
+   column( contacttitle ): nvarchar
+   column( address ): nvarchar
+   column( city ): nvarchar
+   column( region ): nvarchar
+   column( postalcode ): nvarchar
+   column( country ): nvarchar
+   column( phone ): nvarchar
+   column( fax ): nvarchar
+}
+table( Sales.Shippers )
+{
+   primary_key( shipperid ): int <<PK>>
+   column( companyname ): nvarchar
+   column( phone ): nvarchar
+}
+table( Sales.Orders )
+{
+   primary_key( orderid ): int <<PK>>
+   foreign_key( custid ): int <<FK>>
+   foreign_key( empid ): int <<FK>>
+   column( orderdate ): date
+   column( requireddate ): date
+   column( shippeddate ): date
+   foreign_key( shipperid ): int <<FK>>
+   column( freight ): money
+   column( shipname ): nvarchar
+   column( shipaddress ): nvarchar
+   column( shipcity ): nvarchar
+   column( shipregion ): nvarchar
+   column( shippostalcode ): nvarchar
+   column( shipcountry ): nvarchar
+}
+table( Sales.OrderDetails )
+{
+   primary_key( orderid ): int <<PK>>
+   primary_key( productid ): int <<PK>>
+   column( unitprice ): money
+   column( qty ): smallint
+   column( discount ): numeric
+}
+table( Stats.Tests )
+{
+   primary_key( testid ): varchar <<PK>>
+}
+table( Stats.Scores )
+{
+   primary_key( testid ): varchar <<PK>>
+   primary_key( studentid ): varchar <<PK>>
+   column( score ): tinyint
+}
+' *** Define Table Relationships
+HR.Employees }|--|| HR.Employees
+Production.Products }|--|| Production.Categories
+Production.Products }|--|| Production.Suppliers
+Sales.Orders }|--|| Sales.Customers
+Sales.Orders }|--|| HR.Employees
+Sales.Orders }|--|| Sales.Shippers
+Sales.OrderDetails }|--|| Sales.Orders
+Sales.OrderDetails }|--|| Production.Products
+Stats.Scores }|--|| Stats.Tests
+@enduml
