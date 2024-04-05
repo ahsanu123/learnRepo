@@ -108,19 +108,39 @@
   "PostgresData": {
     "ConnectionString": "",
     "TableListQuery": [
-      ""
+      "select T.table_catalog as schemaName,",
+      " T.table_name as tableName,",
+      " T.table_catalog || '.' || T.table_name as fullName,",
+      " P.oid as objectId ",
+      " from information_schema.tables T ",
+      "inner join pg_class P on P.relname = T.table_name ",
+      " where T.table_schema='public';"
     ],
     "ForeignKeyConstraintQuery": [
       ""
     ],
     "ForeignKeyQuery": [
-      ""
+      "  SELECT c.table_name as tableName, c.column_name as foreignKeyColumn",
+      "  FROM information_schema.table_constraints tc",
+      "  JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_name)",
+      "  JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema",
+      "    AND tc.table_name = c.table_name AND ccu.column_name = c.column_name",
+      "  WHERE constraint_type = 'FOREIGN KEY' and tc.table_name = 'city';"
     ],
     "PrimaryKeyQuery": [
-      ""
+      " SELECT c.table_name as tableName, c.column_name as primaryKeyColumn",
+      " FROM information_schema.table_constraints tc",
+      " JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_name)",
+      " JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema",
+      "   AND tc.table_name = c.table_name AND ccu.column_name = c.column_name",
+      " WHERE constraint_type = 'PRIMARY KEY' and tc.table_name = 'actor';"
     ],
     "TableColumnQuery": [
-      ""
+      "select column_name as columnName,",
+      " is_nullable as isNullable, ",
+      "udt_name as dataType ",
+      "from INFORMATION_SCHEMA.COLUMNS ",
+      "where table_name = 'actor;"
     ]
   }
 }

@@ -6,7 +6,6 @@ using Spectre.Console;
 
 namespace DB2PUML.Service;
 
-
 public interface IGenerateTables
 {
     public List<SqlTable> Execute(ref ProgressTask progress, List<string> tablesToInclude = null, List<string> tablesToExclude = null);
