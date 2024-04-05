@@ -25,6 +25,8 @@ Generate PlantUML Entity Relationship Diagram From Database Tables
 
 This command line utility parses the tables in Database server to generate PlantUML syntax to create diagrams of Databse tables and thier foreign key relationships 
 
+- TODO: add support to postgres, mysql, sqlite
+
 ## Prerequisite
 - Dotnet 8 for build
 - Java for running plantuml

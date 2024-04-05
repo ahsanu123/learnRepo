@@ -1,13 +1,126 @@
 {
-
   "ConnectionString": "Server=DESKTOP-HD67VPS\\sqlexpress;Database=TSQLV6;Trusted_Connection=True;TrustServerCertificate=true;",
   "PlantUmlPath": "plantuml/plantuml-gplv2-1.2024.3.jar",
-  "PlantUmlDownloadUrl":"https://github.com/plantuml/plantuml/releases/download/v1.2024.3/plantuml-gplv2-1.2024.3.jar",
+  "PlantUmlDownloadUrl": "https://github.com/plantuml/plantuml/releases/download/v1.2024.3/plantuml-gplv2-1.2024.3.jar",
   "ConnectionModel": {
     "Server": "servername",
     "Database": "databasename",
     "Username": "username",
     "Password": "password"
   },
-  "DbProvider": "SQLSERVER"
+  "DbProvider": "SQLSERVER",
+  "SqlserverData": {
+    "ConnectionString": "",
+    "TableListQuery": [
+      "SELECT ",
+      " schema_id,",
+      " SCHEMA_NAME(schema_id) as [schemaName],",
+      " name as tableName,",
+      " object_id as objectId,",
+      " '['+SCHEMA_NAME(schema_id)+'].['+name+']' AS fullName ",
+      " FROM sys.tables where is_ms_shipped = 0"
+    ],
+    "ForeignKeyConstraintQuery": [
+      " SELECT ",
+      "   object_id as objectId,",
+      "   parent_object_id as parentObjectId,",
+      "   OBJECT_SCHEMA_NAME(parent_object_id) as [FkSchemaName],",
+      "   OBJECT_NAME(parent_object_id) AS [FkTableName],",
+      "   name AS [foreignKeyName],",
+      "   OBJECT_SCHEMA_NAME(referenced_object_id) as [pkSchemaName],",
+      "   OBJECT_NAME(referenced_object_id) AS [pkTableName]",
+      " FROM sys.foreign_keys",
+      " WHERE parent_object_id = OBJECT_ID('{table.FullName}')"
+    ],
+    "ForeignKeyQuery": [
+      "SELECT KU.table_name as tableName",
+      "    ,column_name as foreignKeyColumn ",
+      "FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS TC ",
+      "INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS KU",
+      "    ON TC.CONSTRAINT_TYPE = 'FOREIGN KEY' ",
+      "    AND TC.CONSTRAINT_NAME = KU.CONSTRAINT_NAME ",
+      "    AND KU.table_name='{table.TableName}'",
+      "  AND KU.TABLE_SCHEMA = '{table.SchemaName}'",
+      "ORDER BY ",
+      " KU.TABLE_NAME,",
+      " KU.ORDINAL_POSITION"
+    ],
+    "PrimaryKeyQuery": [
+      " SELECT KU.table_name as tableName",
+      "     ,column_name as primaryKeyColumn",
+      " FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS TC ",
+      " INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS KU",
+      "     ON TC.CONSTRAINT_TYPE = 'PRIMARY KEY' ",
+      "     AND TC.CONSTRAINT_NAME = KU.CONSTRAINT_NAME ",
+      "     AND KU.table_name='{table.TableName}'",
+      "   AND KU.TABLE_SCHEMA = '{table.SchemaName}'",
+      " ORDER BY ",
+      "     KU.TABLE_NAME",
+      "     ,KU.ORDINAL_POSITION"
+    ],
+    "TableColumnQuery": [
+      " select COLUMN_NAME as columnName, ",
+      " IS_NULLABLE as isNullable,",
+      " DATA_TYPE as dataType",
+      " from ",
+      " INFORMATION_SCHEMA.COLUMNS ",
+      " where TABLE_SCHEMA = '{table.SchemaName}' ",
+      " and TABLE_NAME = '{table.TableName}' ",
+      " order by ORDINAL_POSITION"
+    ]
+  },
+  "MysqlData": {
+    "ConnectionString": "",
+    "TableListQuery": [
+      ""
+    ],
+    "ForeignKeyConstraintQuery": [
+      ""
+    ],
+    "ForeignKeyQuery": [
+      ""
+    ],
+    "PrimaryKeyQuery": [
+      ""
+    ],
+    "TableColumnQuery": [
+      ""
+    ]
+  },
+  "SqliteData": {
+    "ConnectionString": "",
+    "TableListQuery": [
+      ""
+    ],
+    "ForeignKeyConstraintQuery": [
+      ""
+    ],
+    "ForeignKeyQuery": [
+      ""
+    ],
+    "PrimaryKeyQuery": [
+      ""
+    ],
+    "TableColumnQuery": [
+      ""
+    ]
+  },
+  "PostgresData": {
+    "ConnectionString": "",
+    "TableListQuery": [
+      ""
+    ],
+    "ForeignKeyConstraintQuery": [
+      ""
+    ],
+    "ForeignKeyQuery": [
+      ""
+    ],
+    "PrimaryKeyQuery": [
+      ""
+    ],
+    "TableColumnQuery": [
+      ""
+    ]
+  }
 }
