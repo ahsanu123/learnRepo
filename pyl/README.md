@@ -2,7 +2,7 @@
 
 This is Your Diy Audio Plugin.
 
- <img src="./docs/PYL.png" alt="Pyl" class="center"> 
+ <img src="./docs/PYL.png" alt="Pyl" style="text-align: center;"> 
 
 ## Setup 
 
