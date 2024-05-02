@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.29)
 
 project(Pyl VERSION 1.0 DESCRIPTION "audio plugin use DPF Framework")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
