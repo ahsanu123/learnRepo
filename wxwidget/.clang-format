@@ -1,0 +1,5 @@
+# https://zed0.co.uk/clang-format-configurator/
+---
+BasedOnStyle: Mozilla
+
+...
