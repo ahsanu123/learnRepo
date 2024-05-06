@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+typedef int (*compare_func_t)(const void *, const void *);
+
+int process(int arr[], int (*callback)(int, int)) {
+  return callback(arr[0], arr[1]);
+}
+
+int sumOneSecond(int one, int second) { return one + second; }
+int subOneSecond(int one, int second) { return one - second; }
+
+int main() {
+  int arr[] = {10, 23};
+
+  printf("Sum: %d\n", process(arr, sumOneSecond));
+
+  printf("Substract: %d\n", process(arr, subOneSecond));
+
+  return 0;
+}
