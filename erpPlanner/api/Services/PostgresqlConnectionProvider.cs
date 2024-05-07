@@ -16,7 +16,7 @@ public class PostgresqlConnectionProvider
         _connectionString = _configuration.GetConnectionString("postgresql");
     }
 
-    public IDbConnection CreateConnection()
+    public NpgsqlConnection CreateConnection()
     {
         return new NpgsqlConnection(_connectionString);
     }

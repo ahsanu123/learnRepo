@@ -9,6 +9,10 @@ public static class ServiceCollectionCustom
     {
         services.AddSingleton<PostgresqlConnectionProvider>();
         services.AddScoped<IMaterialRepository, MaterialRepository>();
+        services.AddScoped<IProjectRepository, ProjectRepository>();
+        services.AddScoped<IProducingStepRepository, ProducingStepRepository>();
+        services.AddScoped<IStorageRepository, StorageRepository>();
+        services.AddScoped<IResourceDocRepository, ResourceDocRepository>();
         return services;
     }
 }

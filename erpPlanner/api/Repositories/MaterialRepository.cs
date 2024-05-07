@@ -1,10 +1,6 @@
-using System.Data;
 using Dapper;
-using Dapper.Postgres;
-
 using erpPlanner.Model;
 using erpPlanner.Services;
-using Npgsql;
 
 namespace erpPlanner.Repository;
 
@@ -27,7 +23,6 @@ public class MaterialRepository : IMaterialRepository
     public MaterialRepository(PostgresqlConnectionProvider connection)
     {
         _connection = connection;
-
     }
 
     public async Task<IEnumerable<Material>> GetMaterial()
