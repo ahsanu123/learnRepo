@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/ahsanu/project/2024/learnRepo/root/build",
+  "command": "/usr/bin/c++    -o CMakeFiles/zozo.dir/src/main.cpp.o -c /home/ahsanu/project/2024/learnRepo/root/src/main.cpp",
+  "file": "/home/ahsanu/project/2024/learnRepo/root/src/main.cpp",
+  "output": "CMakeFiles/zozo.dir/src/main.cpp.o"
+}
+]
