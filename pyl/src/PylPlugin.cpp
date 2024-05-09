@@ -57,14 +57,12 @@ protected:
   /**
      Get the plugin author/maker.
    */
-  const char *getMaker() const override { return "DISTRHO"; }
+  const char *getMaker() const override { return "Ahsanu"; }
 
   /**
      Get the plugin homepage.
    */
-  const char *getHomePage() const override {
-    return "https://github.com/DISTRHO/DPF";
-  }
+  const char *getHomePage() const override { return "github.com/ahsanu123"; }
 
   /**
      Get the plugin license name (a single line of text).
