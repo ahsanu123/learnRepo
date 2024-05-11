@@ -1,14 +1,65 @@
 #include "TCanvas.h"
 #include "TF1.h"
+#include "TGaxis.h"
+#include "TGraph.h"
+#include "TLatex.h"
 #include "TRint.h"
 
 int main(int argc, char **argv) {
   TRint app("app", &argc, argv);
   TCanvas *c = new TCanvas("c", "Something", 0, 0, 800, 600);
-  TF1 *f1 = new TF1("f1", "sin(x)", -5, 5);
-  f1->SetLineColor(kBlue + 1);
-  f1->SetTitle("My graph;x; sin(x)");
-  f1->Draw();
+
+  // Remove the frame
+  c->SetFillColor(kWhite);
+  c->SetFrameLineColor(kWhite);
+  c->SetFrameBorderMode(0);
+
+  // Define and draw a curve the frame
+  const Int_t n = 4;
+  Double_t x[n] = {-1, -3, -9, 3};
+  Double_t y[n] = {-1000, 900, 300, 300};
+  TGraph *gr = new TGraph(n, x, y);
+  gr->SetTitle("XY plot");
+  gr->SetMinimum(-1080);
+  gr->SetMaximum(1080);
+  gr->SetLineColor(kRed);
+  gr->Draw("AC*");
+
+  // Remove the frame's axis
+  /* gr->GetHistogram()->GetYaxis()->SetTickLength(0); */
+  /* gr->GetHistogram()->GetXaxis()->SetTickLength(0); */
+  /* gr->GetHistogram()->GetYaxis()->SetLabelSize(0); */
+  /* gr->GetHistogram()->GetXaxis()->SetLabelSize(0); */
+  /* gr->GetHistogram()->GetXaxis()->SetAxisColor(0); */
+  /* gr->GetHistogram()->GetYaxis()->SetAxisColor(0); */
+
+  gPad->Update();
+
+  // Draw orthogonal axis system centered at (0,0).
+  // Draw the Y axis. Note the 4th label is erased with SetLabelAttributes
+  TGaxis *yaxis = new TGaxis(0, gPad->GetUymin(), 0, gPad->GetUymax(),
+                             gPad->GetUymin(), gPad->GetUymax(), 6, "+LN");
+  yaxis->ChangeLabel(4, -1, 0.);
+  yaxis->Draw();
+
+  // Draw the Y-axis title.
+  TLatex *ytitle = new TLatex(-0.5, gPad->GetUymax(), "Y axis");
+  ytitle->Draw();
+  ytitle->SetTextSize(0.03);
+  ytitle->SetTextAngle(90.);
+  ytitle->SetTextAlign(31);
+
+  // Draw the X axis
+  TGaxis *xaxis = new TGaxis(gPad->GetUxmin(), 0, gPad->GetUxmax(), 0,
+                             gPad->GetUxmin(), gPad->GetUxmax(), 510, "+L");
+  xaxis->Draw();
+
+  // Draw the X axis title.
+  TLatex *xtitle = new TLatex(gPad->GetUxmax(), -200., "X axis");
+  xtitle->Draw();
+  xtitle->SetTextAlign(31);
+  xtitle->SetTextSize(0.03);
+
   c->Modified();
   c->Update();
   app.Run();

@@ -1,8 +1,14 @@
 [
-{
-  "directory": "/home/ahsanu/project/2024/learnRepo/root/build",
-  "command": "/usr/bin/c++    -o CMakeFiles/zozo.dir/src/main.cpp.o -c /home/ahsanu/project/2024/learnRepo/root/src/main.cpp",
-  "file": "/home/ahsanu/project/2024/learnRepo/root/src/main.cpp",
-  "output": "CMakeFiles/zozo.dir/src/main.cpp.o"
-}
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-c",
+      "-o",
+      "CMakeFiles/zozo.dir/src/main.cpp.o",
+      "/home/ahsanu/project/2024/learnRepo/root/src/main.cpp"
+    ],
+    "directory": "/home/ahsanu/project/2024/learnRepo/root/build",
+    "file": "/home/ahsanu/project/2024/learnRepo/root/src/main.cpp",
+    "output": "/home/ahsanu/project/2024/learnRepo/root/build/CMakeFiles/zozo.dir/src/main.cpp.o"
+  }
 ]
