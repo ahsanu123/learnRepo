@@ -8,17 +8,25 @@ project (${project_name})
 include(FetchContent)
 
 set(CMAKE_CXX_STANDARD 11)
+set(OATPP_VERSION 1.3.0)
+set(oatpp_build_dir ${CMAKE_CURRENT_SOURCE_DIR}/oat/build)
 
 execute_process(
   COMMAND ${CMAKE_COMMAND} -S ${CMAKE_CURRENT_SOURCE_DIR}/oat -B ${CMAKE_CURRENT_SOURCE_DIR}/oat/build
-  # COMMAND ${CMAKE_COMMAND} --build ${CMAKE_CURRENT_SOURCE_DIR}/oat/build
-  # WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/oat
+)
+execute_process(
+  COMMAND ${CMAKE_COMMAND} --build ${CMAKE_CURRENT_SOURCE_DIR}/oat/build
 )
 
-message("--- Include Oatpp and Oatpp curl (find_package equivalent)")
+set(oatpp_DIR         ${oatpp_build_dir}/lib/lib/cmake/oatpp-${OATPP_VERSION})
+set(oatpp-curl_DIR    ${oatpp_build_dir}/lib/lib/cmake/oatpp-curl-${OATPP_VERSION})
+
 include(${oatpp_DIR}/oatppConfig.cmake)
 include(${oatpp-curl_DIR}/oatpp-curlConfig.cmake)
 
+# ==========================================================
+# ADD YOUR SOURCE
+# ==========================================================
 add_library(${project_name}-lib
         src/AsyncExample.hpp
         src/DemoApiClient.hpp

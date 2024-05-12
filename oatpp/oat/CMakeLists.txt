@@ -16,7 +16,11 @@ ExternalProject_Add(
   INSTALL_COMMAND   cmake --install ${INSTALL_DIR_OATPP} --prefix ${CMAKE_BINARY_DIR}/lib
   CMAKE_ARGS        -DOATPP_BUILD_TESTS=OFF
 )
-set(oatpp_DIR ${CMAKE_BINARY_DIR}/lib/lib/cmake/oatpp-${OATPP_VERSION})
+set(
+  oatpp_DIR
+  ${CMAKE_BINARY_DIR}/lib/lib/cmake/oatpp-${OATPP_VERSION}
+  CACHE INTERNAL ""
+)
 
 ExternalProject_Add(
   oatpp-curl
@@ -27,9 +31,15 @@ ExternalProject_Add(
   CMAKE_ARGS        -DOATPP_BUILD_TESTS=OFF
                     -Doatpp_DIR=${oatpp_DIR}
 )
-set(oatpp-curl_DIR ${CMAKE_BINARY_DIR}/lib/lib/cmake/oatpp-curl-${OATPP_VERSION})
+set(
+  oatpp-curl_DIR
+  ${CMAKE_BINARY_DIR}/lib/lib/cmake/oatpp-curl-${OATPP_VERSION}
+  CACHE INTERNAL ""
+)
 
 ExternalProject_Get_Property(oatpp INSTALL_DIR)
 message("--- Oatpp install dir: ${INSTALL_DIR}")
 ExternalProject_Get_Property(oatpp-curl INSTALL_DIR)
 message("--- Oatpp curl install dir: ${INSTALL_DIR}")
+message("--- ${oatpp_DIR} , ${oatpp-curl_DIR}")
+
