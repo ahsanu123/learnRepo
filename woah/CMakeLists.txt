@@ -54,7 +54,7 @@ target_link_libraries(crud-lib PUBLIC SQLite::SQLite3)
 
 add_definitions(
         # # define path to swagger-ui static resources folder
-        -DOATPP_SWAGGER_RES_PATH="${oatpp-swagger_INCLUDE_DIRS}/../bin/oatpp-swagger/res"
+        -DOATPP_SWAGGER_RES_PATH="${oatpp-swagger_SOURCE_DIR}/res"
 
         # # SQLite database file
         -DDATABASE_FILE="${CMAKE_CURRENT_SOURCE_DIR}/db.sqlite"

@@ -24,9 +24,16 @@ function(add_oatpp_module)
   include(${oatpp_DIR}/oatppConfig.cmake)
 
   foreach(mod ${MOD_MODULE})
-    message("Enabling: oatpp-${mod}")
+    message("Enabling: oatpp-${mod}\t --> ${oatpp_build_dir}/lib/src/oatpp-${mod}")
     set(oatpp-${mod}_DIR        ${oatpp_build_dir}/lib/lib/cmake/oatpp-${mod}-${OATPP_VERSION})
     include(${oatpp-${mod}_DIR}/oatpp-${mod}Config.cmake)
+
+    set(
+      oatpp-${mod}_SOURCE_DIR
+      ${oatpp_build_dir}/lib/src/oatpp-${mod}
+      PARENT_SCOPE
+      )
+
   endforeach()
 
   message("===================================================================\n")
