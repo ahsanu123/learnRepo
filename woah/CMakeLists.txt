@@ -2,50 +2,75 @@
 
 cmake_minimum_required(VERSION 3.29)
 
+include(FetchContent)
+include(CMakeParseArguments)
+
 set(project_name "woah")
 project (${project_name})
 
-include(FetchContent)
-
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 11)
-set(OATPP_VERSION 1.3.0)
-set(oatpp_build_dir ${CMAKE_CURRENT_SOURCE_DIR}/oat/build)
 
-execute_process(
-  COMMAND ${CMAKE_COMMAND} -S ${CMAKE_CURRENT_SOURCE_DIR}/oat -B ${CMAKE_CURRENT_SOURCE_DIR}/oat/build
-)
-execute_process(
-  COMMAND ${CMAKE_COMMAND} --build ${CMAKE_CURRENT_SOURCE_DIR}/oat/build
-)
+include(./cmake/add_oatpp_module.cmake)
 
-set(oatpp_DIR         ${oatpp_build_dir}/lib/lib/cmake/oatpp-${OATPP_VERSION})
-set(oatpp-curl_DIR    ${oatpp_build_dir}/lib/lib/cmake/oatpp-curl-${OATPP_VERSION})
-
-include(${oatpp_DIR}/oatppConfig.cmake)
-include(${oatpp-curl_DIR}/oatpp-curlConfig.cmake)
+add_oatpp_module(MODULE curl swagger sqlite)
 
 # ==========================================================
 # ADD YOUR SOURCE
 # ==========================================================
-add_library(${project_name}-lib
-        src/AsyncExample.hpp
-        src/DemoApiClient.hpp
-        src/DemoApiModels.hpp
-        src/SimpleExample.hpp
-        src/AsyncExample.cpp)
+add_library(crud-lib
+        src/controller/StaticController.hpp
+        src/controller/UserController.hpp
+        src/db/UserDb.hpp
+        src/dto/PageDto.hpp
+        src/dto/StatusDto.hpp
+        src/dto/UserDto.hpp
+        src/service/UserService.cpp
+        src/service/UserService.hpp
+        src/AppComponent.hpp
+        src/DatabaseComponent.hpp
+        src/SwaggerComponent.hpp
+        src/ErrorHandler.cpp
+        src/ErrorHandler.hpp)
 
-# link libs
-target_link_libraries(${project_name}-lib
-    PUBLIC oatpp::oatpp
-    PUBLIC oatpp::oatpp-curl
+# # include directories
+
+target_include_directories(crud-lib PUBLIC src)
+
+
+target_link_libraries(crud-lib
+        # Oat++
+        PUBLIC oatpp::oatpp
+        PUBLIC oatpp::oatpp-swagger
+        PUBLIC oatpp::oatpp-sqlite
+)
+# If CMake can't find SQLite3:
+#
+# 1. Make sure that you've built oatpp-sqlite with -DOATPP_SQLITE_AMALGAMATION=ON flag
+# 2. If you are not willing to use SQLite amalgamation then uncomment the following lines:
+#
+find_package(SQLite3 REQUIRED)
+target_link_libraries(crud-lib PUBLIC SQLite::SQLite3)
+
+add_definitions(
+        # # define path to swagger-ui static resources folder
+        -DOATPP_SWAGGER_RES_PATH="${oatpp-swagger_INCLUDE_DIRS}/../bin/oatpp-swagger/res"
+
+        # # SQLite database file
+        -DDATABASE_FILE="${CMAKE_CURRENT_SOURCE_DIR}/db.sqlite"
+        # # SQLite database test file
+        -DTESTDATABASE_FILE="${CMAKE_CURRENT_SOURCE_DIR}/test-db.sqlite"
+
+        # # Path to database migration scripts
+        -DDATABASE_MIGRATIONS="${CMAKE_CURRENT_SOURCE_DIR}/sql"
 )
 
-target_include_directories(${project_name}-lib PUBLIC src)
+if(CMAKE_SYSTEM_NAME MATCHES Linux)
+  find_package(Threads REQUIRED)
+  target_link_libraries(crud-lib INTERFACE Threads::Threads ${CMAKE_DL_LIBS})
+endif()
 
 # # add executables
-add_executable(${project_name}-exe
-        src/App.cpp
-)
-target_link_libraries(${project_name}-exe ${project_name}-lib)
-add_dependencies(${project_name}-exe ${project_name}-lib)
+
+add_executable(crud-exe src/App.cpp)
+target_link_libraries(crud-exe crud-lib)

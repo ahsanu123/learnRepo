@@ -1,58 +1,65 @@
 
-#include "AsyncExample.hpp"
-#include "SimpleExample.hpp"
+#include "AppComponent.hpp"
 
-#include "DemoApiClient.hpp"
+#include "controller/UserController.hpp"
+#include "controller/StaticController.hpp"
 
-#include "oatpp-curl/RequestExecutor.hpp"
+#include "oatpp-swagger/Controller.hpp"
 
-#include "oatpp/web/client/HttpRequestExecutor.hpp"
-#include "oatpp/network/tcp/client/ConnectionProvider.hpp"
-
-#include "oatpp/parser/json/mapping/ObjectMapper.hpp"
+#include "oatpp/network/Server.hpp"
 
 #include <iostream>
 
-std::shared_ptr<oatpp::web::client::RequestExecutor> createOatppExecutor() {
-  OATPP_LOGD("App", "Using Oat++ native HttpRequestExecutor.");
-  auto connectionProvider = oatpp::network::tcp::client::ConnectionProvider::createShared({"httpbin.org", 80});
-  return oatpp::web::client::HttpRequestExecutor::createShared(connectionProvider);
+void run() {
+  
+  AppComponent components; // Create scope Environment components
+  
+  /* Get router component */
+  OATPP_COMPONENT(std::shared_ptr<oatpp::web::server::HttpRouter>, router);
+
+  oatpp::web::server::api::Endpoints docEndpoints;
+
+  docEndpoints.append(router->addController(UserController::createShared())->getEndpoints());
+
+  router->addController(oatpp::swagger::Controller::createShared(docEndpoints));
+  router->addController(StaticController::createShared());
+
+  /* Get connection handler component */
+  OATPP_COMPONENT(std::shared_ptr<oatpp::network::ConnectionHandler>, connectionHandler);
+
+  /* Get connection provider component */
+  OATPP_COMPONENT(std::shared_ptr<oatpp::network::ServerConnectionProvider>, connectionProvider);
+
+  /* create server */
+  oatpp::network::Server server(connectionProvider,
+                                connectionHandler);
+  
+  OATPP_LOGD("Server", "Running on port %s...", connectionProvider->getProperty("port").toString()->c_str());
+  
+  server.run();
+
+  /* stop db connection pool */
+  OATPP_COMPONENT(std::shared_ptr<oatpp::provider::Provider<oatpp::sqlite::Connection>>, dbConnectionProvider);
+  dbConnectionProvider->stop();
+  
 }
 
-std::shared_ptr<oatpp::web::client::RequestExecutor> createCurlExecutor() {
-  OATPP_LOGD("App", "Using oatpp-curl RequestExecutor.");
-  return oatpp::curl::RequestExecutor::createShared("http://httpbin.org/", false /* set verbose=true for dubug info */);
-}
-
-void run(){
-  
-  /* Create ObjectMapper for serialization of DTOs  */
-  auto objectMapper = oatpp::parser::json::mapping::ObjectMapper::createShared();
-  
-  /* Create RequestExecutor which will execute ApiClient's requests */
-  auto requestExecutor = createOatppExecutor();   // <-- Always use oatpp native executor where's possible.
-  //auto requestExecutor = createCurlExecutor();  // <-- Curl request executor
-  
-  /* DemoApiClient uses DemoRequestExecutor and json::mapping::ObjectMapper */
-  /* ObjectMapper passed here is used for serialization of outgoing DTOs */
-  auto client = DemoApiClient::createShared(requestExecutor, objectMapper);
-  
-  SimpleExample::runExample(client);
-  AsyncExample::runExample(client);
-  
-}
-
+/**
+ *  main
+ */
 int main(int argc, const char * argv[]) {
 
   oatpp::base::Environment::init();
-  
+
   run();
   
-  /* Print how much objects were created during app running, and what have left-probably leaked */
+  /* Print how many objects were created during app running, and what have left-probably leaked */
   /* Disable object counting for release builds using '-D OATPP_DISABLE_ENV_OBJECT_COUNTERS' flag for better performance */
   std::cout << "\nEnvironment:\n";
   std::cout << "objectsCount = " << oatpp::base::Environment::getObjectsCount() << "\n";
   std::cout << "objectsCreated = " << oatpp::base::Environment::getObjectsCreated() << "\n\n";
   
   oatpp::base::Environment::destroy();
+  
+  return 0;
 }
