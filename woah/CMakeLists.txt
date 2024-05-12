@@ -7,6 +7,7 @@ project (${project_name})
 
 include(FetchContent)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 11)
 set(OATPP_VERSION 1.3.0)
 set(oatpp_build_dir ${CMAKE_CURRENT_SOURCE_DIR}/oat/build)
