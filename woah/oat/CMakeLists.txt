@@ -30,8 +30,9 @@ function(add_external_oatpp_module)
   )
 
   foreach(mod ${MOD_MODULE})
+
     message("Build oatpp-${mod}")
-    set(INSTALL_DIR_OATPP_${mod}    ${CMAKE_BINARY_DIR}/lib/src/oatpp-curl-build)
+    set(INSTALL_DIR_OATPP_${mod}    ${CMAKE_BINARY_DIR}/lib/src/oatpp-${mod}-build)
 
     ExternalProject_Add(
       oatpp-${mod}
@@ -47,6 +48,7 @@ function(add_external_oatpp_module)
       ${CMAKE_BINARY_DIR}/lib/lib/cmake/oatpp-${mod}-${OATPP_VERSION}
       CACHE INTERNAL ""
     )
+
   endforeach()
 
 endfunction()
