@@ -5,15 +5,21 @@
 
 ## Introduction 
 
-my setup to build oat++ backend framework.
+my setup to build oat++ web framework.
 
 ## Setup
 
-setup doesn't force to install oatpp on your environment, but only inside build folder.
+setup doesn't force to install `oatpp` on your environment, but only inside build folder.
 `oat` folder will save all oatpp dependecies like `oatpp, oatpp-curl, oatpp-swagger, etc...`.
-then you can install additional oatpp [module](https://oatpp.io/docs/modules/oatpp/), to add additional module 
-create new `ExternalProject` inside `oat/CMakeLists.txt`, then include `oatpp-xxxxConfig.cmake` into main `CMakeLists.txt`
+then you can install additional oatpp [module](https://oatpp.io/docs/modules/oatpp/) as follow, 
+```shell
+# to add additional module update function
+add_external_oatpp_module(MODULE xxx xxx xxx ) # inside src/oat/CMakeLists.txt
 
+# and use it in your project
+add_oatpp_module(MODULE xxx xxx xxx ) # inside src/CMakeLists.txt
+
+```
 
 ## Note
 
