@@ -25,5 +25,5 @@ add_oatpp_module(MODULE xxx xxx xxx ) # inside src/CMakeLists.txt
 
 Reference: [Oat++ main web page](https://oatpp.io/)
 
-
+<sub><sup> Sunday 12 may 00:13 2024 in the morning, Made with ♥️ by AH...</sup></sub>
 
