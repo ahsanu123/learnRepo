@@ -26,25 +26,25 @@ set(CMAKE_CXX_FLAGS                   "${CMAKE_C_FLAGS} -fno-exceptions " CACHE 
 
 set(CMAKE_C_FLAGS_DEBUG               "-Os -g" CACHE INTERNAL "")
 set(CMAKE_C_FLAGS_RELEASE             "-Os -DNDEBUG" CACHE INTERNAL "")
-set(CMAKE_CXX_FLAGS_DEBUG             "${CMAKE_C_FLAGS_DEBUG}" CACHE INTERNAL "")   
-set(CMAKE_CXX_FLAGS_RELEASE           "${CMAKE_C_FLAGS_RELEASE}" CACHE INTERNAL "") 
+set(CMAKE_CXX_FLAGS_DEBUG             "${CMAKE_C_FLAGS_DEBUG}" CACHE INTERNAL "")
+set(CMAKE_CXX_FLAGS_RELEASE           "${CMAKE_C_FLAGS_RELEASE}" CACHE INTERNAL "")
 
-# set this for compile into static library instead executable 
+# set this for compile into static library instead executable
 set(CMAKE_TRY_COMPILE_TARGET_TYPE     STATIC_LIBRARY)
 
 set(CMAKE_EXECUTABLE_SUFFIX_C         .elf)
 set(CMAKE_EXECUTABLE_SUFFIX_CXX       .elf)
 set(CMAKE_EXECUTABLE_SUFFIX_ASM       .elf)
 
-# used to custom root path 
+# used to custom root path
 # if CMAKE_FIND_ROOT_PATH is set then
-# function like find_program, find_library etc 
+# function like find_program, find_library etc
 # will search through its.
 #
-# this variable use to control if listed program 
-# above will search through it or not 
+# this variable use to control if listed program
+# above will search through it or not
 # ref: https://cmake.org/cmake/help/latest/variable/CMAKE_FIND_ROOT_PATH_MODE_LIBRARY.html
-set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER) 
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
@@ -73,7 +73,7 @@ endif()
 
 function(stm32_add_linker_script TARGET VISIBILITY SCRIPT)
   set(path ${SCRIPT})
-  
+
   cmake_path(
     ABSOLUTE_PATH path
     NORMALIZE
@@ -84,7 +84,7 @@ function(stm32_add_linker_script TARGET VISIBILITY SCRIPT)
 endfunction()
 
 function(stm32_add_flash_targets TARGET)
-    add_custom_target(${TARGET}-stlink-flash
+  add_custom_target(${TARGET}-stlink-flash
       bash -c "openocd -f /usr/share/openocd/scripts/interface/stlink-v2.cfg \
                 -f /usr/share/openocd/scripts/target/stm32f7x.cfg \
                 -c 'reset_config none; program ${TARGET}.elf verify reset exit'"
@@ -129,7 +129,7 @@ macro(generate_linker_script DEVICE)
     \t CPU      :  ${GENLINK_CPU}
     \t FPU      :  ${GENLINK_FPU}
     \t CppFlags :  ${GENLINK_CPPFLAGS}
-    \t Defs     :  ${GENLINK_DEFS}" 
+    \t Defs     :  ${GENLINK_DEFS}"
     )
 
   list(APPEND ARCH_FLAGS  -mcpu=${GENLINK_CPU})
@@ -137,7 +137,7 @@ macro(generate_linker_script DEVICE)
   if(${GENLINK_CPU} MATCHES "(cortex-m0|cortex-m0plus|cortex-m3|cortex-m4|cortex-m7)")
     list(APPEND ARCH_FLAGS  -mthumb)
   endif()
-  
+
   #==========================================================================
   if("${GENLINK_FPU}" STREQUAL "soft")
     list(APPEND ARCH_FLAGS  -msoft-float)
@@ -175,7 +175,7 @@ macro(generate_linker_script DEVICE)
     COMMAND_ECHO  STDOUT)
 
   #==========================================================================
-  set_property(TARGET auto_stm32 
+  set_property(TARGET auto_stm32
     PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${libopencm3_SOURCE_DIR}/include)
 
   set_property(TARGET auto_stm32
@@ -190,7 +190,7 @@ macro(generate_linker_script DEVICE)
   #     PROPERTY IMPORTED_LOCATION ${libopencm3_SOURCE_DIR}/lib/libopencm3_${GENLINK_FAMILY}.a)
   #
   # elseif(EXISTS "${libopencm3_SOURCE_DIR}/lib/libopencm3_${GENLINK_SUBFAMILY}.a")
-  #   set_property(TARGET auto_stm32 
+  #   set_property(TARGET auto_stm32
   #     PROPERTY IMPORTED_LOCATION ${libopencm3_SOURCE_DIR}/lib/libopencm3_${GENLINK_SUBFAMILY}.a)
   #
   # else()
@@ -199,7 +199,7 @@ macro(generate_linker_script DEVICE)
   # endif()
 
   #==========================================================================
-  
+
   list(APPEND ARCH_FLAGS --static -nostartfiles -fno-common)
 
   target_compile_definitions(auto_stm32 INTERFACE ${GENLINK_CPPFLAGS})
@@ -210,7 +210,7 @@ endmacro()
 
 #==========================================================================
 #
-# ADD NEW LIBRARY FROM LIBOPENCM3 AND GENERATE LINKER SCRIPT 
+# ADD NEW LIBRARY FROM LIBOPENCM3 AND GENERATE LINKER SCRIPT
 #
 #==========================================================================
 message("${BoldGreen}-- Fetching libopencm3....${ColourReset}")
@@ -224,7 +224,7 @@ FetchContent_Declare(libopencm3
 FetchContent_MakeAvailable(libopencm3)
 FetchContent_GetProperties(libopencm3)
 
-add_custom_target(libopencm3 
+add_custom_target(libopencm3
   make "TARGETS=stm32/${auto_stm32_arch}"
   WORKING_DIRECTORY ${libopencm3_SOURCE_DIR})
 

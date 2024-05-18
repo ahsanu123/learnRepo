@@ -40,6 +40,23 @@ cd build/_deps/libopencm3-src/doc
 make
 ```
 
+## Uploading Step
+
+Configuration included to upload `binary` file to MCU currently only with segger jlink, you can run command 
+below to upload binary use jlink
+```shell
+// make sure you build project with
+cmake -S . -B build
+cmake --build build 
+
+// then upload it with
+cmake --build build --target flash
+```
+`cmake --build build --target flash` this command will automatic copying `uplodBinary.jlink` into 
+binary directory in this case is build dir, then cmake will configure `uplodBinary.jlink` to upload 
+binary based on project name.
+
+
 ## Reference 
 
 most of cmake configuration come from official libopencm3 documentation, cmake documentation and

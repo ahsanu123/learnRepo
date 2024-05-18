@@ -9,7 +9,7 @@ extern "C" {
 
 #define LED_PORT GPIOA
 #define RCC_LED_PORT RCC_GPIOA
-#define LED_PIN GPIO7
+#define LED_PIN GPIO1
 
 int main() {
   rcc_periph_clock_enable(RCC_LED_PORT);

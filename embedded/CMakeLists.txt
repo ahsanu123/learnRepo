@@ -1,16 +1,20 @@
 
 cmake_minimum_required(VERSION 3.28 FATAL_ERROR)
 
-message("\
-================================================\
-  libopencm3 cmake                              \
-  for stm32                                     \
-  with automatic arch setting                   \
-  and linker script generator                   \
-================================================\
+message("
+ ██████╗███╗   ███╗ █████╗ ██╗  ██╗███████╗
+██╔════╝████╗ ████║██╔══██╗██║ ██╔╝██╔════╝
+██║     ██╔████╔██║███████║█████╔╝ █████╗      █████╗
+██║     ██║╚██╔╝██║██╔══██║██╔═██╗ ██╔══╝      ╚════╝
+╚██████╗██║ ╚═╝ ██║██║  ██║██║  ██╗███████╗
+ ╚═════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
+██╗     ██╗██████╗  ██████╗ ██████╗ ███████╗███╗   ██╗ ██████╗███╗   ███╗██████╗
+██║     ██║██╔══██╗██╔═══██╗██╔══██╗██╔════╝████╗  ██║██╔════╝████╗ ████║╚════██╗
+██║     ██║██████╔╝██║   ██║██████╔╝█████╗  ██╔██╗ ██║██║     ██╔████╔██║ █████╔╝    █████╗
+██║     ██║██╔══██╗██║   ██║██╔═══╝ ██╔══╝  ██║╚██╗██║██║     ██║╚██╔╝██║ ╚═══██╗    ╚════╝
+███████╗██║██████╔╝╚██████╔╝██║     ███████╗██║ ╚████║╚██████╗██║ ╚═╝ ██║██████╔╝
+╚══════╝╚═╝╚═════╝  ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═══╝ ╚═════╝╚═╝     ╚═╝╚═════╝
 ")
-
-project(blink VERSION 0.0.1 LANGUAGES CXX C ASM)
 
 # ============================================
 # THIS VALUE MUST BE SET BASED ON
@@ -19,16 +23,21 @@ project(blink VERSION 0.0.1 LANGUAGES CXX C ASM)
 # ============================================
 set(auto_stm32_arch "f4")
 set(auto_stm32_device "stm32f407vgt6")
-# ============================================
+set(jlink_stm32_device "stm32f407vg")
+
 include(cmake/toolchain-arm-none-eabi-gcc.cmake)
 include(FetchContent)
 
-FetchContent_Declare(
-  fatFs
-  URL     http://elm-chan.org/fsw/ff/arc/ff15.zip
-)
+project(blink VERSION 0.0.2 LANGUAGES CXX C ASM)
 
-FetchContent_MakeAvailable(fatFs)
+# ============================================
+
+# FetchContent_Declare(
+#   fatFs
+#   URL     http://elm-chan.org/fsw/ff/arc/ff15.zip
+# )
+#
+# FetchContent_MakeAvailable(fatFs)
 
 # ============================================
 # CHANGE YOUR TARGET BASED ON YOUR PROJECT
@@ -37,3 +46,12 @@ FetchContent_MakeAvailable(fatFs)
 add_executable(blink src/blink.cpp)
 target_link_libraries(blink auto_stm32)
 stm32_add_linker_script(blink PRIVATE "${custom_ld_script}")
+
+configure_file(${CMAKE_BINARY_DIR}/../uploadBinary.jlink ${CMAKE_BINARY_DIR}/uploadBinary.jlink)
+
+add_custom_target(
+  flash
+  COMMAND JLinkExe -device ${jlink_stm32_device} -speed 4000 -if SWD -autoconnect 1 -CommandFile ${CMAKE_BINARY_DIR}/uploadBinary.jlink
+  DEPENDS ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.elf
+  COMMENT "Flashing with JLinkExe"
+)
