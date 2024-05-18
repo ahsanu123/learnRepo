@@ -56,6 +56,41 @@ cmake --build build --target flash
 binary directory in this case is build dir, then cmake will configure `uplodBinary.jlink` to upload 
 binary based on project name.
 
+## Debugging 
+
+### Use gdb + gdb-dashboard + gdb-dashboard-svd 
+
+before start make sure use `.gdbinit` config.
+
+Debug with gdb (arm-none-eabi-gdb) and segger jlink with following step: 
+1. start `JLinkGDBServerExe&` then choose interface speed and device on displayed dialog
+2. run `arm-none-eabi-gdb`, then type following command in `gdb` shell
+  ```shell
+  file ./path/to/binary/file.elf
+  target remote localhost:2331
+
+  # add svd file 
+  dashboard svd load ./STM32F407.svd
+  ```
+3. you can get svd file from [cmsis-svd](https://github.com/cmsis-svd/cmsis-svd-data/tree/main/data)
+4. now you can use `gdb` feature to Debugging (see this for [svd-dashboard](https://github.com/ccalmels/gdb-dashboard-svd/tree/main?tab=readme-ov-file))
+  ```shell
+  # add/remove GPIO IDR to gdb dashboard
+  dashboard svd add GPIOA IDR
+  dashboard svd remove GPIOA IDR
+
+  # add peripheral with binary separator
+  # -> GPIOA IDR (0x40020010): 0b0000_0000_0000_0000_1101_1111_1100_0011
+  dashboard svd add GPIOA IDR /_t
+
+  # get info of peripheral
+  svd info GPIOA
+  
+  ```
+
+### Use Segger Ozone
+
+another alternative you can use with jlink is, use ozone [more information](https://www.segger.com/products/development-tools/ozone-j-link-debugger/)
 
 ## Reference 
 
@@ -64,4 +99,4 @@ most of cmake configuration come from official libopencm3 documentation, cmake d
 - https://github.com/libopencm3/libopencm3/blob/master/mk/genlink-config.mk : converting this configuration makefiles to cmake function
 
 
-<sub><sup> Sunday 04:28 2024 in the morning, Made with ♥️ by AH...</sup></sub>
+<sub><sup> Sunday about 06:00 2024 in the morning, Made with ♥️ by AH...</sup></sub>

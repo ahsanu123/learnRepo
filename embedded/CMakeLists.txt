@@ -32,12 +32,12 @@ project(blink VERSION 0.0.2 LANGUAGES CXX C ASM)
 
 # ============================================
 
-# FetchContent_Declare(
-#   fatFs
-#   URL     http://elm-chan.org/fsw/ff/arc/ff15.zip
-# )
-#
-# FetchContent_MakeAvailable(fatFs)
+FetchContent_Declare(
+  fatFs
+  URL     http://elm-chan.org/fsw/ff/arc/ff15.zip
+)
+
+FetchContent_MakeAvailable(fatFs)
 
 # ============================================
 # CHANGE YOUR TARGET BASED ON YOUR PROJECT
@@ -51,7 +51,28 @@ configure_file(${CMAKE_BINARY_DIR}/../uploadBinary.jlink ${CMAKE_BINARY_DIR}/upl
 
 add_custom_target(
   flash
-  COMMAND JLinkExe -device ${jlink_stm32_device} -speed 4000 -if SWD -autoconnect 1 -CommandFile ${CMAKE_BINARY_DIR}/uploadBinary.jlink
+  COMMAND JLinkExe -device ${jlink_stm32_device} -speed 4000 -if SWD -NoGui 1 -autoconnect 1 -CommandFile ${CMAKE_BINARY_DIR}/uploadBinary.jlink
   DEPENDS ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.elf
   COMMENT "Flashing with JLinkExe"
 )
+
+# TODO: create custom target to start jlink gdb server and connect it to nvim lldb
+# JLinkGDBServer -select USB=0 -device STM32F407VG -endian little -if SWD -speed 4000 -noir -LocalhostOnly -nologtofile -port 2331 -SWOPort 2332 -TelnetPort 2333
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

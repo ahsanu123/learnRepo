@@ -1,0 +1,6 @@
+{
+  "executable": "./build/blink.elf",
+  "serverType": "external",
+  "request": "attach",
+  "gdbTarget": "localhost:2331"
+}
