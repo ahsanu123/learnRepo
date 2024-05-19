@@ -2781,6 +2781,9 @@ set python print-stack full
 
 python Dashboard.start()
 
+dashboard svd load ./STM32F407.svd
+dashboard svd add GPIOA IDR /_t
+
 # File variables ---------------------------------------------------------------
 
 # vim: filetype=python

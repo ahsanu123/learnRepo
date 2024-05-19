@@ -64,7 +64,7 @@ before start make sure use `.gdbinit` config.
 
 Debug with gdb (arm-none-eabi-gdb) and segger jlink with following step: 
 1. start `JLinkGDBServerExe&` then choose interface speed and device on displayed dialog
-2. run `arm-none-eabi-gdb`, then type following command in `gdb` shell
+2. run `arm-none-eabi-gdb -x ./current-workdir/.gdbinit`, then type following command in `gdb` shell
   ```shell
   file ./path/to/binary/file.elf
   target remote localhost:2331
@@ -86,6 +86,20 @@ Debug with gdb (arm-none-eabi-gdb) and segger jlink with following step:
   # get info of peripheral
   svd info GPIOA
   
+  ```
+
+5. you can add additional gdb init step like `dashboard svd add PERIPHERAL REGISTER....` inside '.gdbinit' file (place your setting after dashboard start)
+
+  ```shell
+  # Start ------------------------------------------------------------------------
+  python Dashboard.start()
+
+  dashboard svd load ./STM32F407.svd
+  dashboard svd add GPIOA IDR /_t
+  file ./build/blink.elf
+  target remote localhos:2331 # default segger jlink gdb server
+
+  # rest of your setting
   ```
 
 ### Use Segger Ozone

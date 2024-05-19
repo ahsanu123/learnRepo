@@ -19,9 +19,9 @@ int main() {
 
   while (1) {
     /* wait a little bit */
-    for (int i = 0; i < 800000; i++) {
-      __asm__("nop");
-    }
+    /* for (int i = 0; i < 800000; i++) { */
+    /*   __asm__("nop"); */
+    /* } */
     gpio_toggle(LED_PORT, LED_PIN);
   }
 }

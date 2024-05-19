@@ -21,6 +21,7 @@ message("
 # STM32 ARCHITECTURE AND
 # DEVICE SERIES
 # ============================================
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(auto_stm32_arch "f4")
 set(auto_stm32_device "stm32f407vgt6")
 set(jlink_stm32_device "stm32f407vg")
@@ -30,6 +31,8 @@ include(FetchContent)
 
 project(blink VERSION 0.0.2 LANGUAGES CXX C ASM)
 
+set(CMAKE_BUILD_TYPE Debug)
+message("${BoldGreen}-- Use ${CMAKE_BUILD_TYPE} Build, Change Setting in CMakeList.txt${ColourReset}\n")
 # ============================================
 
 FetchContent_Declare(

@@ -24,11 +24,11 @@ set(CMAKE_SIZE                        ${TOOLCHAIN_PREFIX}-size)
 set(CMAKE_C_FLAGS                     "-Wno-psabi --specs=nosys.specs -fdata-sections -ffunction-sections -Wl,--gc-sections" CACHE INTERNAL "")
 set(CMAKE_CXX_FLAGS                   "${CMAKE_C_FLAGS} -fno-exceptions " CACHE INTERNAL "")
 
-set(CMAKE_C_FLAGS_DEBUG               "-Os -g" CACHE INTERNAL "")
-# set(CMAKE_C_FLAGS_RELEASE             "-Os -DNDEBUG" CACHE INTERNAL "")
-set(CMAKE_C_FLAGS_RELEASE             "-Os -g" CACHE INTERNAL "")
+set(CMAKE_C_FLAGS_DEBUG               "-Os -g3" CACHE INTERNAL "")
+set(CMAKE_C_FLAGS_RELEASE             "-Os -DNDEBUG" CACHE INTERNAL "")
 set(CMAKE_CXX_FLAGS_DEBUG             "${CMAKE_C_FLAGS_DEBUG}" CACHE INTERNAL "")
 set(CMAKE_CXX_FLAGS_RELEASE           "${CMAKE_C_FLAGS_RELEASE}" CACHE INTERNAL "")
+set(CMAKE_EXE_LINKER_FLAGS            "-g3" CACHE INTERNAL "")
 
 # set this for compile into static library instead executable
 set(CMAKE_TRY_COMPILE_TARGET_TYPE     STATIC_LIBRARY)
