@@ -25,7 +25,7 @@
 
 cmake configuration for stm32 libopencm3, with automatic linker script generator
 
-### Build Step
+### 🔨 Build Step
 clone this repo and change directory to this folder then...
 ```shell
 cmake -S . -B build
@@ -40,7 +40,7 @@ cd build/_deps/libopencm3-src/doc
 make
 ```
 
-## Uploading Step
+## 📦 Uploading Step
 
 Configuration included to upload `binary` file to MCU currently only with segger jlink, you can run command 
 below to upload binary use jlink
@@ -56,7 +56,7 @@ cmake --build build --target flash
 binary directory in this case is build dir, then cmake will configure `uplodBinary.jlink` to upload 
 binary based on project name.
 
-## Debugging 
+## 🐛 Debugging 
 
 ### Use gdb + gdb-dashboard + gdb-dashboard-svd 
 
@@ -88,7 +88,7 @@ Debug with gdb (arm-none-eabi-gdb) and segger jlink with following step:
   
   ```
 
-5. you can add additional gdb init step like `dashboard svd add PERIPHERAL REGISTER....` inside '.gdbinit' file (place your setting after dashboard start)
+5. you can add additional gdb init step like `dashboard svd add PERIPHERAL REGISTER....` inside `.gdbinit` file (place your setting after dashboard start)
 
   ```shell
   # Start ------------------------------------------------------------------------
@@ -106,7 +106,7 @@ Debug with gdb (arm-none-eabi-gdb) and segger jlink with following step:
 
 another alternative you can use with jlink is, use ozone [more information](https://www.segger.com/products/development-tools/ozone-j-link-debugger/)
 
-## Reference 
+## 📖 Reference 
 
 most of cmake configuration come from official libopencm3 documentation, cmake documentation and
 - https://github.com/plusk01/stm32-libopencm3-cmake-blink : copied basic structure
