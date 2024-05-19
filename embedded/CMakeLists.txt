@@ -62,6 +62,28 @@ add_custom_target(
 # TODO: create custom target to start jlink gdb server and connect it to nvim lldb
 # JLinkGDBServer -select USB=0 -device STM32F407VG -endian little -if SWD -speed 4000 -noir -LocalhostOnly -nologtofile -port 2331 -SWOPort 2332 -TelnetPort 2333
 
+set(jlinkGdbServer_arg
+   -select USB=0
+   -device STM32F407VG
+   -endian little
+   -if SWD
+   -speed 4000
+   -noir
+   -LocalhostOnly
+   -nologtofile
+   -port 2331
+   -SWOPort 2332
+   -TelnetPort 2333
+   # -silent
+    &
+  )
+
+add_custom_target(
+  startGdb
+  COMMAND JLinkGDBServerExe ${jlinkGdbServer_arg}
+  COMMAND echo "Now You Can Start gdb and connect to JLinkGDBServerExe - arm-none-eabi-gdb -x .gdbinit"
+  COMMENT "Start JLinkGDBServer"
+  )
 
 
 
