@@ -63,7 +63,7 @@ binary based on project name.
 before start make sure use `.gdbinit` config.
 
 Debug with gdb (arm-none-eabi-gdb) and segger jlink with following step: 
-1. start `JLinkGDBServerExe&` then choose interface speed and device on displayed dialog
+1. start `JLinkGDBServerExe&` then choose interface speed and device on displayed dialog, or run `cmake --build build --target startGdb` to start server in background with `SWD` at speed 400Khz
 2. run `arm-none-eabi-gdb -x ./current-workdir/.gdbinit`, then type following command in `gdb` shell
   ```shell
   file ./path/to/binary/file.elf
@@ -108,9 +108,13 @@ another alternative you can use with jlink is, use ozone [more information](http
 
 ## 📖 Reference 
 
-most of cmake configuration come from official libopencm3 documentation, cmake documentation and
+reference used in this project.
+most of cmake configuration come from official libopencm3 documentation, and cmake documentation
 - https://github.com/plusk01/stm32-libopencm3-cmake-blink : copied basic structure
 - https://github.com/libopencm3/libopencm3/blob/master/mk/genlink-config.mk : converting this configuration makefiles to cmake function
+- https://github.com/cmsis-svd/cmsis-svd-data : Community project for FOSS tools and Easily Accessible SVD Collections
+- https://github.com/cyrus-and/gdb-dashboard : gdb-dashboard github source
+- https://github.com/ccalmels/gdb-dashboard-svd : gdb-dashboard-svd script (copied to `.gdbinit`)
 
 
 <sub><sup> Sunday about 06:00 2024 in the morning, Made with ♥️ by AH...</sup></sub>
