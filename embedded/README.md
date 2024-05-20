@@ -105,16 +105,28 @@ Debug with gdb (arm-none-eabi-gdb) and segger jlink with following step:
 ### Use Segger Ozone
 
 another alternative you can use with jlink is, use ozone [more information](https://www.segger.com/products/development-tools/ozone-j-link-debugger/)
+<p align="center">  
+   <img src="https://mcuoneclipse.com/wp-content/uploads/2016/10/ozone-debugger.png" alt="Segger Ozone Candy Image">
+</p>
 
 ## 📖 Reference 
 
-reference used in this project.
-most of cmake configuration come from official libopencm3 documentation, and cmake documentation
+<details>
+  <summary>
+    reference used in this project.
+    most of cmake configuration come from official libopencm3 documentation, and cmake documentation
+  </summary>
+
 - https://github.com/plusk01/stm32-libopencm3-cmake-blink : copied basic structure
 - https://github.com/libopencm3/libopencm3/blob/master/mk/genlink-config.mk : converting this configuration makefiles to cmake function
 - https://github.com/cmsis-svd/cmsis-svd-data : Community project for FOSS tools and Easily Accessible SVD Collections
 - https://github.com/cyrus-and/gdb-dashboard : gdb-dashboard github source
 - https://github.com/ccalmels/gdb-dashboard-svd : gdb-dashboard-svd script (copied to `.gdbinit`)
+- https://mcuoneclipse.com/wp-content/uploads/2016/10/ozone-debugger.png : Segger Ozone Image
+  
+</details>
+
+
 
 
 <sub><sup> Sunday about 06:00 2024 in the morning, Made with ♥️ by AH...</sup></sub>
