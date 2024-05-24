@@ -40,13 +40,20 @@ FetchContent_Declare(
   URL     http://elm-chan.org/fsw/ff/arc/ff15.zip
 )
 
-FetchContent_MakeAvailable(fatFs)
+FetchContent_Declare(
+  embedded_cli
+  GIT_REPOSITORY https://github.com/FARLY7/embedded-cli.git
+)
+
+set(CUSTOM_LIBRARY fatFs embedded_cli)
+message("${BoldGreen}-- Installing Custom library ${CUSTOM_LIBRARY} ${ColourReset}\n")
+FetchContent_MakeAvailable(${CUSTOM_LIBRARY})
 
 # ============================================
 # CHANGE YOUR TARGET BASED ON YOUR PROJECT
 # ============================================
 
-add_executable(blink src/blink.cpp)
+add_executable(blink src/embedded_cli.cpp)
 target_link_libraries(blink auto_stm32)
 stm32_add_linker_script(blink PRIVATE "${custom_ld_script}")
 
