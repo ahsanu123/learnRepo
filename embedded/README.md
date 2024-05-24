@@ -109,6 +109,10 @@ another alternative you can use with jlink is, use ozone [more information](http
    <img src="https://mcuoneclipse.com/wp-content/uploads/2016/10/ozone-debugger.png" alt="Segger Ozone Candy Image">
 </p>
 
+## 🗃️ Usefull Resource 
+
+- USB-IDS: http://www.linux-usb.org/usb.ids
+
 ## 📖 Reference 
 
 <details>
