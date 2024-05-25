@@ -31,6 +31,7 @@ include(FetchContent)
 
 project(blink VERSION 0.0.2 LANGUAGES CXX C ASM)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_BUILD_TYPE Debug)
 message("${BoldGreen}-- Use ${CMAKE_BUILD_TYPE} Build, Change Setting in CMakeList.txt${ColourReset}\n")
 # ============================================
@@ -49,12 +50,23 @@ set(CUSTOM_LIBRARY fatFs embedded_cli)
 message("${BoldGreen}-- Installing Custom library ${CUSTOM_LIBRARY} ${ColourReset}\n")
 FetchContent_MakeAvailable(${CUSTOM_LIBRARY})
 
+add_library(
+  embed_cli
+  STATIC
+  ${embedded_cli_SOURCE_DIR}/cli.h
+  ${embedded_cli_SOURCE_DIR}/cli.c
+  ${embedded_cli_SOURCE_DIR}/cli_defs.h
+)
+target_compile_options(embed_cli PRIVATE ${ARCH_FLAGS})
+target_link_options(embed_cli PRIVATE ${ARCH_FLAGS})
+
 # ============================================
 # CHANGE YOUR TARGET BASED ON YOUR PROJECT
 # ============================================
 
 add_executable(blink src/embedded_cli.cpp)
-target_link_libraries(blink auto_stm32)
+target_include_directories(blink PUBLIC ${embedded_cli_SOURCE_DIR})
+target_link_libraries(blink auto_stm32 embed_cli)
 stm32_add_linker_script(blink PRIVATE "${custom_ld_script}")
 
 configure_file(${CMAKE_BINARY_DIR}/../uploadBinary.jlink ${CMAKE_BINARY_DIR}/uploadBinary.jlink)
