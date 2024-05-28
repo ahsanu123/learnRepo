@@ -15,12 +15,12 @@ import {
   heroCurrencyDollarSolid,
   heroPencilSolid
 } from '@ng-icons/heroicons/solid';
-import { InputNoBorderDirective } from '../../directive';
 import { CardWithIconOnSideComponent } from '../../sharedComponent/card-with-icon-on-side/card-with-icon-on-side.component';
 import { DialogComponent } from '../../sharedComponent/dialog/dialog.component';
 import { MilkdownEditorComponent } from '../../sharedComponent/milkdown-editor/milkdown-editor.component';
 import { TableComponent } from '../../sharedComponent/table/table.component';
 import { ProsemirrorBasicEditorComponent } from '../prosemirror-basic-editor/prosemirror-basic-editor.component';
+import { InputNoBorderDirective } from '../../directive';
 
 @Component({
   selector: 'app-project-summary',
