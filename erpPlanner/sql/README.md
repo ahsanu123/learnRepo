@@ -1,5 +1,5 @@
 ## Exercise from pgexercises.com
-
+![tableImage](https://pgexercises.com/img/schema-horizontal.svg)
 ### Basic 
 ---
 
