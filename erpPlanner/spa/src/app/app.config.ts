@@ -3,12 +3,12 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { AngularSlickgridModule, AngularUtilService } from 'angular-slickgrid';
+import { AngularSlickgridModule } from 'angular-slickgrid';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimationsAsync(),
-    importProvidersFrom(AngularSlickgridModule.forRoot())
+    importProvidersFrom(AngularSlickgridModule.forRoot()),
   ]
 };
