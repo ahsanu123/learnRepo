@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { DynamicFormModel } from '../../model/dynamic-form.model';
 import * as icon from '@ng-icons/heroicons/solid';
+import { EditableDirective } from '../../directive/content-editable.directive';
 
 
 @Component({
@@ -25,7 +26,8 @@ import * as icon from '@ng-icons/heroicons/solid';
     NgIconComponent,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    EditableDirective
   ],
   providers: [
     provideIcons(icon)
@@ -35,6 +37,7 @@ import * as icon from '@ng-icons/heroicons/solid';
 })
 export class DynamicFormComponent implements OnInit {
 
+  spanControl = new FormControl('span')
   dynamicForm: FormGroup;
   control = new FormControl('');
   controlGroup = new FormGroup({
@@ -66,6 +69,7 @@ export class DynamicFormComponent implements OnInit {
     });
 
     this.dynamicForm = this.formBuilder.group(controls);
+    console.log(this.dynamicForm.get('name') as FormControl)
   }
 
   ngOnInit(): void {
@@ -104,5 +108,13 @@ export class DynamicFormComponent implements OnInit {
 
     return index;
   };
+
+  getControlAsFormControl(name: string) {
+    return this.dynamicForm.get(name) as FormControl;
+  }
+
+  echoSpanControl() {
+    console.log(this.spanControl)
+  }
 
 }

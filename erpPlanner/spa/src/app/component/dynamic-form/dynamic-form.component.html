@@ -8,34 +8,92 @@
 
 <h2>Form Control Section </h2>
 
-<form [formGroup]="controlGroup" (submit)="onSubmit()">
+<form [formGroup]="controlGroup"
+      (submit)="onSubmit()">
 
   <label for="first-name">First Name: </label>
-  <input id="first-name" type="text" formControlName="firstName">
+  <input id="first-name"
+         type="text"
+         formControlName="firstName">
   <label for="last-name">Last Name: </label>
-  <input id="last-name" type="text" formControlName="lastName">
+  <input id="last-name"
+         type="text"
+         formControlName="lastName">
 
   <button type="submit">submit</button>
 
 </form>
 
-<form [formGroup]="dynamicForm" (submit)="onDynamicSubmit()">
+<form [formGroup]="dynamicForm"
+      (submit)="onDynamicSubmit()">
 
   <div class="divider"></div>
   <div *ngFor="let control of getStructure();trackBy:trackByKey">
     <div class="indicator">
       <span *ngIf="dynamicForm.get(control.name)?.invalid && dynamicForm.get(control.name)?.touched"
-        class="indicator-item badge badge-primary">{{getErrorMessage(control)}}</span>
+            class="indicator-item badge badge-primary">{{getErrorMessage(control)}}</span>
       <div class="grid bg-base-300 place-items-center">
         <label class="input input-bordered flex items-center gap-2">
-          <ng-icon [name]="control.icon? control.icon : ''" class="text-3xl mx-3"></ng-icon>
+          <ng-icon [name]="control.icon? control.icon : ''"
+                   class="text-3xl mx-3"></ng-icon>
 
-          <input [id]="control.name" [formControlName]="control.name" [type]="control.type"
-            [placeholder]="control.label" class="grow" />
+          <input [id]="control.name"
+                 [formControlName]="control.name"
+                 [type]="control.type"
+                 [placeholder]="control.label"
+                 class="grow" />
         </label>
       </div>
     </div>
   </div>
 
-  <button class="btn btn-primary" [disabled]="dynamicForm.invalid" type="submit">submit</button>
+  <button class="btn btn-primary"
+          [disabled]="dynamicForm.invalid"
+          type="submit">submit</button>
 </form>
+
+<span contenteditable="true"
+      editable
+      [formControl]="getControlAsFormControl('name')"></span>
+<button (click)="echoSpanControl()"
+        class="btn">console</button>
+
+<div class="overflow-x-auto">
+  <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th contenteditable="true"></th>
+        <th contenteditable="true">Name</th>
+        <th>Job</th>
+        <th>Favorite Color</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+      <tr class="bg-base-200">
+        <th>1</th>
+        <td contenteditable="true"
+            style="overflow-y: auto;">Cy Ganderton</td>
+        <td>Quality Control Specialist</td>
+        <td>Blue</td>
+      </tr>
+      <!-- row 2 -->
+      <tr>
+        <th>2</th>
+        <td><input type="text"
+                 placeholder="Type here"
+                 class="input w-full max-w-xs" /></td>
+        <td>Desktop Support Technician</td>
+        <td>Purple</td>
+      </tr>
+      <!-- row 3 -->
+      <tr>
+        <th>3</th>
+        <td>Brice Swyre</td>
+        <td>Tax Accountant</td>
+        <td>Red</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
