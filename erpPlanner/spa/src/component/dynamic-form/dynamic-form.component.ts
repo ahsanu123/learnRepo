@@ -11,12 +11,15 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { FormServiceService } from '../../../services/form-service.service';
+import { FormServiceService } from '../../services/form-service.service';
 import { CommonModule } from '@angular/common';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { DynamicFormModel } from '../../model/dynamic-form.model';
 import * as icon from '@ng-icons/heroicons/solid';
 import { EditableDirective } from '../../directive/content-editable.directive';
+import { AngularSlickgridModule, Column, GridOption } from 'angular-slickgrid';
+
+import '@slickgrid-universal/common/dist/styles/css/slickgrid-theme-bootstrap.css';
 
 
 @Component({
@@ -27,7 +30,8 @@ import { EditableDirective } from '../../directive/content-editable.directive';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    EditableDirective
+    EditableDirective,
+    AngularSlickgridModule
   ],
   providers: [
     provideIcons(icon)
@@ -45,10 +49,15 @@ export class DynamicFormComponent implements OnInit {
     lastName: new FormControl('')
   })
 
+  columnDefinitions: Column[] = [];
+  gridOptions: GridOption = {};
+  dataset: any[] = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private formService: FormServiceService
   ) {
+    this.prepareGrid()
     const formStructure = this.formService.getFormStructure();
     const controls: {
       [key: string]: Array<any | Validators>
@@ -115,6 +124,29 @@ export class DynamicFormComponent implements OnInit {
 
   echoSpanControl() {
     console.log(this.spanControl)
+  }
+
+
+  prepareGrid() {
+    this.columnDefinitions = [
+      { id: 'title', name: 'Title', field: 'title', sortable: true },
+      { id: 'duration', name: 'Duration (days)', field: 'duration', sortable: true },
+      { id: '%', name: '% Complete', field: 'percentComplete', sortable: true },
+      { id: 'start', name: 'Start', field: 'start' },
+      { id: 'finish', name: 'Finish', field: 'finish' },
+    ];
+
+    this.gridOptions = {
+      enableAutoResize: true,
+      enableSorting: true
+    };
+
+    // fill the dataset with your data (or read it from the DB)
+    for (let i = 0; i < 100; i++) {
+      this.dataset.push(
+        { id: i, title: `Task ${i}`, duration: 33 + i, percentComplete: 34, start: '2001-01-11', finish: '2001-02-04' },
+      )
+    }
   }
 
 }

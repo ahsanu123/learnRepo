@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DynamicFormModel, ValidationsModel } from '../app/model/dynamic-form.model';
+import { DynamicFormModel, ValidationsModel } from '../model/dynamic-form.model';
 
 @Injectable({
   providedIn: 'root'
