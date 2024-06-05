@@ -47,3 +47,8 @@ this would be project use dotnet and angular to make ERP for electronic project 
         ssh-add ~/.ssh/id_ed25519
       ```
   5.  and recreate from step 1 to 2
+
+### :fire: https://www.alphavantage.co/documentation/ API Key
+```
+HKLAE3NNVMLQEL17
+```
