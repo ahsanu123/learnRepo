@@ -106,6 +106,8 @@ add_executable(
   main 
   ${GUI_OPTION}
   ./src/main.cpp
+  ./src/window/MainWindow.h
+  ./src/window/MainWindow.cpp
 )
 
 target_link_libraries(
