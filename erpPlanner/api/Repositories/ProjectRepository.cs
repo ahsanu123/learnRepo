@@ -11,6 +11,7 @@ public interface IProjectRepository
     public Task<int> CreateProject(Project newProject);
     public Task<Project> UpdateProject(Project updatedProject);
     public Task<int> deleteProject(int projectId);
+    public Task<int> uploadProductImage(byte[] image);
 }
 
 public class ProjectRepository : IProjectRepository
@@ -154,5 +155,10 @@ public class ProjectRepository : IProjectRepository
 
             return updatedResult;
         }
+    }
+
+    public Task<int> uploadProductImage(byte[] image)
+    {
+        throw new NotImplementedException();
     }
 }

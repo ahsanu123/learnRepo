@@ -7,6 +7,7 @@ import {
   MarkdownService,
   provideMarkdown
 } from 'ngx-markdown';
+import { ProductCardComponent } from '../../sharedComponent/product-card/product-card.component';
 
 @Component({
   selector: 'app-project-info',
@@ -15,7 +16,8 @@ import {
     CommonModule,
     FormsModule,
     MarkdownComponent,
-    AngularSlickgridModule
+    AngularSlickgridModule,
+    ProductCardComponent,
   ],
   templateUrl: './project-info.component.html',
   styleUrl: './project-info.component.scss',
