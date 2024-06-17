@@ -1838,15 +1838,20 @@ TestDirList::TestDirList(const TGWindow *p, const TGWindow *main, UInt_t w,
                      this, "OnDoubleClick(TGListTreeItem*,Int_t)");
   fContents->Connect("Clicked(TGListTreeItem*,Int_t)", "TestDirList", this,
                      "OnDoubleClick(TGListTreeItem*,Int_t)");
+#ifdef R__WIN32
+   fContents->AddItem(0,"c:\");  // browse the upper directory
+#else
   fContents->AddItem(nullptr, "/"); // browse the upper directory
-  // position relative to the parent's window
-  fMain->CenterOnParent();
-
-  fMain->SetWindowName("List Dir Test");
-
-  fMain->MapSubwindows();
-  fMain->Resize();
-  fMain->MapWindow();
+#endif
+ 
+   // position relative to the parent's window
+   fMain->CenterOnParent();
+ 
+   fMain->SetWindowName("List Dir Test");
+ 
+   fMain->MapSubwindows();
+   fMain->Resize();
+   fMain->MapWindow();
 }
 
 TestDirList::~TestDirList() {
@@ -2463,9 +2468,8 @@ void Editor::DoClose() {
 
 void guitest() { new TestMainFrame(gClient->GetRoot(), 400, 220); }
 
-#ifdef __cplusplus
-extern "C" {
-#endif // DEBUG
+//---- Main program ------------------------------------------------------------
+#ifdef STANDALONE
 int main(int argc, char **argv) {
   TApplication theApp("App", &argc, argv);
 
@@ -2480,7 +2484,4 @@ int main(int argc, char **argv) {
 
   return 0;
 }
-
-#ifdef __cplusplus
-}
-#endif // DEBUG
+#endif
