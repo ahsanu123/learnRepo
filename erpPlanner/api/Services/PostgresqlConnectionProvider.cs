@@ -1,9 +1,6 @@
-using System.Data;
-using Dapper;
 using Npgsql;
 
 namespace erpPlanner.Services;
-
 
 public class PostgresqlConnectionProvider
 {

@@ -1,5 +1,5 @@
-using erpPlanner.Services;
 using erpPlanner.Repository;
+using erpPlanner.Services;
 
 namespace erpPlanner.ExtensionMethod;
 
@@ -16,4 +16,3 @@ public static class ServiceCollectionCustom
         return services;
     }
 }
-
