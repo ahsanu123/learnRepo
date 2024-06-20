@@ -8,6 +8,7 @@ public static class ServiceCollectionCustom
     public static IServiceCollection AddServiceCollectionExtension(this IServiceCollection services)
     {
         services.AddSingleton<PostgresqlConnectionProvider>();
+        services.AddSingleton<FileUtilService>();
         services.AddScoped<IMaterialRepository, MaterialRepository>();
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IProducingStepRepository, ProducingStepRepository>();

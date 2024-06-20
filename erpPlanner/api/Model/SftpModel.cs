@@ -7,4 +7,5 @@ public class Sftp
     public required string Pass { get; set; }
     public required string BasePath { get; set; }
     public required string ImagePath { get; set; }
+    public required string ResourceDocsPath { get; set; }
 }

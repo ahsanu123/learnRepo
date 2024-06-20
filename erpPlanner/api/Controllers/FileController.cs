@@ -13,10 +13,12 @@ public class FileController : Controller
 {
     private IConfiguration _configuration;
     private readonly Sftp _sftpConfig;
+    private FileUtilService _fileUtil;
 
-    public FileController(IConfiguration configuration)
+    public FileController(IConfiguration configuration, FileUtilService fileUtil)
     {
         _configuration = configuration;
+        _fileUtil = fileUtil;
         _sftpConfig = _configuration.GetSection("Sftp").Get<Sftp>();
     }
 
@@ -24,16 +26,8 @@ public class FileController : Controller
     [Route("resource")]
     public async Task<ActionResult> UploadResource(IFormFile res)
     {
-        using (var client = new SftpClient(_sftpConfig.Host, _sftpConfig.User, _sftpConfig.Pass))
-        {
-            client.Connect();
-            using (var fileStream = new MemoryStream())
-            {
-                await res.CopyToAsync(fileStream);
-                client.UploadFile(fileStream, Path.Combine(_sftpConfig.BasePath, res.FileName));
-            }
-        }
-        return Ok(res.FileName);
+        var filename = await _fileUtil.UploadResourceDocument(res);
+        return Ok(filename);
     }
 
     [HttpPost]
