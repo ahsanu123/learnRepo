@@ -22,6 +22,9 @@ public class FileController : Controller
         _sftpConfig = _configuration.GetSection("Sftp").Get<Sftp>();
     }
 
+    /// <summary>
+    /// Upload Resource Documentation via SFTP
+    /// </summary>
     [HttpPost]
     [Route("resource")]
     public async Task<ActionResult> UploadResource(IFormFile res)
@@ -30,6 +33,9 @@ public class FileController : Controller
         return Ok(filename);
     }
 
+    /// <summary>
+    /// Upload Image via SFTP
+    /// </summary>
     [HttpPost]
     [Route("image")]
     public async Task<ActionResult> UploadImage(IFormFile image)

@@ -1,16 +1,18 @@
-using Microsoft.AspNetCore.Mvc;
-using erpPlanner.Model;
 using System.Xml;
+using erpPlanner.Model;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace erpPlanner.Controllers;
 
-
 [ApiController]
 [Route("Currency/")]
 public class CurrencyController : Controller
 {
+    /// <summary>
+    /// Get Currency from ecb.europa.eu in euro
+    /// </summary>
     [Route("GetRawCurrency")]
     [HttpGet]
     public async Task<ActionResult<Currency>> GetRawCurrency()
@@ -27,5 +29,4 @@ public class CurrencyController : Controller
 
         return Ok(xml);
     }
-
 }

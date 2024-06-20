@@ -1,9 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
-using erpPlanner.Model;
 using erpPlanner.Repository;
+using Microsoft.AspNetCore.Mvc;
 
 namespace erpPlanner.Controllers;
-
 
 [ApiController]
 [Route("material/")]
@@ -29,7 +27,6 @@ public class MaterialController : Controller
         return NotFound();
     }
 
-
     [Route("all")]
     [HttpGet]
     public async Task<ActionResult> GetAllMaterial()
@@ -41,7 +38,4 @@ public class MaterialController : Controller
         }
         return NotFound();
     }
-
-
-
 }
