@@ -13,6 +13,7 @@
     <PackageReference Include="Dapper.Postgres" Version="0.0.5" />
     <PackageReference Include="FluentMigrator" Version="5.2.0" />
     <PackageReference Include="FluentMigrator.Runner" Version="5.2.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Npgsql" Version="8.0.2" />
     <PackageReference Include="QRCoder" Version="1.5.1" />

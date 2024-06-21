@@ -9,7 +9,7 @@ public class Material
     public string Description { get; set; }
     public float Price { get; set; }
     public string Suplier { get; set; }
-    public string SuplerLink { get; set; }
+    public string SuplierLink { get; set; }
     public int StorageId { get; set; }
 
 }

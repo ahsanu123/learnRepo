@@ -1,5 +1,6 @@
 using System.Reflection;
 using erpPlanner.ExtensionMethod;
+using erpPlanner.Migration;
 using FluentMigrator.Runner;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,19 +23,19 @@ builder
     .Services.AddFluentMigratorCore()
     .ConfigureRunner(rb =>
         rb
-        // Add SQLite support to FluentMigrator
-        .AddPostgres()
+            // Add SQLite support to FluentMigrator
+            /*.AddPostgres()*/
             // Set the connection string
-            .WithGlobalConnectionString(connectionString)
+            .AddSQLite()
+            /*.WithGlobalConnectionString(connectionString)*/
+            .WithGlobalConnectionString("Data Source=test.db")
             // Define the assembly containing the migrations
-            .ScanIn(Assembly.GetExecutingAssembly())
-            .For.Migrations()
+            .ScanIn(Assembly.GetExecutingAssembly()).For.All()
     )
     // Enable logging to console in the FluentMigrator way
     .AddLogging(lb => lb.AddFluentMigratorConsole())
     // Build the service provider
     .BuildServiceProvider(false);
-;
 
 var app = builder.Build();
 
@@ -51,4 +52,5 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+app.Migrate();
 app.Run();
