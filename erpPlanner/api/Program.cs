@@ -1,6 +1,6 @@
 using System.Reflection;
 using erpPlanner.ExtensionMethod;
-using erpPlanner.Migration;
+using erpPlanner.pMigration;
 using FluentMigrator.Runner;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +34,11 @@ builder
     )
     // Enable logging to console in the FluentMigrator way
     .AddLogging(lb => lb.AddFluentMigratorConsole())
+    .Configure<FluentMigratorLoggerOptions>(options =>
+    {
+        options.ShowSql = true;
+        options.ShowElapsedTime = true;
+    })
     // Build the service provider
     .BuildServiceProvider(false);
 

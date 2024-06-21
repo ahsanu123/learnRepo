@@ -1,3 +1,5 @@
+using System.Reflection;
+using erpPlanner.assem;
 using erpPlanner.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,5 +39,35 @@ public class MaterialController : Controller
             return Ok(allMaterial);
         }
         return NotFound();
+    }
+
+    [Route("assembly")]
+    [HttpGet]
+    public ActionResult CheckAssembly()
+    {
+
+        List<BaseAssem> listAssem = new List<BaseAssem>();
+        List<string> listHello = new List<string>();
+
+        var assembly = Assembly.GetAssembly(typeof(BaseAssem))
+          .GetTypes()
+          .Where(type => type.IsClass && !type.IsAbstract && type.IsSubclassOf(typeof(BaseAssem)));
+
+        foreach (var item in assembly)
+        {
+            listAssem.Add((BaseAssem)Activator.CreateInstance(item));
+            var attr = System.Attribute.GetCustomAttributes(item);
+            if (attr.Length > 0)
+            {
+                listHello.Add("got once");
+            }
+
+        }
+        foreach (var item in listAssem)
+        {
+            listHello.Add(item.hello());
+        }
+
+        return Ok(listHello);
     }
 }
