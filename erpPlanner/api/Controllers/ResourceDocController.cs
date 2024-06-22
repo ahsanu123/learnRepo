@@ -27,12 +27,12 @@ public class ResourceDocController : Controller
     [Route("create")]
     public async Task<ActionResult> CreateResourceDoc([FromBody] ResourceDoc newResourceDoc)
     {
-        var material = await _materialRepositoy.GetMaterialById(newResourceDoc.materialId);
+        var material = await _materialRepositoy.GetMaterialById(newResourceDoc.MaterialId);
         if (material == null)
         {
             return NotFound(new ErrorMessage()
             {
-                Message = $"Material With Id: {newResourceDoc.materialId} Not Found",
+                Message = $"Material With Id: {newResourceDoc.MaterialId} Not Found",
                 Description = "Make Sure Material Id Is Correct"
             });
         }

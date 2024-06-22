@@ -33,8 +33,8 @@ public class StorageRepository : IStorageRepository
 
             var id = await conn.ExecuteScalarAsync<int>(sql, new
             {
-                name = newStorage.name,
-                location = newStorage.location
+                name = newStorage.Name,
+                location = newStorage.Location
             });
             return id;
         }
@@ -88,12 +88,12 @@ public class StorageRepository : IStorageRepository
 
             await conn.ExecuteAsync(sql, new
             {
-                name = updatedStorage.name,
-                location = updatedStorage.location,
-                storageid = updatedStorage.storageId
+                name = updatedStorage.Name,
+                location = updatedStorage.Location,
+                storageid = updatedStorage.Id
             });
 
-            var result = await conn.QuerySingleOrDefaultAsync<Storage>($"select * from planerp_storage where storageid = {updatedStorage.storageId}");
+            var result = await conn.QuerySingleOrDefaultAsync<Storage>($"select * from planerp_storage where storageid = {updatedStorage.Id}");
 
             return result;
         }

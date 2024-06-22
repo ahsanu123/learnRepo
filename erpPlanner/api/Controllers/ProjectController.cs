@@ -59,7 +59,7 @@ public class ProjectController : Controller
     [Route("update")]
     public async Task<ActionResult> UpdateProject([FromBody] Project updatedProject)
     {
-        var project = await _projectRepository.GetProjectById(updatedProject.projectId);
+        var project = await _projectRepository.GetProjectById(updatedProject.Id);
         if (project == null)
         {
             return NotFound();

@@ -1,15 +1,6 @@
 using FluentMigrator;
 
 namespace erpPlanner.pMigration;
-/*public int MaterialId { get; set; }*/
-/*public string Name { get; set; }*/
-/*public string Type { get; set; }*/
-/*public string Category { get; set; }*/
-/*public string Description { get; set; }*/
-/*public float Price { get; set; }*/
-/*public string Suplier { get; set; }*/
-/*public string SuplerLink { get; set; }*/
-/*public int StorageId { get; set; }*/
 
 public class MaterialMigration : MigrationChild
 {
@@ -30,13 +21,18 @@ public class MaterialMigration : MigrationChild
         ]);
 
         var table = migration.Create.Table("material")
-          .WithColumn("materialId").AsInt64().PrimaryKey().Identity()
+          .WithColumn("id").AsInt64().PrimaryKey().Identity()
           .WithColumn("price").AsFloat();
 
         foreach (var colName in stringCol)
         {
             table.WithColumn(colName).AsString();
         }
+
+        migration.Create.ForeignKey()
+          .FromTable("material").ForeignColumn("storageId")
+          .ToTable("storage").PrimaryColumn("id");
+
     }
 
 }

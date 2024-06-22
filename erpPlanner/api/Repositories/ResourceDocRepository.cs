@@ -32,10 +32,10 @@ public class ResourceDocRepository : IResourceDocRepository
 
             var resultId = await conn.ExecuteScalarAsync<int>(sql, new
             {
-                materialid = newResourceDoc.materialId,
-                url = newResourceDoc.url,
-                description = newResourceDoc.description,
-                title = newResourceDoc.title
+                materialid = newResourceDoc.MaterialId,
+                url = newResourceDoc.Url,
+                description = newResourceDoc.Description,
+                title = newResourceDoc.Title
             });
             return resultId;
         }
@@ -92,18 +92,18 @@ public class ResourceDocRepository : IResourceDocRepository
 
             await conn.ExecuteAsync(sql, new
             {
-                url = updatedResourceDoc.url,
-                description = updatedResourceDoc.description,
-                title = updatedResourceDoc.title,
-                resourceDocId = updatedResourceDoc.resourceDocId,
-                materialId = updatedResourceDoc.materialId,
+                url = updatedResourceDoc.Url,
+                description = updatedResourceDoc.Description,
+                title = updatedResourceDoc.Title,
+                resourceDocId = updatedResourceDoc.Id,
+                materialId = updatedResourceDoc.MaterialId,
             });
 
             sql = @"SELECT * from planerp_resource_doc WHERE resourceDocId =  @resourceDocId";
 
             var resultDoc = await conn.QuerySingleOrDefaultAsync<ResourceDoc>(sql, new
             {
-                resourceDocId = updatedResourceDoc.resourceDocId,
+                resourceDocId = updatedResourceDoc.Id,
             });
 
             return resultDoc;

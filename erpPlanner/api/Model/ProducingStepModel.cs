@@ -3,8 +3,8 @@ namespace erpPlanner.Model;
 
 public class ProducingStep
 {
-    public int producingStepId { get; set; }
-    public int projectId { get; set; }
-    public string[] listStep { get; set; }
+    public int Id { get; set; }
+    public int ProjectId { get; set; }
+    public string[] ListStep { get; set; }
 }
 

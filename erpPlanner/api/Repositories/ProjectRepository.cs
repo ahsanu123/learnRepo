@@ -56,17 +56,17 @@ public class ProjectRepository : IProjectRepository
 
             var createdProjectId = await conn.ExecuteScalarAsync<int>(sql, new
             {
-                name = newProject.name,
-                createddate = newProject.createdDate,
-                deadlinedate = newProject.deadLineDate,
-                lastupdateddate = newProject.lastUpdatedDate,
-                finisheddate = newProject.finishedDate,
-                sellprice = newProject.sellPrice,
-                capital = newProject.capital,
-                fail = newProject.fail,
-                finish = newProject.finish,
-                profitinpersen = newProject.profitInPersen,
-                description = newProject.description
+                name = newProject.Name,
+                createddate = newProject.CreatedDate,
+                deadlinedate = newProject.DeadLineDate,
+                lastupdateddate = newProject.LastUpdatedDate,
+                finisheddate = newProject.FinishedDate,
+                sellprice = newProject.SellPrice,
+                capital = newProject.Capital,
+                fail = newProject.Fail,
+                finish = newProject.Finish,
+                profitinpersen = newProject.ProfitInPersen,
+                description = newProject.Description
             });
 
             return createdProjectId;
@@ -133,24 +133,24 @@ public class ProjectRepository : IProjectRepository
 
             await conn.ExecuteAsync(sql, new
             {
-                name = updatedProject.name,
-                createddate = updatedProject.createdDate,
-                deadlinedate = updatedProject.deadLineDate,
-                lastupdateddate = updatedProject.lastUpdatedDate,
-                finisheddate = updatedProject.finishedDate,
-                sellprice = updatedProject.sellPrice,
-                capital = updatedProject.capital,
-                fail = updatedProject.fail,
-                finish = updatedProject.finish,
-                profitinpersen = updatedProject.profitInPersen,
-                description = updatedProject.description
+                name = updatedProject.Name,
+                createddate = updatedProject.CreatedDate,
+                deadlinedate = updatedProject.DeadLineDate,
+                lastupdateddate = updatedProject.LastUpdatedDate,
+                finisheddate = updatedProject.FinishedDate,
+                sellprice = updatedProject.SellPrice,
+                capital = updatedProject.Capital,
+                fail = updatedProject.Fail,
+                finish = updatedProject.Finish,
+                profitinpersen = updatedProject.ProfitInPersen,
+                description = updatedProject.Description
             });
 
 
             sql = $"SELECT *	FROM planerp_project WHERE projectId = @projectId;";
             var updatedResult = await conn.QuerySingleOrDefaultAsync<Project>(sql, new
             {
-                projectId = updatedProject.projectId
+                projectId = updatedProject.Id
             });
 
             return updatedResult;

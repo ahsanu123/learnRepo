@@ -12,7 +12,7 @@ public class StorageMigration : MigrationChild
     public void ChildUp(Migration migration)
     {
         migration.Create.Table("storage")
-          .WithColumn("storageId").AsInt64().PrimaryKey().Identity()
+          .WithColumn("id").AsInt64().PrimaryKey().Identity()
           .WithColumn("name").AsString()
           .WithColumn("location").AsString();
     }

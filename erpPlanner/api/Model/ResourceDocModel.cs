@@ -2,10 +2,10 @@ namespace erpPlanner.Model;
 
 public class ResourceDoc
 {
-    public int resourceDocId { get; set; }
-    public int materialId { get; set; }
-    public string title { get; set; }
-    public string url { get; set; }
-    public string description { get; set; }
+    public int Id { get; set; }
+    public int MaterialId { get; set; }
+    public string Title { get; set; }
+    public string Url { get; set; }
+    public string Description { get; set; }
 
 }

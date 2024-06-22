@@ -36,15 +36,15 @@ public class ProducingStepRepository : IProducingStepRepository
             await using var cmd = new NpgsqlCommand(sql, conn)
             {
                 Parameters ={
-                  new(){Value = newProducingStep.producingStepId},
-                  new(){Value = newProducingStep.projectId},
-                  new(){Value = newProducingStep.listStep},
+                  new(){Value = newProducingStep.Id},
+                  new(){Value = newProducingStep.ProjectId},
+                  new(){Value = newProducingStep.ListStep},
                 }
             };
 
             await cmd.ExecuteNonQueryAsync();
 
-            string resultQuery = $"select * from plannerp_producing_step where producingstepid = {newProducingStep.producingStepId}";
+            string resultQuery = $"select * from plannerp_producing_step where producingstepid = {newProducingStep.Id}";
             var result = await conn.QueryFirstOrDefaultAsync<ProducingStep>(resultQuery);
 
             return result;
