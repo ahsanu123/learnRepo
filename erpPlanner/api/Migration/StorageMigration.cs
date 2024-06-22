@@ -6,7 +6,7 @@ public class StorageMigration : MigrationChild
 {
     public void ChildDown(Migration migration)
     {
-        migration.Delete.Table("storage");
+        migration.DeleteTableIfExists("storage");
     }
 
     public void ChildUp(Migration migration)

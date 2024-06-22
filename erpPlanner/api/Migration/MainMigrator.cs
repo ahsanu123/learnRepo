@@ -7,14 +7,15 @@ namespace erpPlanner.pMigration;
 [Migration(MigrationExtension.MIGRATION_VERSION, MigrationExtension.MIGRATION_DESCRIPTION)]
 public class MainMigrator : Migration
 {
-    /*IEnumerable<Migration?> ListMigration = typeof(Migration)*/
-    /*  .Assembly.GetTypes()*/
-    /*  .Where(type => type.IsSubclassOf(typeof(Migration)) && typeof(IMigrationExec).IsAssignableFrom(type) && !type.IsAbstract)*/
-    /*  .Select(type => (Migration)Activator.CreateInstance(type));*/
-
+    /// <summary>
+    ///
+    /// Scan All MigrationChild in assembly, and create instance of it 
+    /// then run childUp or childDown inside MainMigrator Up and Down Method
+    ///
+    /// </summary>
     IEnumerable<Type> listMigration = Assembly.GetAssembly(typeof(MigrationChild))
-      .GetTypes()
-      .Where(type => type.IsClass && !type.IsAbstract && typeof(MigrationChild).IsAssignableFrom(type));
+       .GetTypes()
+       .Where(type => type.IsClass && !type.IsAbstract && typeof(MigrationChild).IsAssignableFrom(type));
 
     List<MigrationChild> GetMigrationInheritedClass()
     {

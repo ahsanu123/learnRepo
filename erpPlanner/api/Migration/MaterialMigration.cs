@@ -15,7 +15,7 @@ public class MaterialMigration : MigrationChild
 {
     public void ChildDown(Migration migration)
     {
-        migration.Delete.Table("material");
+        migration.DeleteTableIfExists("material");
     }
 
     public void ChildUp(Migration migration)
@@ -40,69 +40,4 @@ public class MaterialMigration : MigrationChild
     }
 
 }
-
-public class HelloMigrator : MigrationChild
-{
-    public void ChildDown(Migration migration)
-    {
-        migration.Delete.Table("hello");
-    }
-
-    public void ChildUp(Migration migration)
-    {
-        List<string> stringCol = new List<string>([
-          "name",
-          "type",
-          "category",
-          "description",
-          "supplier",
-          "supplierLink"
-        ]);
-
-        var table = migration.Create.Table("hello")
-          .WithColumn("materialId").AsInt64().PrimaryKey().Identity()
-          .WithColumn("price").AsFloat();
-
-        foreach (var colName in stringCol)
-        {
-            table.WithColumn(colName).AsString();
-        }
-    }
-
-}
-
-
-
-
-public class SometihnkMigration : MigrationChild
-{
-    public void ChildDown(Migration migration)
-    {
-        migration.Delete.Table("somethink");
-    }
-
-    public void ChildUp(Migration migration)
-    {
-        List<string> stringCol = new List<string>([
-          "name",
-          "type",
-          "category",
-          "description",
-          "supplier",
-          "supplierLink"
-        ]);
-
-        var table = migration.Create.Table("somethink")
-          .WithColumn("materialId").AsInt64().PrimaryKey().Identity()
-          .WithColumn("price").AsFloat();
-
-        foreach (var colName in stringCol)
-        {
-            table.WithColumn(colName).AsString();
-        }
-    }
-
-}
-
-
 
