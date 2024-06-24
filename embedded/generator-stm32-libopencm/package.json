@@ -1,0 +1,43 @@
+{
+  "name": "generator-stm32",
+  "version": "1.0.0",
+  "description": "cmake libopencm3 generator for stm32 with automatic linker generator and GDB debug with SVD Register View",
+  "author": {
+    "name": "Ahsanu Amala"
+  },
+  "files": [
+    "generators"
+  ],
+  "type": "module",
+  "main": "./generators/app/index.js",
+  "scripts": {
+    "build": "tsc && npm run copy-templates",
+    "link": "yarn unlink generator-stm32 && yarn link",
+    "develop": "tsc-watch & npm run watch-templates --silent",
+    "watch-templates": "onchange 'src/*/templates/**' --initial -- npm run copy-templates --silent",
+    "copy-templates": "copyfiles --all --up 1 'src/*/templates/**' generators"
+  },
+  "dependencies": {
+    "@yeoman/types": "^1.2.0",
+    "chalk": "^4.1.0",
+    "directory-exists": "^2.0.1",
+    "eclint": "^2.8.1",
+    "glob": "^7.1.7",
+    "inquirer": "^9.2.23",
+    "lodash": "^4.17.21",
+    "mem-fs": "^4.1.0",
+    "yeoman-generator": "7.3.1",
+    "yosay": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.4",
+    "@types/lodash": "^4.14.168",
+    "@types/node": "^16.4.13",
+    "@types/yosay": "^2.0.0",
+    "copyfiles": "^2.4.1",
+    "onchange": "^7.1.0",
+    "tsc": "^1.20150623.0",
+    "tsc-watch": "^4.2.9",
+    "typescript": "5.4.5"
+  }
+}
