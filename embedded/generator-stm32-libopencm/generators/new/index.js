@@ -1,7 +1,7 @@
 import Generator from "yeoman-generator";
-export default class Stm32 extends Generator {
+export default class subCommand extends Generator {
     constructor(args, opts) {
         super(args, opts);
-        this.log("Hello!!");
+        this.log("new Templates Hello");
     }
 }

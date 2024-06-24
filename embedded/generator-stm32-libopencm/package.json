@@ -12,18 +12,17 @@
   "main": "./generators/app/index.js",
   "scripts": {
     "build": "tsc && npm run copy-templates",
-    "link": "yarn unlink generator-stm32 && yarn link",
-    "develop": "tsc-watch & npm run watch-templates --silent",
-    "watch-templates": "onchange 'src/*/templates/**' --initial -- npm run copy-templates --silent",
+    "watch": "tsc -w && npm run watch-templates",
+    "watch-templates": "onchange 'src/*/templates/**' --initial -- npm run copy-templates && npm link --silent",
     "copy-templates": "copyfiles --all --up 1 'src/*/templates/**' generators"
   },
   "dependencies": {
-    "@yeoman/types": "^1.2.0",
+    "@yeoman/adapter": "^1.4.0",
     "chalk": "^4.1.0",
     "directory-exists": "^2.0.1",
     "eclint": "^2.8.1",
     "glob": "^7.1.7",
-    "inquirer": "^9.2.23",
+    "inquirer": "^9.0.7",
     "lodash": "^4.17.21",
     "mem-fs": "^4.1.0",
     "yeoman-generator": "7.3.1",
@@ -31,13 +30,14 @@
   },
   "devDependencies": {
     "@types/glob": "^7.1.4",
+    "@types/inquirer": "^9.0.7",
     "@types/lodash": "^4.14.168",
     "@types/node": "^16.4.13",
+    "@types/yeoman-generator": "^5.2.14",
     "@types/yosay": "^2.0.0",
+    "@yeoman/types": "^1.2.0",
     "copyfiles": "^2.4.1",
     "onchange": "^7.1.0",
-    "tsc": "^1.20150623.0",
-    "tsc-watch": "^4.2.9",
     "typescript": "5.4.5"
   }
 }

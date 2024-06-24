@@ -3,7 +3,8 @@
     "**/*.spec.*",
     "**/__*/**",
     "**/node_modules",
-    "**/.*/"
+    "**/.*/",
+    "./generators/*"
   ],
   "compilerOptions": {
     "target": "ES2022" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
@@ -15,7 +16,7 @@
     ],
     "module": "node16",
     "resolveJsonModule": true,
-    "allowJs": true /* Allow JavaScript files to be a part of your program. Use the 'checkJS' option to get errors from these files. */,
+    "allowJs": true,
     "outDir": "./generators" /* Specify an output folder for all emitted files. */,
     "allowSyntheticDefaultImports": true /* Allow 'import x from y' when a module doesn't have a default export. */,
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
