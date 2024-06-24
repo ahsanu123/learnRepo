@@ -6,7 +6,6 @@ Generator,
   Storage
 } from "yeoman-generator";
 
-
 type Choice<Value> = {
   value: Value;
   name?: string;
@@ -29,11 +28,25 @@ interface Stm32ArgumentsImpl {
   option?: string
 }
 
-type SetupAnwer = 'projectName' | 'version'
+interface IHelpCli {
+  command: string,
+  description: string,
+}
+
+type SetupAnwer = 'projectName' | 'version' | 'fullDeviceName'
+
+type HelpCli = Record<SetupAnwer, IHelpCli>
 
 export default class Stm32 extends Generator<Stm32Arguments> {
   private setupAnswer?: Record<SetupAnwer, any>;
-  private architecture: string = ''
+
+  argumentsHelp() {
+    return "hello"
+  }
+
+  help() {
+    return "this is general help"
+  }
 
   _private_listStm32Family() {
     const family: Choice<string>[] = [];
@@ -80,7 +93,22 @@ export default class Stm32 extends Generator<Stm32Arguments> {
 
     this.setupAnswer = await this.prompt(listPrompt)
   }
+
   writing() {
-    this.log("Object: ", JSON.stringify(this.options.option))
+    const help: HelpCli = {
+      projectName: {
+        command: "--option",
+        description: "this is option to disable some option"
+      },
+      version: {
+        command: "--option",
+        description: "this is option to disable some option"
+      },
+      fullDeviceName: {
+        command: "--option",
+        description: "this is option to disable some option"
+      },
+    }
+    this.log(`Project Name: ${help.projectName.description}, Version: ${help.version.description}`)
   }
 }

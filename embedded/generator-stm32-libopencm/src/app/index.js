@@ -47,7 +47,7 @@ export default class Stm32 extends Generator {
     }
     writing() {
         const help = {
-            projectName: {
+            "projectName": {
                 command: "--option",
                 description: "this is option to disable some option"
             },

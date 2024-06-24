@@ -4,7 +4,8 @@
     "**/__*/**",
     "**/node_modules",
     "**/.*/",
-    "./generators/*"
+    "./generators/*",
+    "./eslint.config.js"
   ],
   "compilerOptions": {
     "target": "ES2022" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
