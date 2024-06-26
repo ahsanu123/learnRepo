@@ -8,22 +8,22 @@
     "./eslint.config.js"
   ],
   "compilerOptions": {
-    "target": "ES2022" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "target": "ES2022",
     "lib": [
       "ES2022"
-    ] /* Specify a set of bundled library declaration files that describe the target runtime environment. */,
+    ],
     "types": [
       "node"
     ],
     "module": "node16",
     "resolveJsonModule": true,
     "allowJs": true,
-    "outDir": "./generators" /* Specify an output folder for all emitted files. */,
-    "allowSyntheticDefaultImports": true /* Allow 'import x from y' when a module doesn't have a default export. */,
-    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
-    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
-    "strict": true /* Enable all strict type-checking options. */,
+    "outDir": "./generators",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
     "noImplicitAny": false,
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true
   }
 }

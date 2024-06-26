@@ -13,7 +13,7 @@
   "scripts": {
     "build": "tsc && npm run copy-templates",
     "watch": "tsc -w && npm run watch-templates",
-    "watch-templates": "onchange 'src/*/templates/**' --initial -- npm run copy-templates && npm link --silent",
+    "watch-templates": "onchange 'src/*/templates/**' -- npm run copy-templates && npm link --silent",
     "copy-templates": "copyfiles --all --up 1 'src/*/templates/**' generators"
   },
   "dependencies": {
@@ -21,6 +21,7 @@
     "chalk": "^4.1.0",
     "directory-exists": "^2.0.1",
     "eclint": "^2.8.1",
+    "execa": "^9.3.0",
     "glob": "^7.1.7",
     "inquirer": "^9.0.7",
     "lodash": "^4.17.21",
