@@ -16,7 +16,7 @@
 <br />
 <div align="center">
 
-  <h3 align="center">Learning Repo</h3>
+  <h3 align="center">📚 Learning Repo</h3>
 
   <p align="center">
     Repo to save my code.
@@ -25,7 +25,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+## 💊 About The Project
 
 repo to save my learning about programming in any language that i interested with
 
