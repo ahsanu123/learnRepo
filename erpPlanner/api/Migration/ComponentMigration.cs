@@ -1,3 +1,4 @@
+using erpPlanner.Model;
 using FluentMigrator;
 
 namespace erpPlanner.pMigration;
@@ -15,23 +16,25 @@ public class ComponentMigration : MigrationChild
             ["name", "type", "category", "description", "supplier", "supplierLink"]
         );
 
-        migration
-            .Create.Table("component")
-            .WithColumn("id")
-            .AsInt32()
-            .Identity()
-            .PrimaryKey()
-            .WithColumn("storageId")
-            .AsInt64()
-            .WithColumn("name")
-            .AsString()
-            .WithColumn("sellPrice")
-            .AsFloat()
-            .WithColumn("capital")
-            .AsFloat()
-            .WithColumn("isAssembly")
-            .AsBoolean()
-            .WithColumn("description")
-            .AsString();
+        migration.GenerateFromObject(new Component());
+
+        // migration
+        //     .Create.Table("component")
+        //     .WithColumn("id")
+        //     .AsInt32()
+        //     .Identity()
+        //     .PrimaryKey()
+        //     .WithColumn("storageId")
+        //     .AsInt64()
+        //     .WithColumn("name")
+        //     .AsString()
+        //     .WithColumn("sellPrice")
+        //     .AsFloat()
+        //     .WithColumn("capital")
+        //     .AsFloat()
+        //     .WithColumn("isAssembly")
+        //     .AsBoolean()
+        //     .WithColumn("description")
+        //     .AsString();
     }
 }

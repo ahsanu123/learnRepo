@@ -1,6 +1,6 @@
 namespace erpPlanner.Model;
 
-public class Material
+public class Component
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -11,5 +11,4 @@ public class Material
     public string Suplier { get; set; }
     public string SuplierLink { get; set; }
     public int StorageId { get; set; }
-
 }

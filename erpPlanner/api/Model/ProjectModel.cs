@@ -1,5 +1,3 @@
-
-
 namespace erpPlanner.Model;
 
 public class Project

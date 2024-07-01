@@ -1,4 +1,5 @@
 using System.Reflection;
+using erpPlanner.Model;
 using FluentMigrator;
 
 namespace erpPlanner.pMigration;
@@ -8,13 +9,16 @@ public class MainMigrator : Migration
 {
     /// <summary>
     ///
-    /// Scan All MigrationChild in assembly, and create instance of it 
+    /// Scan All MigrationChild in assembly, and create instance of it
     /// then run childUp or childDown inside MainMigrator Up and Down Method
     ///
     /// </summary>
-    IEnumerable<Type> listMigration = Assembly.GetAssembly(typeof(MigrationChild))
-       .GetTypes()
-       .Where(type => type.IsClass && !type.IsAbstract && typeof(MigrationChild).IsAssignableFrom(type));
+    IEnumerable<Type> listMigration = Assembly
+        .GetAssembly(typeof(MigrationChild))
+        .GetTypes()
+        .Where(type =>
+            type.IsClass && !type.IsAbstract && typeof(MigrationChild).IsAssignableFrom(type)
+        );
 
     List<MigrationChild> GetMigrationInheritedClass()
     {
