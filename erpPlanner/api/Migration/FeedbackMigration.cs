@@ -2,24 +2,22 @@ using FluentMigrator;
 
 namespace erpPlanner.pMigration;
 
-public class StorageMigration : MigrationChild
+public class FeedbackMigration : MigrationChild
 {
     public void ChildDown(Migration migration)
     {
-        migration.DeleteTableIfExists("storage");
+        migration.DeleteTableIfExists("feedback");
     }
 
     public void ChildUp(Migration migration)
     {
         migration
-            .Create.Table("storage")
+            .Create.Table("feedback")
             .WithColumn("id")
-            .AsInt64()
-            .PrimaryKey()
+            .AsInt32()
             .Identity()
-            .WithColumn("name")
-            .AsString()
-            .WithColumn("location")
+            .PrimaryKey()
+            .WithColumn("overview")
             .AsString()
             .WithColumn("description")
             .AsString();

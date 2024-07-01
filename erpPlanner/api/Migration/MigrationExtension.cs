@@ -11,7 +11,7 @@ public interface MigrationChild
 
 public static class MigrationExtension
 {
-    public const int MIGRATION_VERSION = 2;
+    public const int MIGRATION_VERSION = 4;
     public const string MIGRATION_DESCRIPTION = "Plannerp Migration Version 1";
 
     public static IApplicationBuilder Migrate(this IApplicationBuilder app)
@@ -26,7 +26,6 @@ public static class MigrationExtension
         {
             runner.Down(new MainMigrator());
             runner.MigrateUp(MigrationExtension.MIGRATION_VERSION);
-
         }
 
         return app;
@@ -34,8 +33,8 @@ public static class MigrationExtension
 
     public static Migration DeleteTableIfExists(this Migration migration, string name)
     {
-
-        if (migration.Schema.Table(name).Exists()) migration.Delete.Table(name);
+        if (migration.Schema.Table(name).Exists())
+            migration.Delete.Table(name);
 
         return migration;
     }

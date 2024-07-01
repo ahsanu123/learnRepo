@@ -23,14 +23,15 @@ builder
     .Services.AddFluentMigratorCore()
     .ConfigureRunner(rb =>
         rb
-            // Add SQLite support to FluentMigrator
-            /*.AddPostgres()*/
+        // Add SQLite support to FluentMigrator
+        .AddPostgres()
             // Set the connection string
-            .AddSQLite()
-            /*.WithGlobalConnectionString(connectionString)*/
-            .WithGlobalConnectionString("Data Source=test.db")
+            // .AddSQLite()
+            .WithGlobalConnectionString(connectionString)
+            // .WithGlobalConnectionString("Data Source=test.db;foreign keys=true;")
             // Define the assembly containing the migrations
-            .ScanIn(Assembly.GetExecutingAssembly()).For.All()
+            .ScanIn(Assembly.GetExecutingAssembly())
+            .For.All()
     )
     // Enable logging to console in the FluentMigrator way
     .AddLogging(lb => lb.AddFluentMigratorConsole())
