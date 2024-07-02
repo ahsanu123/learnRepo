@@ -19,22 +19,9 @@ public class ComponentTest : IClassFixture<WebApplicationFactory<Program>>
     [Fact]
     public async Task GetCurrency()
     {
-        string actual = "HellYeah";
         var response = await _client.GetAsync("/Currency/GetRawCurrency");
-        string jsonResponse = JsonConvert.SerializeObject(response, Formatting.Indented);
-        // Console.WriteLine(jsonResponse);
+        await response.PrintDebug();
 
-        actual.Should().StartWith("AB").And.EndWith("HI").And.Contain("EF").And.HaveLength(9);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
-
-    // [Fact]
-    // public async Task GetErrorEndpoint()
-    // {
-    //     var response = await _client.GetAsync("/material/all");
-    //     string jsonResponse = JsonConvert.SerializeObject(response, Formatting.Indented);
-    //     // Console.WriteLine(jsonResponse);
-    //
-    //     Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
-    // }
 }
