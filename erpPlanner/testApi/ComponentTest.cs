@@ -1,10 +1,13 @@
 using System.Net;
-using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Newtonsoft.Json;
 
 namespace PlanerTests;
 
+// Todo Learn https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata
+// [Theory]
+// [InlineData]
+// [MemberData]
+// [ClassData]
 public class ComponentTest : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly WebApplicationFactory<Program> _factory;
