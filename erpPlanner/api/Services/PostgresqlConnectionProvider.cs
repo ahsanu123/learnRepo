@@ -1,3 +1,4 @@
+using System.Data.Common;
 using Npgsql;
 
 namespace erpPlanner.Services;
@@ -16,5 +17,13 @@ public class PostgresqlConnectionProvider
     public NpgsqlConnection CreateConnection()
     {
         return new NpgsqlConnection(_connectionString);
+    }
+
+    public DbDataAdapter GetAdapter(string tableName, DbConnection connection)
+    {
+        string rawSelectCommand = $"select * from {tableName}";
+        var selectCommand = new NpgsqlCommand(rawSelectCommand, (NpgsqlConnection)connection);
+
+        return new NpgsqlDataAdapter(selectCommand);
     }
 }
