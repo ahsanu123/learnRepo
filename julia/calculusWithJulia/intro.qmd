@@ -1,0 +1,18 @@
+---
+title: "Fuck Yeah"
+engine: julia
+julia: 
+  exeflags: ["--project=~/.julia/environments/v1.10/"]
+---
+
+# Introduction
+
+use Main Julia project on `~/.julia/`
+This is a book created from markdown and executable code.
+
+```{julia}
+using SymPy
+1 + 2
+```
+
+See @knuth84 for additional discussion of literate programming.

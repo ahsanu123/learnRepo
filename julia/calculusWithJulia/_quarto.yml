@@ -1,0 +1,26 @@
+project:
+  type: book
+
+book:
+  title: "Calculus With Julia"
+  author: "Ahsanu Amala"
+  date: "7/6/2024"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - summary.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: 
+      light: flatly
+      dark: darkly
+
+  pdf:
+    documentclass: scrreprt
+
+
+
