@@ -1,6 +1,5 @@
 using System.Reflection;
 using erpPlanner.ExtensionMethod;
-using erpPlanner.Model;
 using erpPlanner.pMigration;
 using FluentMigrator.Runner;
 
