@@ -57,6 +57,13 @@ public:
   virtual bool RequestData(int address) = 0;
 };
 
+class SerialTransfer : public Mcu {
+  bool RequestData(int address) override {
+    cout << "Request Data From Serial" << endl;
+    return true;
+  }
+};
+
 class MyAvrProject {
 private:
   Mcu *mcu;
@@ -67,7 +74,6 @@ public:
 };
 
 class McuUsbAdapter : public Mcu {
-
 private:
   McuUsb usb;
 
@@ -81,6 +87,9 @@ public:
 int main(int argc, char *argv[]) {
 
   auto avrProject = new MyAvrProject();
+  avrProject->SetMcu(new SerialTransfer());
+  avrProject->RequestData();
+
   avrProject->SetMcu(new McuUsbAdapter(*new McuUsb()));
   avrProject->RequestData();
 
