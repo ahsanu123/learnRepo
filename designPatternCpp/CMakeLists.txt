@@ -10,6 +10,6 @@ add_executable(
 )
 
 add_executable(
-  adapter
-  ./src/Adapter.cpp
+   bridge
+  ./src/Bridge.cpp
 )

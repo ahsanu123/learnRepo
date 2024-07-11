@@ -67,7 +67,7 @@ private:
 class TIGasSensor : public IGasSensor {};
 
 int main(int argc, char *argv[]) {
-  cout << "| Adapter Design Pattern |" << endl;
+  cout << "| Bridge Design Pattern |" << endl;
 
   IGasSensorHardware *gasSensorHardware = new NXPGasSensorHardware();
   IGasSensor *gasSensor = new NXPGasSensor(gasSensorHardware);
