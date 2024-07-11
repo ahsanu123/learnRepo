@@ -54,3 +54,17 @@ classDiagram
     }
 
 ```
+```cpp
+
+  cout << "| Adapter Design Pattern |" << endl;
+
+  IGasSensorHardware *gasSensorHardware = new NXPGasSensorHardware();
+  IGasSensor *gasSensor = new NXPGasSensor(gasSensorHardware);
+
+  cout << endl
+       << "- gas Sensor Flow: " << endl << gasSensor->GetFlow();
+
+  cout << endl
+       << "- gas Sensor intensity: " << endl
+       << gasSensor->GetIntensity();
+```
