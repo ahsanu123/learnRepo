@@ -36,16 +36,19 @@ classDiagram
     class TIGasSensorHardware{
       +ReadFromRegister(char address) int
       +WriteToRegister(char address) bool
+      +SpecificSensorReading() 
     }
 
     class NXPGasSensorHardware{
       +ReadFromRegister(char address) int
       +WriteToRegister(char address) bool
+      +SpecificSensorReading() 
     }
 
     class OtherGasSensor{
       +ReadFromRegister(char address) int
       +WriteToRegister(char address) bool
+      +SpecificSensorReading() 
     }
 
     class Client{
