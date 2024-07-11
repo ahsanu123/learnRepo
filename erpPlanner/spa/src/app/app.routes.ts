@@ -3,6 +3,7 @@ import { DasboardComponent } from '../page/dasboard/dasboard.component';
 import { DynamicFormComponent } from '../component/dynamic-form/dynamic-form.component';
 import { ProjectSummaryComponent } from '../component/project-summary/project-summary.component';
 import { ProjectInfoComponent } from '../page/project-info/project-info.component';
+import { ProjectPageComponent } from '../page/project-page/project-page.component';
 
 export const routes: Routes = [
   {
@@ -26,5 +27,10 @@ export const routes: Routes = [
     path: 'projectinfo',
     title: 'Project Information',
     component: ProjectInfoComponent,
+  },
+  {
+    path: 'project',
+    title: 'Project Page',
+    component: ProjectPageComponent,
   }
 ];

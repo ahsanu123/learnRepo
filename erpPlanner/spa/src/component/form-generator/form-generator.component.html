@@ -1,0 +1,13 @@
+<p>form-generator works!</p>
+
+<form [formGroup]="formGroup"
+      (ngSubmit)="sendSubmitToParent($event)">
+  <div *ngFor="let key of formKey;">
+    <input [type]="this.data[key].type"
+           [formControlName]="key"
+           [placeholder]="key" />
+  </div>
+  <button type="submit">
+    submit
+  </button>
+</form>
