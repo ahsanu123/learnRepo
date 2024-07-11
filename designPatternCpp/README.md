@@ -2,14 +2,13 @@
 
 ## 🏛️ Builder
 
-## 🔌 Adapter
+## 🌉 Bridge
 
-Adapter is a structural design pattern, which allows incompatible objects to collaborate.
-The Adapter acts as a wrapper between two objects. It catches calls for one object and transforms them to format and interface recognizable by the second object. [[Ref](https://refactoring.guru/design-patterns/adapter/cpp/example#example-1)]
+Bridge is a structural design pattern that lets you split a large class or a set of closely related classes into two separate hierarchies—abstraction and implementation—which can be developed independently of each other. [[Ref](https://refactoring.guru/design-patterns/bridge)]
 
 ```mermaid
 ---
-title: Adapter (Use Gas Sensor As Example)
+title: Bridge (Use Gas Sensor As Example)
 ---
 classDiagram
 
@@ -59,7 +58,7 @@ classDiagram
 ```
 ```cpp
 
-  cout << "| Adapter Design Pattern |" << endl;
+  cout << "| Bridge Design Pattern |" << endl;
 
   IGasSensorHardware *gasSensorHardware = new NXPGasSensorHardware();
   IGasSensor *gasSensor = new NXPGasSensor(gasSensorHardware);
