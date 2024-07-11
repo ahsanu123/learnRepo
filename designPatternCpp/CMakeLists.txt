@@ -8,3 +8,8 @@ add_executable(
  ./src/Builder.cpp
  ./src/Builder.hpp
 )
+
+add_executable(
+  adapter
+  ./src/Adapter.cpp
+)
