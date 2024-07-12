@@ -1,13 +1,54 @@
-<p>form-generator works!</p>
-
 <form [formGroup]="formGroup"
-      (ngSubmit)="sendSubmitToParent($event)">
-  <div *ngFor="let key of formKey;">
-    <input [type]="this.data[key].type"
-           [formControlName]="key"
-           [placeholder]="key" />
+      (ngSubmit)="sendSubmitToParent($event)"
+      class="mx-5 my-4">
+  <div *ngFor="let key of formKey;"
+       class="mt-2">
+    <label [class]="this.data[key].type !== 'textarea' ? 'label':''">
+
+      <div *ngIf="!key.includes('id')"
+           class="label">
+        <span class="label-text">
+          <ng-icon [name]="this.getIconFromType(this.data[key].type)" />
+          {{this.camelCase2space(key)}}</span>
+      </div>
+
+      <input *ngIf="this.data[key].type !== 'textarea' && this.data[key].type !== 'checkbox' "
+             class="input input-bordered w-full max-w-xs"
+             [type]="this.data[key].type"
+             [checked]="this.data[key].value"
+             [value]="this.data[key].value"
+             [formControlName]="key"
+             [placeholder]="key"
+             [hidden]="key.includes('id')" />
+
+      <input *ngIf="this.data[key].type ==='checkbox' "
+             class="checkbox"
+             type="checkbox"
+             [formControlName]="key"
+             [hidden]="key.includes('id')" />
+
+      <div *ngIf="this.data[key].type ==='textarea'"
+           class="flex w-full mb-10">
+        <div class="grid w-96 min-h-96 flex-grow card w-80 bg-base-300 ">
+          <textarea class="textarea textarea-bordered w-full min-h-72"
+                    [placeholder]="key"
+                    [formControlName]="key"
+                    [hidden]="key.includes('id')">
+          </textarea>
+        </div>
+
+        <div class="grid min-h-96 flex-grow card bg-base-300 place-items-left px-2 w-80">
+          <markdown emoji
+                    [data]="this.formGroup.value[key]"
+                    class="markdown-project-info text-wrap overflow-y-auto py-5 px-5">
+          </markdown>
+        </div>
+      </div>
+    </label>
   </div>
-  <button type="submit">
+
+  <button type="submit"
+          class="btn btn-primary w-full">
     submit
   </button>
 </form>

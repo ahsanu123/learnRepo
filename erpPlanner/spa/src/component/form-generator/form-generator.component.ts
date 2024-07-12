@@ -1,6 +1,10 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import * as icon from '@ng-icons/heroicons/solid';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { InputType } from '../../page/project-page/project-page.component';
+import { MarkdownComponent, MarkdownService, provideMarkdown } from 'ngx-markdown';
 
 export interface FormModel {
   name: string;
@@ -19,21 +23,32 @@ interface BasicProject {
   selector: 'app-form-generator',
   standalone: true,
   imports: [
+    NgIconComponent,
     FormsModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DatePipe,
+    MarkdownComponent,
+
+  ],
+  providers: [
+    provideIcons(icon),
+    provideMarkdown()
   ],
   templateUrl: './form-generator.component.html',
   styleUrl: './form-generator.component.scss'
 })
 export class FormGeneratorComponent implements OnInit {
-  @Input({ required: true }) data!: any;
+  @Input({ required: true }) data!: any
+  @Input() compact: boolean = false
+  @Input() showCode: boolean = true
   @Output() OnSubmit: EventEmitter<any> = new EventEmitter();
 
   formGroup!: FormGroup;
   formKey!: Array<string>;
 
   constructor(
+
     private formBuilder: FormBuilder,
   ) { }
 
@@ -53,4 +68,19 @@ export class FormGeneratorComponent implements OnInit {
     this.OnSubmit.emit(this.formGroup.value)
   }
 
+  camelCase2space(value: string): string {
+    const result = value.replace(/([A-Z])/g, " $1");
+    return result.charAt(0).toUpperCase() + result.slice(1);
+  }
+
+  getIconFromType(type: InputType): string {
+    let iconName: string = 'heroPencilSquareSolid'
+    switch (type) {
+      case 'checkbox': iconName = 'heroCheckCircleSolid'; break;
+      case 'textarea': iconName = 'heroBookOpenSolid'; break;
+      case 'date': iconName = 'heroCalendarDaysSolid'; break;
+      default: break;
+    }
+    return iconName
+  }
 }

@@ -1,6 +1,5 @@
-
 export interface ProjectModel {
-  ProjectId: number;
+  id: number;
   Name: string;
   CreateDate: Date;
   DeadLineDate?: Date;
