@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { ProjectModel } from "../model/project-model";
-import { BaseUrl } from "../shared/shared-variable";
+import { BaseUrl } from "../shared";
 
 export class ProjectRepository {
   private http: HttpClient;
@@ -13,6 +13,4 @@ export class ProjectRepository {
   getProjectById(id: number): Observable<ProjectModel> {
     return this.http.get<ProjectModel>(`${BaseUrl}/project/${id}`);
   }
-
-
 }

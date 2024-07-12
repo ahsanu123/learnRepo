@@ -1,17 +1,7 @@
 import { Component, Input, OnInit, input } from '@angular/core';
-import { FormGeneratorComponent, FormModel } from '../../component/form-generator/form-generator.component';
 import { ProjectModel } from '../../model/project-model';
-
-interface ProjectName {
-  name: string;
-  description: string;
-  age: number;
-  date: Date;
-  isActive: boolean;
-}
-
-export type InputType = 'text' | 'textarea' | 'number' | 'date' | 'button' | 'checkbox' | 'datetime-local' | 'email' | 'file' | 'password' | 'radio' | 'range'
-export type GenericForm<T> = Record<keyof Partial<T>, { type: InputType, value: any }>
+import { ComponentModule } from '../../component/component.module';
+import { GenericForm, Obj2GenericForm } from '../../shared';
 
 const dataFromApi: Partial<ProjectModel> = {
   id: 5,
@@ -46,40 +36,11 @@ Simple Breakout Board to Learn Shift Register with Tactile Switch And Rotary Enc
 
 }
 
-function Obj2GenericForm<T>(obj: T) {
-  const returnObj = {} as GenericForm<T>;
-  for (const key in obj) {
-
-    let inputType: InputType
-
-    if (typeof obj[key] === 'boolean')
-      inputType = 'checkbox'
-
-    else if (obj[key] instanceof Date)
-      inputType = 'date'
-
-    else if (typeof obj[key] === 'number')
-      inputType = 'number'
-
-    else if (typeof obj[key] === 'string' && (obj[key] as string).length > 10)
-      inputType = 'textarea'
-
-    else inputType = 'text'
-
-    returnObj[key] = {
-      type: inputType,
-      value: inputType === 'date' ? (obj[key] as Date).toISOString().split('T')[0] : obj[key]
-    }
-  }
-  console.log(returnObj)
-  return returnObj
-}
-
 @Component({
   selector: 'app-project-page',
   standalone: true,
   imports: [
-    FormGeneratorComponent
+    ComponentModule
   ],
   templateUrl: './project-page.component.html',
   styleUrl: './project-page.component.scss'

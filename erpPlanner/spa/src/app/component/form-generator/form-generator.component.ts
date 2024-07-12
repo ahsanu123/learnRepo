@@ -1,26 +1,13 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as icon from '@ng-icons/heroicons/solid';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { InputType } from '../../page/project-page/project-page.component';
-import { MarkdownComponent, MarkdownService, provideMarkdown } from 'ngx-markdown';
-
-export interface FormModel {
-  name: string;
-  type: FormType;
-  age: number;
-}
-
-type FormType = 'text' | 'date' | 'checkbox';
-
-interface BasicProject {
-  name: string;
-  date: Date;
-}
+import { MarkdownComponent, provideMarkdown } from 'ngx-markdown';
+import { InputType } from '../../shared';
 
 @Component({
-  selector: 'app-form-generator',
+  selector: 'form-generator',
   standalone: true,
   imports: [
     NgIconComponent,
@@ -40,8 +27,10 @@ interface BasicProject {
 })
 export class FormGeneratorComponent implements OnInit {
   @Input({ required: true }) data!: any
-  @Input() compact: boolean = false
-  @Input() showCode: boolean = true
+  @Input() compact: boolean = false //  TODO: add compact and norma style
+  @Input() showCode: boolean = true // TODO: enable hide and show code in markdown
+  @Input() submitLabel: string = 'Submit'
+
   @Output() OnSubmit: EventEmitter<any> = new EventEmitter();
 
   formGroup!: FormGroup;
@@ -59,7 +48,6 @@ export class FormGeneratorComponent implements OnInit {
       obj[key] = this.data[key].value
     })
 
-    console.log(obj)
     this.formGroup = this.formBuilder.group(obj)
     this.formKey = Object.keys(this.formGroup.controls)
   }

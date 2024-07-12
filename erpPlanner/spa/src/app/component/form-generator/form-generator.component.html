@@ -12,6 +12,7 @@
           {{this.camelCase2space(key)}}</span>
       </div>
 
+      <!-- input for text type      -->
       <input *ngIf="this.data[key].type !== 'textarea' && this.data[key].type !== 'checkbox' "
              class="input input-bordered w-full max-w-xs"
              [type]="this.data[key].type"
@@ -21,12 +22,14 @@
              [placeholder]="key"
              [hidden]="key.includes('id')" />
 
+      <!-- input for checkbox type -->
       <input *ngIf="this.data[key].type ==='checkbox' "
              class="checkbox"
              type="checkbox"
              [formControlName]="key"
              [hidden]="key.includes('id')" />
 
+      <!-- input for textarea type with markdown viewer -->
       <div *ngIf="this.data[key].type ==='textarea'"
            class="flex w-full mb-10">
         <div class="grid w-96 min-h-96 flex-grow card w-80 bg-base-300 ">
@@ -44,11 +47,12 @@
           </markdown>
         </div>
       </div>
+
     </label>
   </div>
 
   <button type="submit"
           class="btn btn-primary w-full">
-    submit
+    {{this.submitLabel}}
   </button>
 </form>

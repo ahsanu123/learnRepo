@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SupportedImageType } from '../../shared/shared-variable';
 import { CommonModule } from '@angular/common';
+import { SupportedImageType } from '../../shared';
 
 @Component({
   selector: 'app-product-card',
