@@ -17,3 +17,8 @@ add_executable(
   adapter
   ./src/Adapter.cpp
 )
+
+add_executable(
+  factory
+  ./src/Factory.cpp
+)
