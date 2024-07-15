@@ -31,3 +31,16 @@ FROM OrderDate_CTE o
 INNER JOIN Sales.Orders s on s.empid = o.empid 
       AND  s.orderdate = o.maxorderdate
 ``` 
+
+- Exercise 3-1
+Write a query that calculates a row number for each order based on orderdate, orderid ordering
+```sql
+use TSQLV6;
+
+WITH OrderDate_CTE AS 
+(
+    SELECT orderid, orderdate, custid, empid, ROW_NUMBER() OVER(ORDER BY orderdate, orderid) as num
+    FROM Sales.Orders
+) 
+SELECT * FROM OrderDate_CTE
+``` 
