@@ -60,3 +60,25 @@ ORDER BY num
 OFFSET 10 ROWS 
 FETCH FIRST 10 ROWS ONLY 
 ```
+
+- Exercise 4
+  Write a solution using a recursive &TE that returns the management chain leading to 3atricia Doyle
+(employee ID 9).You can think of this exercise as the inverse of the request to return an employee and all subordinates in all levels. Here, the anchor member is a query that returns the row for employee 9. The recursive member joins the CTE (call it C)—representing the subordinate/child from the previous level—with the Employees table (call it P)—representing the manager/parent in the next level. This way, each invocation of the recursive member returns the manager from the next level, until no next-level manager is found (in the case of the CEO).
+
+```sql
+USE TSQLV6;
+
+WITH RECUR_CTE AS 
+(
+    SELECT empid, mgrid, firstname, lastname
+    FROM HR.Employees 
+    WHERE empid = 9
+
+    UNION ALL 
+
+    SELECT P.empid, P.mgrid, P.firstname, P.lastname
+    FROM RECUR_CTE AS C 
+    INNER JOIN HR.Employees P on P.empid = C.mgrid
+)
+SELECT * FROM RECUR_CTE
+```
