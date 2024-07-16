@@ -2,6 +2,8 @@ import './style.scss'
 import { schema } from 'prosemirror-schema-basic'
 import { EditorState } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
+import { undo, redo, history } from 'prosemirror-history'
+import { keymap } from 'prosemirror-keymap'
 
 declare global {
   interface Window {
@@ -11,7 +13,16 @@ declare global {
 
 const app = document.querySelector<HTMLDivElement>('#app')!
 
-const state = EditorState.create({ schema })
+const state = EditorState.create({
+  schema: schema,
+  plugins: [
+    history(),
+    keymap({
+      'Mod-z': undo,
+      'Mod-y': redo
+    })
+  ]
+})
 const view = new EditorView(app, {
   state: state,
 
@@ -20,7 +31,7 @@ const view = new EditorView(app, {
       "to", transaction.doc.content.size)
     let newState = view.state.apply(transaction)
     view.updateState(newState)
-  }
+  },
 
 })
 

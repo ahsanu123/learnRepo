@@ -18,6 +18,8 @@
     "vite": "^5.3.4"
   },
   "dependencies": {
+    "prosemirror-history": "^1.4.1",
+    "prosemirror-keymap": "^1.2.2",
     "prosemirror-model": "^1.22.1",
     "prosemirror-schema-basic": "^1.2.3",
     "prosemirror-state": "^1.4.3",
