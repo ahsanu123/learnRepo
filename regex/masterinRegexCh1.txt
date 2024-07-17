@@ -1,0 +1,220 @@
+Regular expressions are extremely useful in extracting information from text such as code, log files, spreadsheets, or even documents. And while there is a lot of theory behind formal languages, the following lessons and examples will explore the more practical uses of regular expressions so that you can use them as quickly as possible.
+
+The first thing to recognize when using regular expressions is that everything is essentially a character, and we are writing patterns to match a specific sequence of characters (also known as a string). Most patterns use normal ASCII, which includes letters, digits, punctuation and other symbols on your keyboard like %#$@!, but unicode characters can also be used to match any type of international text.
+
+Below are a couple lines of text, notice how the text changes to highlight the matching characters on each line as you type in the input field below. To continue to the next lesson, you will need to grey use the new syntax and concept introduced in each lesson to write a pattern that matches all the lines provided.
+
+Go ahead and try writing a pattern that matches all three rows, it may be as simple as the common gray letters on each line.
+<h1>Beetles</h1>
+<h2>External morphology</h2>
+<h3>Head</h3>
+<h4>Mouthparts</h4>
+<h3>Thorax</h3>
+<h4>Prothorax</h4>
+<h4>Pterothorax</h4>
+
+Below are a couple lines of text, notice how the text changes to highlight the matching characters on each line as you type in the input field below. To continue to the next lesson, you will need to grey use the new syntax and concept introduced in each lesson to write a pattern that matches all the lines provided.
+
+Afghanistan	42,239,854	652,860	65
+Albania	2,832,439	27,400	103
+Algeria	45,606,480	2,381,740	19
+Andorra	80,088	470	170
+Angola	36,684,202	1,246,700	29
+Antigua and Barbuda	94,298	440	214
+Argentina	45,773,884	2,736,690	17
+Armenia	2,777,970	28,470	98
+Australia	26,439,111	7,682,300	3
+Austria	8,958,960	82,409	109
+Azerbaijan	10,412,651	82,658	126
+Bahamas	412,623	10,010	41
+Bahrain	1,485,509	760	1,955
+Bangladesh	172,954,319	130,170	1,329
+Barbados	281,995	430	656
+Belarus	9,498,238	202,910	47
+Belgium	11,686,140	30,280	386
+Belize	410,825	22,810	18
+Benin	13,712,828	112,760	122
+Bhutan	787,424	38,117	21
+Bolivia	12,388,571	1,083,300	11
+Bosnia and Herzegovina	3,210,847	51,000	63
+Botswana	2,675,352	566,730	5
+Brazil	216,422,446	8,358,140	26
+Brunei	452,524	5,270	86
+Bulgaria	6,687,717	108,560	62
+Burkina Faso	23,251,485	273,600	85
+Burundi	13,238,559	25,680	516
+Côte d'Ivoire	28,873,034	318,000	91
+Cabo Verde	598,682	4,030	149
+Cambodia	16,944,826	176,520	96
+Cameroon	28,647,293	472,710	61
+Canada	38,781,291	9,093,510	4
+Central African Republic	5,742,315	622,980	9
+Chad	18,278,568	1,259,200	15
+Chile	19,629,590	743,532	26
+China	1,425,671,352	9,388,211	152
+Colombia	52,085,168	1,109,500	47
+Comoros	852,075	1,861	458
+Congo (Congo-Brazzaville)	6,106,869	341,500	18
+Costa Rica	5,212,173	51,060	102
+Croatia	4,008,617	55,960	72
+Cuba	11,194,449	106,440	105
+Cyprus	1,260,138	9,240	136
+Czechia (Czech Republic)	10,495,295	77,240	136
+Democratic Republic of the Congo	102,262,808	2,267,050	45
+Denmark	5,910,913	42,430	139
+Djibouti	1,136,455	23,180	49
+Dominica	73,040	750	97
+Dominican Republic	11,332,972	48,320	235
+Ecuador	18,190,484	248,360	73
+Egypt	112,716,598	995,450	113
+El Salvador	6,364,943	20,720	307
+Equatorial Guinea	1,714,671	28,050	61
+Eritrea	3,748,901	101,000	37
+Estonia	1,322,765	42,390	31
+Eswatini (fmr. "Swaziland")	1,210,822	17,200	70
+Ethiopia	126,527,060	1,000,000	127
+Fiji	936,375	18,270	51
+Finland	5,545,475	303,890	18
+France	64,756,584	547,557	118
+Gabon	2,436,566	257,670	9
+Gambia	2,773,168	10,120	274
+Georgia	3,728,282	69,490	54
+Germany	83,294,633	348,560	239
+Ghana	34,121,985	227,540	150
+Greece	10,341,277	128,900	80
+Grenada	126,183	340	371
+Guatemala	18,092,026	107,160	169
+Guinea	14,190,612	245,720	58
+Guinea-Bissau	2,150,842	28,120	76
+Guyana	813,834	196,850	4
+Haiti	11,724,763	27,560	425
+Holy See	518	0	1,295
+Honduras	10,593,798	111,890	95
+Hungary	10,156,239	90,530	112
+Iceland	375,318	100,250	4
+India	1,428,627,663	2,973,190	481
+Indonesia	277,534,122	1,811,570	153
+Iran	89,172,767	1,628,550	55
+Iraq	45,504,560	434,320	105
+Ireland	5,056,935	68,890	73
+Israel	9,174,520	21,640	424
+Italy	58,870,762	294,140	200
+Jamaica	2,825,544	10,830	261
+Japan	123,294,513	364,555	338
+Jordan	11,337,052	88,780	128
+Kazakhstan	19,606,633	2,699,700	7
+Kenya	55,100,586	569,140	97
+Kiribati	133,515	810	165
+Kuwait	4,310,108	17,820	242
+Kyrgyzstan	6,735,347	191,800	35
+Laos	7,633,779	230,800	33
+Latvia	1,830,211	62,200	29
+Lebanon	5,353,930	10,230	523
+Lesotho	2,330,318	30,360	77
+Liberia	5,418,377	96,320	56
+Libya	6,888,388	1,759,540	4
+Liechtenstein	39,584	160	247
+Lithuania	2,718,352	62,674	43
+Luxembourg	654,768	2,590	253
+Madagascar	30,325,732	581,795	52
+Malawi	20,931,751	94,280	222
+Malaysia	34,308,525	328,550	104
+Maldives	521,021	300	1,737
+Mali	23,293,698	1,220,190	19
+Malta	535,064	320	1,672
+Marshall Islands	41,996	180	233
+Mauritania	4,862,989	1,030,700	5
+Mauritius	1,300,557	2,030	641
+Mexico	128,455,567	1,943,950	66
+Micronesia	544,321	700	778
+Moldova	3,435,931	32,850	105
+Monaco	36,297	1	24,360
+Mongolia	3,447,157	1,553,560	2
+Montenegro	626,485	13,450	47
+Morocco	37,840,044	446,300	85
+Mozambique	33,897,354	786,380	43
+Myanmar (formerly Burma)	54,577,997	653,290	84
+Namibia	2,604,172	823,290	3
+Nauru	12,780	20	639
+Nepal	30,896,590	143,350	216
+Netherlands	17,618,299	33,720	522
+New Zealand	5,228,100	263,310	20
+Nicaragua	7,046,310	120,340	59
+Niger	27,202,843	1,266,700	21
+Nigeria	223,804,632	910,770	246
+North Korea	26,160,821	120,410	217
+North Macedonia	2,085,679	25,220	83
+Norway	5,474,360	365,268	15
+Oman	4,644,384	309,500	15
+Pakistan	240,485,658	770,880	312
+Palau	18,058	460	39
+Palestine State	5,371,230	6,020	892
+Panama	4,468,087	74,340	60
+Papua New Guinea	10,329,931	452,860	23
+Paraguay	6,861,524	397,300	17
+Peru	34,352,719	1,280,000	27
+Philippines	117,337,368	298,170	394
+Poland	41,026,067	306,230	134
+Portugal	10,247,605	91,590	112
+Qatar	2,716,391	11,610	234
+Romania	19,892,812	230,170	86
+Russia	144,444,359	16,376,870	9
+Rwanda	14,094,683	24,670	571
+Saint Kitts and Nevis	47,755	260	184
+Saint Lucia	180,251	610	295
+Saint Vincent and the Grenadines	103,698	390	266
+Samoa	225,681	2,830	80
+San Marino	33,642	60	561
+Sao Tome and Principe	231,856	960	242
+Saudi Arabia	36,947,025	2,149,690	17
+Senegal	17,763,163	192,530	92
+Serbia	7,149,077	87,460	82
+Seychelles	107,660	460	234
+Sierra Leone	8,791,092	72,180	122
+Singapore	6,014,723	700	8,592
+Slovakia	5,795,199	48,088	121
+Slovenia	2,119,675	20,140	105
+Solomon Islands	740,424	27,990	26
+Somalia	18,143,378	627,340	29
+South Africa	60,414,495	1,213,090	50
+South Korea	51,784,059	97,230	533
+South Sudan	11,088,796	610,952	18
+Spain	47,519,628	498,800	95
+Sri Lanka	21,893,579	62,710	349
+Sudan	48,109,006	1,765,048	27
+Suriname	623,236	156,000	4
+Sweden	10,612,086	410,340	26
+Switzerland	8,796,669	39,516	223
+Syria	23,227,014	183,630	126
+Tajikistan	10,143,543	139,960	72
+Tanzania	67,438,106	885,800	76
+Thailand	71,801,279	510,890	141
+Timor-Leste	1,360,596	14,870	91
+Togo	9,053,799	54,390	166
+Tonga	107,773	720	150
+Trinidad and Tobago	1,534,937	5,130	299
+Tunisia	12,458,223	155,360	80
+Turkey	85,816,199	769,630	112
+Turkmenistan	6,516,100	469,930	14
+Tuvalu	11,396	30	380
+Uganda	48,582,334	199,810	243
+Ukraine	36,744,634	579,320	63
+United Arab Emirates	9,516,871	83,600	114
+United Kingdom	67,736,802	241,930	280
+United States of America	339,996,563	9,147,420	37
+Uruguay	3,423,108	175,020	20
+Uzbekistan	35,163,944	425,400	83
+Vanuatu	334,506	12,190	27
+Venezuela	28,838,499	882,050	33
+Vietnam	98,858,950	310,070	319
+Yemen	34,449,825	527,970	65
+Zambia	20,569,737	743,390	28
+Zimbabwe	16,665,409	386,850	43
+
+From: elvis@tabloid.org (The King)
+Subject: be seein’ ya around
+Date: Mon, 23 Oct 2006 11:04:13
+From: The Prez <president@whitehouse.gov>
+Date: Wed, 25 Oct 2006 8:36:24
+Subject: now, about your vote Color color colour Colour
+4th 1st 2nd fourth he heee hehehehe
