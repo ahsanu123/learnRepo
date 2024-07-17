@@ -13,93 +13,91 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+/* Add space around the hr to make clicking it easier */
+
+.ProseMirror-example-setup-style hr {
+  padding: 2px 10px;
+  border: none;
+  margin: 1em 0;
 }
 
-a:hover {
-  color: #535bf2;
+.ProseMirror-example-setup-style hr:after {
+  content: "";
+  display: block;
+  height: 1px;
+  background-color: silver;
+  line-height: 2px;
 }
 
-body {
-  margin: 0 20px;
-  min-width: 320px;
-  min-height: 100vh;
+.ProseMirror ul,
+.ProseMirror ol {
+  padding-left: 30px;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.ProseMirror blockquote {
+  padding-left: 1em;
+  border-left: 3px solid #eee;
+  margin-left: 0;
+  margin-right: 0;
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.ProseMirror-example-setup-style img {
+  cursor: default;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.ProseMirror-prompt {
+  background: white;
+  padding: 5px 10px 5px 15px;
+  border: 1px solid silver;
+  position: fixed;
+  border-radius: 3px;
+  z-index: 11;
+  box-shadow: -.5px 2px 5px rgba(0, 0, 0, .2);
 }
 
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.ProseMirror-prompt h5 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 100%;
+  color: #444;
 }
 
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #3178c6aa);
+.ProseMirror-prompt input[type="text"],
+.ProseMirror-prompt textarea {
+  background: #eee;
+  border: none;
+  outline: none;
 }
 
-.card {
-  padding: 2em;
+.ProseMirror-prompt input[type="text"] {
+  padding: 0 4px;
 }
 
-.read-the-docs {
-  color: #888;
+.ProseMirror-prompt-close {
+  position: absolute;
+  left: 2px;
+  top: 1px;
+  color: #666;
+  border: none;
+  background: transparent;
+  padding: 0;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+.ProseMirror-prompt-close:after {
+  content: "✕";
+  font-size: 12px;
 }
 
-button:hover {
-  border-color: #646cff;
+.ProseMirror-invalid {
+  background: #ffc;
+  border: 1px solid #cc7;
+  border-radius: 4px;
+  padding: 5px 10px;
+  position: absolute;
+  min-width: 10em;
 }
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-#app {
-  border: 2px solid highlight;
+.ProseMirror-prompt-buttons {
+  margin-top: 5px;
+  display: none;
 }
