@@ -8,6 +8,24 @@ import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import java.lang.System
 
+interface Clickable {
+    fun click()
+}
+
+interface Focusable {
+    fun setFocus(b: Boolean) = println("${if (b) "hell" else "yeah" }")
+}
+
+class Button :
+    Focusable,
+    Clickable {
+    override fun click() { }
+
+    override fun setFocus(b: Boolean) {
+        println("hell yeah $b")
+    }
+}
+
 fun main(args: Array<String>) {
     println(args)
     launch(JavaFXExample::class.java)
