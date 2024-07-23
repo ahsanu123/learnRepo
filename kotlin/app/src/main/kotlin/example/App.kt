@@ -22,7 +22,8 @@ fun interface IntCondition {
 
 fun main(args: Array<String>) {
     println(args.toString())
-    Application.launch(JavaFXIntro::class.java)
+    // Application.launch(JavaFXIntro::class.java)
+    Application.launch(CenterCircle::class.java)
 }
 
 fun messageWithTime(message: String): String = "[${LocalDateTime.now()}] $message"

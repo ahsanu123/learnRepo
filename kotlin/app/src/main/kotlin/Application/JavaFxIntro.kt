@@ -36,11 +36,29 @@ fun listenerTest() {
     counter.set(102)
 }
 
+fun bindingTest() {
+    var x = SimpleIntegerProperty(1)
+    var y = SimpleIntegerProperty(2)
+    var z = SimpleIntegerProperty(3)
+
+    println("Before Binding, x: ${x.value} y: ${y.value} z: ${z.value}")
+
+    x.bindBidirectional(y)
+    println("After Binding y, x: ${x.value} y: ${y.value} z: ${z.value}")
+
+    x.bindBidirectional(z)
+    println("After Binding z, x: ${x.value} y: ${y.value} z: ${z.value}")
+
+    z.set(5)
+    println("After changing z, x: ${x.value} y: ${y.value} z: ${z.value}")
+}
+
 class JavaFXIntro : Application() {
     override fun init() {
         println(messageWithTime("Init Function Called"))
         println(messageWithTime("Thread Name: ${Thread.currentThread().name}"))
-        listenerTest()
+        // listenerTest()
+        bindingTest()
     }
 
     override fun start(primaryStage: Stage) {
