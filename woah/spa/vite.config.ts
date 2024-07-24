@@ -1,7 +1,21 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import react, { Options } from '@vitejs/plugin-react'
 
+const option: Options = {
+  babel: {
+    parserOpts: {
+      plugins: [
+        'decorators',
+        'classProperties',
+        'decoratorAutoAccessors'
+      ]
+    }
+  }
+}
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(option)],
+  server: {
+    port: 4040
+  }
 })

@@ -1,4 +1,7 @@
 {
+  "compilerOptions": {
+    "experimentalDecorators": true /* or just remove the flag */
+  },
   "files": [],
   "references": [
     {
