@@ -4,6 +4,7 @@ import { Props } from '../shared';
 import viteLogo from '/vite.svg'
 import { observer } from "mobx-react-lite";
 import { StoreContext } from '../store/StoreProvider';
+import { TodoListComponent } from '../component/TodoListComponent';
 
 
 const WelcomePageObs: React.FC<Props> = () => {
@@ -21,8 +22,7 @@ const WelcomePageObs: React.FC<Props> = () => {
         <img src={reactLogo} className="logo react" alt="React logo" />
       </a>
     </div>
-    <h1>Vite + React</h1>
-    <p>{todoStore.title}</p>
+    <h1>Total TODO {todoStore.getAllTodoList.length}</h1>
     <div className="card">
       <p>
         Edit <code>src/App.tsx</code> and save to test HMR
@@ -31,6 +31,7 @@ const WelcomePageObs: React.FC<Props> = () => {
     <p className="read-the-docs">
       Click on the Vite and React logos to learn more
     </p>
+    <TodoListComponent />
   </>
 }
 
