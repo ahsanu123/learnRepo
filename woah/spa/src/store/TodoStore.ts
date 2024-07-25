@@ -18,7 +18,7 @@ export class TodoStore {
 
   todoList: Map<number, TodoModel> = new Map<number, TodoModel>()
 
-  toggle(key: number): void {
+  set toggle(key: number) {
 
     const todo = this.todoList.get(key)
     todo!.isFinished = !todo!.isFinished

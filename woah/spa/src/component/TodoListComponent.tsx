@@ -13,7 +13,7 @@ const TodoListComponentObs: React.FC<Props> = (props) => {
   const todoList = todoStore.getAllTodoList
 
   const onDoneClick = (key: number) => {
-    todoStore.toggle(key)
+    todoStore.toggle = key
   }
 
   return (
