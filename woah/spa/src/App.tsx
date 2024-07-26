@@ -1,13 +1,19 @@
+import { FluentProvider } from '@fluentui/react-components'
 import './App.scss'
-import { WelcomPage } from './page/WelcomePage'
 import { StoreProvider } from './store/StoreProvider'
+import { reddishThemeDark } from './shared'
+import { RouterProvider } from 'react-router-dom'
+import { MainRoute } from './Router'
 
 function App() {
-
   return (
-    <StoreProvider>
-      <WelcomPage />
-    </StoreProvider>
+    <FluentProvider theme={reddishThemeDark}>
+      <StoreProvider>
+        <RouterProvider
+          router={MainRoute}
+        />
+      </StoreProvider>
+    </FluentProvider>
   )
 }
 
