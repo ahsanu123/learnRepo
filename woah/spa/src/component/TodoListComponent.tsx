@@ -16,6 +16,7 @@ const TodoListComponentObs: React.FC<Props> = (props) => {
     todoStore.toggle = key
   }
 
+
   return (
     <>
       <div

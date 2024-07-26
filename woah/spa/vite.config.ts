@@ -15,6 +15,9 @@ const option: Options = {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(option)],
+  define: {
+    'process.env': {}
+  },
   server: {
     port: 4040
   }
