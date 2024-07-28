@@ -4,6 +4,7 @@ import { ProjectInfoComponent } from './page/project-info/project-info.component
 import { ProjectPageComponent } from './page/project-page/project-page.component';
 import { DynamicFormComponent } from './component/dynamic-form/dynamic-form.component';
 import { ProjectSummaryComponent } from './component/project-summary/project-summary.component';
+import { PageNotFoundComponent } from './page/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
   {
@@ -37,5 +38,10 @@ export const routes: Routes = [
     path: 'project',
     title: 'Project Page',
     component: ProjectPageComponent,
+  },
+  {
+    path: '**',
+    title: 'Page Not Found',
+    component: PageNotFoundComponent
   }
 ];
