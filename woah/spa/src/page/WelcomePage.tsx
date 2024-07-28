@@ -59,7 +59,7 @@ const WelcomePageObs: React.FC<Props> = () => {
 
   const style = useStyle()
   const [selectedTab, setSelectedTab] = useState<TabName>('HISTOGRAM')
-  const onTabSelect: SelectTabEventHandler = (event, data) => {
+  const onTabSelect: SelectTabEventHandler = (_event, data) => {
     setSelectedTab(data.value as TabName)
   }
   return (<>

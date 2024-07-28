@@ -1,0 +1,17 @@
+<div *ngFor="let menu of sideBarList;"
+     class="collapse collapse-arrow bg-base-200">
+  <input type="radio"
+         name="my-accordion-2" />
+  <div class="collapse-title text-xl font-medium">
+    <ng-icon name="bootstrapCircleFill" />
+    {{menu.name}}
+  </div>
+  <div class="collapse-content">
+    <a [routerLink]="menu.path">
+      {{menu.name}}
+    </a>
+    <ng-container *ngIf="menu.children !== undefined">
+      <p *ngFor="let child of menu.children">{{child.name}}</p>
+    </ng-container>
+  </div>
+</div>

@@ -15,6 +15,11 @@ export const routes: Routes = [
         path: 'project-summary',
         title: 'Project Summary',
         component: ProjectSummaryComponent
+      },
+      {
+        path: 'project',
+        title: 'Project Page',
+        component: ProjectPageComponent
       }
     ]
   },

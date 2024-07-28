@@ -26,7 +26,6 @@ export function Obj2GenericForm<T>(obj: T) {
       value: inputType === 'date' ? (obj[key] as Date).toISOString().split('T')[0] : obj[key]
     }
   }
-  console.log(returnObj)
   return returnObj
 }
 

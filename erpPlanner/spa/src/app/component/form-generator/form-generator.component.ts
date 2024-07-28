@@ -16,7 +16,6 @@ import { InputType } from '../../shared';
     ReactiveFormsModule,
     DatePipe,
     MarkdownComponent,
-
   ],
   providers: [
     provideIcons(icon),

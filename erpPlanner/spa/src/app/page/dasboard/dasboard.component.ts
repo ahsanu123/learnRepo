@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { MainSidebarComponent } from '../../component/main-sidebar/main-sidebar.component';
-import { RouterModule } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
   bootstrapGithub
 } from '@ng-icons/bootstrap-icons';
+import { ComponentModule } from '../../component/component.module';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-dasboard',
   standalone: true,
   imports: [
-    MainSidebarComponent,
     RouterModule,
-    NgIconComponent
+    NgIconComponent,
+    ComponentModule,
   ],
   templateUrl: './dasboard.component.html',
   styleUrl: './dasboard.component.scss',
