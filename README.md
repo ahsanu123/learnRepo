@@ -19,49 +19,6 @@
   <h3 align="center">📚 Learning Repo</h3>
 
   <p align="center">
-    Repo to save my code.
+repo to save my learning about programming in any language that i interested with
   </p>
 </div>
-
-
-<!-- ABOUT THE PROJECT -->
-## 💊 About The Project
-
-repo to save my learning about programming in any language that i interested with
-
-
-
-### Built With
-
-by folder
-- glfw use cmake to build glfw based project, try to implement imgui build from stratch
-
-
-
-
-<!-- GETTING STARTED -->
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-- base-devel (Group of packages required for building software from source on linux)
-
-
-## Resource
-
-Good Resource
-
-- CMake 
-  - https://cliutils.gitlab.io/modern-cmake
-  - https://coderefinery.github.io/cmake-workshop/
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-
-
