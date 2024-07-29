@@ -18,7 +18,6 @@ import {
 import { CardWithIconOnSideComponent } from '../../sharedComponent/card-with-icon-on-side/card-with-icon-on-side.component';
 import { DialogComponent } from '../../sharedComponent/dialog/dialog.component';
 import { MilkdownEditorComponent } from '../../sharedComponent/milkdown-editor/milkdown-editor.component';
-import { TableComponent } from '../../sharedComponent/table/table.component';
 import { ProsemirrorBasicEditorComponent } from '../prosemirror-basic-editor/prosemirror-basic-editor.component';
 import { InputNoBorderDirective } from '../../directive';
 
@@ -33,7 +32,6 @@ import { InputNoBorderDirective } from '../../directive';
     InputNoBorderDirective,
     CommonModule,
     CardWithIconOnSideComponent,
-    TableComponent
   ],
   templateUrl: './project-summary.component.html',
   styleUrl: './project-summary.component.scss',

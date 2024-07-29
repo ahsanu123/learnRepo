@@ -35,6 +35,10 @@ export class SidebarComponent {
       }]
     },
     {
+      name: 'Iventory',
+      path: 'inventory'
+    },
+    {
       name: 'Project',
       path: 'project'
     },
