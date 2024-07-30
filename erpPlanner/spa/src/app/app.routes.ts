@@ -6,6 +6,7 @@ import { DynamicFormComponent } from './component/dynamic-form/dynamic-form.comp
 import { ProjectSummaryComponent } from './component/project-summary/project-summary.component';
 import { PageNotFoundComponent } from './page/page-not-found/page-not-found.component';
 import { InventoryComponent } from './page/inventory/inventory.component';
+import { LoginComponent } from './page/login/login.component';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,11 @@ export const routes: Routes = [
         path: 'inventory',
         title: 'Inventory Page',
         component: InventoryComponent
+      },
+      {
+        path: 'google-signin',
+        title: 'Login With Google',
+        component: LoginComponent
       }
     ]
   },

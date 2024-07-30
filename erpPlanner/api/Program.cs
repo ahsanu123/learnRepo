@@ -1,9 +1,12 @@
 using System.Reflection;
 using erpPlanner.ExtensionMethod;
+using erpPlanner.Model;
 using erpPlanner.pMigration;
 using FluentMigrator.Runner;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 var connectionString = builder.Configuration.GetConnectionString("postgresql");
 
 // Add services to the container.
@@ -43,6 +46,26 @@ builder
     // Build the service provider
     .BuildServiceProvider(false);
 
+builder.Services.AddDbContext<ApplicationDbcontext>(option =>
+    option.UseInMemoryDatabase("AppData")
+);
+builder
+    .Services.AddIdentityApiEndpoints<CustomIdentityModel>(
+        (config) =>
+        {
+            config.Password.RequiredUniqueChars = 0;
+        }
+    )
+    .AddEntityFrameworkStores<ApplicationDbcontext>();
+
+builder
+    .Services.AddAuthentication()
+    .AddGoogle(option =>
+    {
+        option.ClientId = configuration["Authentication:Google:ClientId"];
+        option.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+    });
+builder.Services.AddAuthorization();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -56,9 +79,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.Migrate();
+app.MapGroup("identity").MapIdentityApi<CustomIdentityModel>();
+
+// app.Migrate();
 app.Run();
 
 public partial class Program { }

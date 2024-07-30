@@ -49,6 +49,10 @@ export class SidebarComponent {
     {
       name: 'Document',
       path: 'document'
+    },
+    {
+      name: 'Google Signin',
+      path: 'google-signin',
     }
   ]
 

@@ -22,12 +22,14 @@ public static class MigrationExtension
         var runner = scope.ServiceProvider.GetService<IMigrationRunner>();
         var versionLoader = scope.ServiceProvider.GetService<IVersionLoader>();
 
-        runner.ListMigrations();
+        // runner.ListMigrations();
 
         // if (MigrationExtension.MIGRATION_VERSION > versionLoader.VersionInfo.Latest())
         // {
         // runner.Down(new MainMigrator());
-        runner.MigrateUp(MigrationExtension.MIGRATION_VERSION);
+
+        // runner.MigrateUp(MigrationExtension.MIGRATION_VERSION);
+
         // }
 
         return app;
