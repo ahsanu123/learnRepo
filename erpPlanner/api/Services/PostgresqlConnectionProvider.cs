@@ -1,7 +1,14 @@
 using System.Data.Common;
+using System.Data.SqlClient;
 using Npgsql;
 
 namespace erpPlanner.Services;
+
+public interface IConnectionProvider
+{
+    public SqlConnection CreateConnection();
+    public SqlDataAdapter GetAdapter(string tableName, DbConnection connection, bool isOnlyId);
+}
 
 public class PostgresqlConnectionProvider
 {
@@ -19,9 +26,16 @@ public class PostgresqlConnectionProvider
         return new NpgsqlConnection(_connectionString);
     }
 
-    public DbDataAdapter GetAdapter(string tableName, DbConnection connection)
+    public DbDataAdapter GetAdapter(
+        string tableName,
+        DbConnection connection,
+        bool isOnlyId = false
+    )
     {
-        string rawSelectCommand = $"select * from {tableName}";
+        string rawSelectCommand = isOnlyId
+            ? rawSelectCommand = $"select id from {tableName}"
+            : $"select * from {tableName}";
+
         var selectCommand = new NpgsqlCommand(rawSelectCommand, (NpgsqlConnection)connection);
 
         return new NpgsqlDataAdapter(selectCommand);

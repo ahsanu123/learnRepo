@@ -99,9 +99,20 @@ public class PostgresRepository<T> : BaseRepository<T>
         }
     }
 
-    public Task<int> DeleteById(int id)
+    public async Task<int> DeleteById(int id)
     {
-        throw new NotImplementedException();
+        using (var conn = _connection.CreateConnection())
+        {
+            var modelType = typeof(T);
+            var adapter = _connection.GetAdapter(modelType.Name.ToLower(), conn, isOnlyId: true);
+            var builder = new NpgsqlCommandBuilder((NpgsqlDataAdapter)adapter);
+
+            var param = new DynamicParameters();
+            param.Add($"@p{1}", id);
+
+            var result = await conn.ExecuteAsync(builder.GetDeleteCommand().CommandText, param);
+            return result;
+        }
     }
 
     public async Task<IEnumerable<T>> GetAll()
@@ -129,8 +140,29 @@ public class PostgresRepository<T> : BaseRepository<T>
         }
     }
 
-    public Task<int> UpdateByModel(T model)
+    public async Task<int> UpdateByModel(T model)
     {
-        throw new NotImplementedException();
+        using (var conn = _connection.CreateConnection())
+        {
+            var modelType = typeof(T);
+            var adapter = _connection.GetAdapter(modelType.Name.ToLower(), conn);
+            var builder = new NpgsqlCommandBuilder((NpgsqlDataAdapter)adapter);
+
+            var param = new DynamicParameters();
+            var modelString = JsonConvert.SerializeObject(model);
+
+            var length = model.GetType().GetProperties().Length;
+
+            for (int i = 0; i < length - 1; i++)
+            {
+                param.Add($"@p{i}", "h");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine(modelString);
+            Console.WriteLine(builder.GetUpdateCommand().CommandText.Split("AND")[0]);
+
+            return 0;
+        }
     }
 }
