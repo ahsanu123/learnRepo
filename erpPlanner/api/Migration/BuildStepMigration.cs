@@ -26,4 +26,6 @@ public class BuildStepMigration : MigrationChild
             .WithColumn("liststep")
             .AsString();
     }
+
+    public void SetupForeignKey(Migration migration) { }
 }

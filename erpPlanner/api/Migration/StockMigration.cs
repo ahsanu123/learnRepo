@@ -22,4 +22,6 @@ public class StockMigration : MigrationChild
             .WithColumn("overview")
             .AsString();
     }
+
+    public void SetupForeignKey(Migration migration) { }
 }

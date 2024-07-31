@@ -40,4 +40,6 @@ public class ProjectMigration : MigrationChild
             .WithColumn("description")
             .AsString();
     }
+
+    public void SetupForeignKey(Migration migration) { }
 }

@@ -22,4 +22,6 @@ public class HistoryMigration : MigrationChild
             .WithColumn("goodLastUpdateDate")
             .AsDate();
     }
+
+    public void SetupForeignKey(Migration migration) { }
 }

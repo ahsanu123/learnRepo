@@ -20,4 +20,6 @@ public class ParameterMigration : MigrationChild
             .WithColumn("map")
             .AsString();
     }
+
+    public void SetupForeignKey(Migration migration) { }
 }

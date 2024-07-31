@@ -15,12 +15,11 @@ public static class BuilderFluentMigratorProvider
             .ConfigureRunner(rb =>
                 rb
                 // Add SQLite support to FluentMigrator
-                .AddPostgres()
-                    // Set the connection string
-                    // .AddSQLite()
+                // Set the connection string
+                // .AddPostgres()
+                // .AddSQLite()
+                .AddSqlServer()
                     .WithGlobalConnectionString(connectionString)
-                    // .WithGlobalConnectionString("Data Source=test.db;foreign keys=true;")
-                    // Define the assembly containing the migrations
                     .ScanIn(Assembly.GetExecutingAssembly())
                     .For.All()
             )
@@ -28,7 +27,7 @@ public static class BuilderFluentMigratorProvider
             .AddLogging(lb => lb.AddFluentMigratorConsole())
             .Configure<FluentMigratorLoggerOptions>(options =>
             {
-                options.ShowSql = true;
+                options.ShowSql = false;
                 options.ShowElapsedTime = true;
             })
             // Build the service provider

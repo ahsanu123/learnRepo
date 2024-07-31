@@ -1,5 +1,4 @@
 using System.Reflection;
-using erpPlanner.Model;
 using FluentMigrator;
 
 namespace erpPlanner.pMigration;
@@ -46,6 +45,10 @@ public class MainMigrator : Migration
         foreach (var item in GetMigrationInheritedClass())
         {
             item.ChildUp(this);
+        }
+        foreach (var item in GetMigrationInheritedClass())
+        {
+            item.SetupForeignKey(this);
         }
     }
 }

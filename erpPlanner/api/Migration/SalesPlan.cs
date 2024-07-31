@@ -20,4 +20,6 @@ public class SalesPlan : MigrationChild
             .WithColumn("description")
             .AsString();
     }
+
+    public void SetupForeignKey(Migration migration) { }
 }

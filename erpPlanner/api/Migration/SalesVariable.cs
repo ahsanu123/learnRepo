@@ -28,4 +28,6 @@ public class SalesVariableMigration : MigrationChild
             .WithColumn("return")
             .AsFloat();
     }
+
+    public void SetupForeignKey(Migration migration) { }
 }

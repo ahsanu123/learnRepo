@@ -20,4 +20,6 @@ public class BillOfMateriaMigration : MigrationChild
             .WithColumn("notes")
             .AsString();
     }
+
+    public void SetupForeignKey(Migration migration) { }
 }

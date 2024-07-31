@@ -22,4 +22,6 @@ public class FeedbackMigration : MigrationChild
             .WithColumn("description")
             .AsString();
     }
+
+    public void SetupForeignKey(Migration migration) { }
 }

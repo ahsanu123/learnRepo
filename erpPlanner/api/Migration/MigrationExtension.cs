@@ -9,12 +9,13 @@ public interface MigrationChild
 {
     public abstract void ChildUp(Migration migration);
     public abstract void ChildDown(Migration migration);
+    public abstract void SetupForeignKey(Migration migration);
 }
 
 public static class MigrationExtension
 {
-    public const int MIGRATION_VERSION = 6;
-    public const string MIGRATION_DESCRIPTION = "Plannerp Migration Version 1";
+    public const int MIGRATION_VERSION = 8;
+    public const string MIGRATION_DESCRIPTION = $"Plannerp Migration Version 7";
 
     public static IApplicationBuilder Migrate(this IApplicationBuilder app)
     {
@@ -22,15 +23,13 @@ public static class MigrationExtension
         var runner = scope.ServiceProvider.GetService<IMigrationRunner>();
         var versionLoader = scope.ServiceProvider.GetService<IVersionLoader>();
 
-        // runner.ListMigrations();
+        runner.ListMigrations();
 
-        // if (MigrationExtension.MIGRATION_VERSION > versionLoader.VersionInfo.Latest())
-        // {
-        // runner.Down(new MainMigrator());
-
-        // runner.MigrateUp(MigrationExtension.MIGRATION_VERSION);
-
-        // }
+        if (MigrationExtension.MIGRATION_VERSION > versionLoader.VersionInfo.Latest())
+        {
+            runner.Down(new MainMigrator());
+            runner.MigrateUp(MigrationExtension.MIGRATION_VERSION);
+        }
 
         return app;
     }

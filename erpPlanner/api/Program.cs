@@ -6,7 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
-var connectionString = builder.Configuration.GetConnectionString("postgresql");
+var postgresConnectionString = builder.Configuration.GetConnectionString("postgresql");
+var sqliteConnectionString = builder.Configuration.GetConnectionString("sqlite");
+var sqlserverConnectionString = builder.Configuration.GetConnectionString("sqlserver");
 
 //==================================================
 //
@@ -25,7 +27,7 @@ builder.Services.AddDbContext<ApplicationDbcontext>(option =>
 });
 
 builder.Services.AddSwaggerUI();
-builder.Services.AddFluentMigratorProvider(connectionString);
+builder.Services.AddFluentMigratorProvider(sqliteConnectionString);
 builder.Services.AddAspNetDefaultIdentityProvider();
 builder.Services.AddExternalIdentityProvider(configuration);
 builder.Services.AddOpenIdDictProvider();
@@ -58,7 +60,7 @@ app.MapControllers();
 
 app.MapGroup("identity").MapIdentityApi<CustomIdentityModel>();
 
-// app.Migrate();
+app.Migrate();
 app.Run();
 
 public partial class Program { }
