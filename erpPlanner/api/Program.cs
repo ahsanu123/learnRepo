@@ -27,7 +27,7 @@ builder.Services.AddDbContext<ApplicationDbcontext>(option =>
 });
 
 builder.Services.AddSwaggerUI();
-builder.Services.AddFluentMigratorProvider(sqliteConnectionString);
+builder.Services.AddFluentMigratorProvider(postgresConnectionString);
 builder.Services.AddAspNetDefaultIdentityProvider();
 builder.Services.AddExternalIdentityProvider(configuration);
 builder.Services.AddOpenIdDictProvider();

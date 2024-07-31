@@ -16,9 +16,9 @@ public static class BuilderFluentMigratorProvider
                 rb
                 // Add SQLite support to FluentMigrator
                 // Set the connection string
-                // .AddPostgres()
                 // .AddSQLite()
-                .AddSqlServer()
+                // .AddSqlServer()
+                .AddPostgres()
                     .WithGlobalConnectionString(connectionString)
                     .ScanIn(Assembly.GetExecutingAssembly())
                     .For.All()
