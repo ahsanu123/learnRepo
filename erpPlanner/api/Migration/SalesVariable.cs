@@ -13,19 +13,19 @@ public class SalesVariableMigration : MigrationChild
     {
         migration
             .Create.Table("salesVariable")
-            .WithColumn("id")
+            .WithColumn("Id")
             .AsInt32()
             .Identity()
             .PrimaryKey()
-            .WithColumn("tax")
+            .WithColumn("Tax")
             .AsFloat()
-            .WithColumn("marketTax")
+            .WithColumn("MarketTax")
             .AsFloat()
-            .WithColumn("discount")
+            .WithColumn("Discount")
             .AsFloat()
-            .WithColumn("delivery")
+            .WithColumn("Delivery")
             .AsFloat()
-            .WithColumn("return")
+            .WithColumn("Return")
             .AsFloat();
     }
 

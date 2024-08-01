@@ -1,8 +1,7 @@
 namespace erpPlanner.Model;
 
-public class Project
+public class Project : BaseModel
 {
-    public int Id { get; set; }
     public string Name { get; set; }
     public DateTime CreatedDate { get; set; }
     public DateTime? DeadLineDate { get; set; }

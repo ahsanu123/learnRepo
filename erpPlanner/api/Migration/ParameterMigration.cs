@@ -13,11 +13,11 @@ public class ParameterMigration : MigrationChild
     {
         migration
             .Create.Table("parameter")
-            .WithColumn("id")
+            .WithColumn("Id")
             .AsInt32()
             .PrimaryKey()
             .Identity()
-            .WithColumn("map")
+            .WithColumn("Map")
             .AsString();
     }
 

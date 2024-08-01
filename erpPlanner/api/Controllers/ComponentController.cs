@@ -6,8 +6,8 @@ namespace erpPlanner.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class StorageController : GenericController<Storage>
+public class ComponentController : GenericController<Component>
 {
-    public StorageController(GenericRepository<Storage> repo)
+    public ComponentController(GenericRepository<Component> repo)
         : base(repo) { }
 }

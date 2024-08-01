@@ -10,4 +10,6 @@ public class MasterContext : IdentityDbContext<CustomIdentityModel>
         : base(option) { }
 
     public DbSet<Storage> storage { get; set; }
+    public DbSet<Project> project { get; set; }
+    public DbSet<Component> component { get; set; }
 }

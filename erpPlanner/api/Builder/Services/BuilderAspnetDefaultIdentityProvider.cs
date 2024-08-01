@@ -1,6 +1,5 @@
 using erpPlanner.Model;
 using erpPlanner.pMigration;
-using Microsoft.EntityFrameworkCore;
 
 namespace erpPlanner.BuilderService;
 

@@ -13,13 +13,13 @@ public class ResourceDocumentMigration : MigrationChild
     {
         migration
             .Create.Table("resourceDocument")
-            .WithColumn("id")
+            .WithColumn("Id")
             .AsInt32()
             .PrimaryKey()
             .Identity()
-            .WithColumn("overview")
+            .WithColumn("Overview")
             .AsString()
-            .WithColumn("description")
+            .WithColumn("Description")
             .AsString();
     }
 

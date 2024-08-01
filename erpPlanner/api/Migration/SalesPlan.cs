@@ -13,11 +13,11 @@ public class SalesPlan : MigrationChild
     {
         migration
             .Create.Table("salesPlan")
-            .WithColumn("id")
+            .WithColumn("Id")
             .AsInt32()
             .Identity()
             .PrimaryKey()
-            .WithColumn("description")
+            .WithColumn("Description")
             .AsString();
     }
 

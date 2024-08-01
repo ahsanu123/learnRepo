@@ -13,17 +13,17 @@ public class BuildStepMigration : MigrationChild
     {
         migration
             .Create.Table("buildStep")
-            .WithColumn("id")
+            .WithColumn("Id")
             .AsInt64()
             .PrimaryKey()
             .Identity()
-            .WithColumn("projectId")
+            .WithColumn("ProjectId")
             .AsInt64()
-            .WithColumn("overview")
+            .WithColumn("Overview")
             .AsString()
-            .WithColumn("description")
+            .WithColumn("Description")
             .AsString()
-            .WithColumn("liststep")
+            .WithColumn("Liststep")
             .AsString();
     }
 

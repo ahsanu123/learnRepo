@@ -13,6 +13,8 @@ public static class NpgSqlDbProvider
         services.AddDbContext<MasterContext>(option =>
         {
             option.UseNpgsql(connectionString);
+            option.EnableSensitiveDataLogging();
+            option.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         });
         return services;
     }

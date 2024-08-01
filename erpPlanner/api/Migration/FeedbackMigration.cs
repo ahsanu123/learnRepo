@@ -13,13 +13,13 @@ public class FeedbackMigration : MigrationChild
     {
         migration
             .Create.Table("feedback")
-            .WithColumn("id")
+            .WithColumn("Id")
             .AsInt32()
             .Identity()
             .PrimaryKey()
-            .WithColumn("overview")
+            .WithColumn("Overview")
             .AsString()
-            .WithColumn("description")
+            .WithColumn("Description")
             .AsString();
     }
 

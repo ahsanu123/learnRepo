@@ -18,7 +18,10 @@ public static class ServiceCollectionCustom
         services.AddScoped<IProducingStepRepository, ProducingStepRepository>();
         services.AddScoped<IStorageRepository, StorageRepository>();
         services.AddScoped<IResourceDocRepository, ResourceDocRepository>();
-        services.AddScoped<EFGenericCrud<Storage>>();
+
+        services.AddScoped<GenericRepository<Storage>>();
+        services.AddScoped<GenericRepository<Project>>();
+        services.AddScoped<GenericRepository<Component>>();
 
         return services;
     }

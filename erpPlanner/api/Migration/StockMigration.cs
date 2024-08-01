@@ -13,13 +13,13 @@ public class StockMigration : MigrationChild
     {
         migration
             .Create.Table("stock")
-            .WithColumn("id")
+            .WithColumn("Id")
             .AsInt32()
             .PrimaryKey()
             .Identity()
-            .WithColumn("count")
+            .WithColumn("Count")
             .AsInt32()
-            .WithColumn("overview")
+            .WithColumn("Overview")
             .AsString();
     }
 

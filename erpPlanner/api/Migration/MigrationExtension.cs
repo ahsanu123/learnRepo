@@ -1,5 +1,4 @@
 using System.Reflection;
-using erpPlanner.Model;
 using FluentMigrator;
 using FluentMigrator.Runner;
 
@@ -14,7 +13,7 @@ public interface MigrationChild
 
 public static class MigrationExtension
 {
-    public const int MIGRATION_VERSION = 9;
+    public const int MIGRATION_VERSION = 17;
     public const string MIGRATION_DESCRIPTION = $"Plannerp Migration Version 7";
 
     public static IApplicationBuilder Migrate(this IApplicationBuilder app)

@@ -13,13 +13,13 @@ public class HistoryMigration : MigrationChild
     {
         migration
             .Create.Table("history")
-            .WithColumn("id")
+            .WithColumn("Id")
             .AsInt32()
             .Identity()
             .PrimaryKey()
-            .WithColumn("lastUpdateDate")
+            .WithColumn("LastUpdateDate")
             .AsDate()
-            .WithColumn("goodLastUpdateDate")
+            .WithColumn("GoodLastUpdateDate")
             .AsDate();
     }
 

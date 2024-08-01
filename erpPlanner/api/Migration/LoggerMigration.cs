@@ -13,19 +13,19 @@ public class LoggerMigration : MigrationChild
     {
         migration
             .Create.Table("logger")
-            .WithColumn("id")
+            .WithColumn("Id")
             .AsInt32()
             .PrimaryKey()
             .Identity()
-            .WithColumn("date")
+            .WithColumn("Date")
             .AsDate()
             .NotNullable()
-            .WithColumn("title")
+            .WithColumn("Title")
             .AsString()
             .NotNullable()
-            .WithColumn("description")
+            .WithColumn("Description")
             .AsString()
-            .WithColumn("projectId")
+            .WithColumn("ProjectId")
             .AsInt32();
     }
 
@@ -34,8 +34,8 @@ public class LoggerMigration : MigrationChild
         migration
             .Create.ForeignKey()
             .FromTable("logger")
-            .ForeignColumn("projectId")
+            .ForeignColumn("ProjectId")
             .ToTable("project")
-            .PrimaryColumn("id");
+            .PrimaryColumn("Id");
     }
 }
