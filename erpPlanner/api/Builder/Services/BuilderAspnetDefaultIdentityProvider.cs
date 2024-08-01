@@ -18,7 +18,7 @@ public static class BuilderAspnetDefaultIdentityProvider
                     config.Password.RequiredUniqueChars = 0;
                 }
             )
-            .AddEntityFrameworkStores<ApplicationDbcontext>();
+            .AddEntityFrameworkStores<MasterContext>();
 
         return services;
     }

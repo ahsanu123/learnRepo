@@ -1,5 +1,4 @@
 using erpPlanner.BuilderService;
-using erpPlanner.ExtensionMethod;
 using erpPlanner.Model;
 using erpPlanner.pMigration;
 using Microsoft.EntityFrameworkCore;
@@ -20,19 +19,13 @@ builder.Services.AddServiceCollectionExtension();
 builder.Services.AddControllers();
 builder.Services.AddAuthorization();
 
-builder.Services.AddDbContext<ApplicationDbcontext>(option =>
-{
-    option.UseInMemoryDatabase("AppData");
-    option.UseOpenIddict();
-});
-
 builder.Services.AddSwaggerUI();
 builder.Services.AddFluentMigratorProvider(postgresConnectionString);
 builder.Services.AddAspNetDefaultIdentityProvider();
 builder.Services.AddExternalIdentityProvider(configuration);
 builder.Services.AddOpenIdDictProvider();
 
-builder.Services.AddHostedService<OpendIddictWorker>();
+builder.Services.AddPostgresqlDbProvider(postgresConnectionString);
 
 //==================================================
 //

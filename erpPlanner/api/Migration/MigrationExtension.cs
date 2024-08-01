@@ -14,7 +14,7 @@ public interface MigrationChild
 
 public static class MigrationExtension
 {
-    public const int MIGRATION_VERSION = 8;
+    public const int MIGRATION_VERSION = 9;
     public const string MIGRATION_DESCRIPTION = $"Plannerp Migration Version 7";
 
     public static IApplicationBuilder Migrate(this IApplicationBuilder app)
@@ -48,7 +48,6 @@ public static class MigrationExtension
         string tableName = model.GetType().Name;
 
         var table = migration.Create.Table(tableName);
-        // Console.WriteLine($"Create Table: {model.GetType().Name}");
         foreach (var properties in listProperties)
         {
             string name = properties.Name;

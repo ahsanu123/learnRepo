@@ -2,7 +2,7 @@ using erpPlanner.Model;
 using erpPlanner.Repository;
 using erpPlanner.Services;
 
-namespace erpPlanner.ExtensionMethod;
+namespace erpPlanner.BuilderService;
 
 public static class ServiceCollectionCustom
 {
@@ -18,6 +18,7 @@ public static class ServiceCollectionCustom
         services.AddScoped<IProducingStepRepository, ProducingStepRepository>();
         services.AddScoped<IStorageRepository, StorageRepository>();
         services.AddScoped<IResourceDocRepository, ResourceDocRepository>();
+        services.AddScoped<EFGenericCrud<Storage>>();
 
         return services;
     }

@@ -13,15 +13,15 @@ public class StorageMigration : MigrationChild
     {
         migration
             .Create.Table("storage")
-            .WithColumn("id")
+            .WithColumn("Id")
             .AsInt64()
             .PrimaryKey()
             .Identity()
-            .WithColumn("name")
+            .WithColumn("Name")
             .AsString()
-            .WithColumn("location")
+            .WithColumn("Location")
             .AsString()
-            .WithColumn("description")
+            .WithColumn("Description")
             .AsString();
     }
 

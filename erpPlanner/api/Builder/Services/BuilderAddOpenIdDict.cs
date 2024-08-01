@@ -10,7 +10,7 @@ public static class OpenIdDictProvider
             .AddOpenIddict()
             .AddCore(option =>
             {
-                option.UseEntityFrameworkCore().UseDbContext<ApplicationDbcontext>();
+                option.UseEntityFrameworkCore().UseDbContext<MasterContext>();
             })
             .AddServer(option =>
             {
