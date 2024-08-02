@@ -1,11 +1,7 @@
 namespace erpPlanner.Model;
 
-public class ResourceDoc
+public class ResourceDoc : BaseModel
 {
-    public int Id { get; set; }
-    public int MaterialId { get; set; }
-    public string Title { get; set; }
-    public string Url { get; set; }
+    public string Overview { get; set; }
     public string Description { get; set; }
-
 }

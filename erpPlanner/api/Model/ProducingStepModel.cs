@@ -1,10 +1,7 @@
-
 namespace erpPlanner.Model;
 
-public class ProducingStep
+public class ProducingStep : BaseModel
 {
-    public int Id { get; set; }
+    public string ListStep { get; set; }
     public int ProjectId { get; set; }
-    public string[] ListStep { get; set; }
 }
-

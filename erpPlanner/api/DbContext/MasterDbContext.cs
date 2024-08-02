@@ -12,4 +12,6 @@ public class MasterContext : IdentityDbContext<CustomIdentityModel>
     public DbSet<Storage> storage { get; set; }
     public DbSet<Project> project { get; set; }
     public DbSet<Component> component { get; set; }
+    public DbSet<ResourceDoc> resourceDoc { get; set; }
+    public DbSet<ProducingStep> producingStep { get; set; }
 }

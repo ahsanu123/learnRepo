@@ -6,13 +6,13 @@ public class ResourceDocumentMigration : MigrationChild
 {
     public void ChildDown(Migration migration)
     {
-        migration.DeleteTableIfExists("resourceDocument");
+        migration.DeleteTableIfExists("resourceDoc");
     }
 
     public void ChildUp(Migration migration)
     {
         migration
-            .Create.Table("resourceDocument")
+            .Create.Table("resourceDoc")
             .WithColumn("Id")
             .AsInt32()
             .PrimaryKey()
