@@ -28,6 +28,7 @@ builder.Services.AddOpenIdDictProvider();
 
 builder.Services.AddPostgresqlDbProvider(postgresConnectionString);
 builder.Services.AddGraphQLProvider();
+builder.Services.AddCors();
 
 //==================================================
 //
@@ -47,6 +48,11 @@ if (app.Environment.IsDevelopment())
         option.EnableTryItOutByDefault();
     });
     app.UseGraphQlProvider();
+
+    app.UseCors(option =>
+    {
+        option.AllowAnyOrigin();
+    });
 }
 
 app.UseHttpsRedirection();

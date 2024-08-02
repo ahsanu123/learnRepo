@@ -2,20 +2,22 @@ import { Component, Input, OnInit, input } from '@angular/core';
 import { ProjectModel } from '../../model/project-model';
 import { ComponentModule } from '../../component/component.module';
 import { GenericForm, Obj2GenericForm } from '../../shared';
+import { ProjectRepositoryService } from '../../repositoryService/project-repository.service';
+import { AsyncPipe, CommonModule } from '@angular/common';
 
 const dataFromApi: Partial<ProjectModel> = {
   id: 5,
-  Name: 'project 1',
-  CreateDate: new Date(),
-  DeadLineDate: new Date(0),
-  LastUpdateDate: new Date("2024-11-12"),
-  FinishedDate: new Date(0),
-  SellPrice: 280.3,
-  Capital: 20,
-  Fail: false,
-  Finish: false,
-  ProfitInPersen: 10,
-  Description: `
+  name: 'project 1',
+  createdDate: new Date(),
+  deadLineDate: new Date(0),
+  lastUpdatedDate: new Date("2024-11-12"),
+  finishedDate: new Date(0),
+  sellPrice: 280.3,
+  capital: 20,
+  fail: false,
+  finish: false,
+  profitInPersen: 10,
+  description: `
 
 ## Crumbs 🍪 - Rotary Encoder With 74HC595 And 74HC165
 
@@ -40,12 +42,15 @@ Simple Breakout Board to Learn Shift Register with Tactile Switch And Rotary Enc
   selector: 'app-project-page',
   standalone: true,
   imports: [
-    ComponentModule
+    ComponentModule,
+    CommonModule,
   ],
   templateUrl: './project-page.component.html',
   styleUrl: './project-page.component.scss'
 })
 export class ProjectPageComponent implements OnInit {
+
+  projectById$ = this.projectRepoService.project$
   ngOnInit(): void {
   }
 
@@ -54,4 +59,8 @@ export class ProjectPageComponent implements OnInit {
   }
 
   formData?: GenericForm<ProjectModel> = Obj2GenericForm(dataFromApi)
+
+  constructor(
+    private projectRepoService: ProjectRepositoryService
+  ) { }
 }

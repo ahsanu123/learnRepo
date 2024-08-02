@@ -1,14 +1,14 @@
 export interface ProjectModel {
   id: number;
-  Name: string;
-  CreateDate: Date;
-  DeadLineDate?: Date;
-  LastUpdateDate: Date;
-  FinishedDate?: Date;
-  SellPrice?: number;
-  Capital: number;
-  Fail: boolean;
-  Finish: boolean;
-  ProfitInPersen: number;
-  Description: string;
+  name: string;
+  createdDate: Date;
+  deadLineDate?: Date;
+  lastUpdatedDate: Date;
+  finishedDate?: Date;
+  sellPrice?: number;
+  capital: number;
+  fail: boolean;
+  finish: boolean;
+  profitInPersen: number;
+  description: string;
 }

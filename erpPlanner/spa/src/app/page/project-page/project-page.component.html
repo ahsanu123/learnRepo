@@ -1,3 +1,14 @@
 <h1>Project</h1>
+
+<div *ngIf="projectById$ | async as project; else loading">
+  {{project.name}}
+  {{project.description}}
+</div>
+<ng-template #loading>
+  Loading user information...
+</ng-template>
+
+<button class="btn btn-primary">Create New</button>
+
 <form-generator [data]="formData"
                 (OnSubmit)="OnFormSubmit($event)" />

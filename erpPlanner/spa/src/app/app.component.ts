@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { AngularSlickgridModule, Column, GridOption } from 'angular-slickgrid';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,9 @@ import { AngularSlickgridModule, Column, GridOption } from 'angular-slickgrid';
     CommonModule,
     RouterOutlet,
     RouterModule,
-    AngularSlickgridModule
+    AngularSlickgridModule,
   ],
+  providers: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

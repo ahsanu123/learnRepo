@@ -26,7 +26,6 @@ import { InputType } from '../../shared';
 })
 export class FormGeneratorComponent implements OnInit {
   @Input({ required: true }) data!: any
-  @Input() compact: boolean = false //  TODO: add compact and norma style
   @Input() showCode: boolean = true // TODO: enable hide and show code in markdown
   @Input() submitLabel: string = 'Submit'
 
@@ -69,5 +68,8 @@ export class FormGeneratorComponent implements OnInit {
       default: break;
     }
     return iconName
+  }
+  onShowCode() {
+    this.showCode = !this.showCode
   }
 }

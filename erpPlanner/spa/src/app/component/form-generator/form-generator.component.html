@@ -29,10 +29,24 @@
              [formControlName]="key"
              [hidden]="key.includes('id')" />
 
-      <!-- input for textarea type with markdown viewer -->
+
+      <label class="label cursor-pointer"
+             *ngIf="this.data[key].type ==='textarea'">
+        <span class="label-text">
+          <ng-icon name="heroCodeBracketSquareSolid" />
+          {{showCode ? "Hide Preview" : "Show Code"}}
+        </span>
+        <input type="checkbox"
+               class="toggle toggle-primary"
+               (change)="onShowCode()"
+               [checked]="showCode" />
+      </label>
       <div *ngIf="this.data[key].type ==='textarea'"
            class="flex w-full mb-10">
-        <div class="grid w-96 min-h-96 flex-grow card w-80 bg-base-300 ">
+
+
+        <div *ngIf="showCode"
+             class="grid w-96 min-h-96 flex-grow card w-80 bg-base-300 ">
           <textarea class="textarea textarea-bordered w-full min-h-72"
                     [placeholder]="key"
                     [formControlName]="key"
@@ -40,7 +54,8 @@
           </textarea>
         </div>
 
-        <div class="grid min-h-96 flex-grow card bg-base-300 place-items-left px-2 w-80">
+        <div *ngIf="!showCode"
+             class="grid min-h-96 flex-grow card bg-base-300 place-items-left px-2 w-80">
           <markdown emoji
                     [data]="this.formGroup.value[key]"
                     class="markdown-project-info text-wrap overflow-y-auto py-5 px-5">
