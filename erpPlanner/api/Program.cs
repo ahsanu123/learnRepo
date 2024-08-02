@@ -1,6 +1,7 @@
 using erpPlanner.BuilderService;
 using erpPlanner.Model;
 using erpPlanner.pMigration;
+using GraphQL.AspNet.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,7 @@ builder.Services.AddExternalIdentityProvider(configuration);
 builder.Services.AddOpenIdDictProvider();
 
 builder.Services.AddPostgresqlDbProvider(postgresConnectionString);
+builder.Services.AddGraphQLProvider();
 
 //==================================================
 //
@@ -44,6 +46,7 @@ if (app.Environment.IsDevelopment())
     {
         option.EnableTryItOutByDefault();
     });
+    app.UseGraphQlProvider();
 }
 
 app.UseHttpsRedirection();

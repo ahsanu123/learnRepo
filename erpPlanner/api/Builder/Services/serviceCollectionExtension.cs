@@ -16,6 +16,7 @@ public static class ServiceCollectionCustom
         services.AddScoped<GenericRepository<Component>>();
         services.AddScoped<GenericRepository<ResourceDoc>>();
         services.AddScoped<GenericRepository<ProducingStep>>();
+        services.AddScoped<GenericRepository<LoggerModel>>();
 
         return services;
     }

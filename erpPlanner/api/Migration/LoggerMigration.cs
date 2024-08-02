@@ -26,7 +26,8 @@ public class LoggerMigration : MigrationChild
             .WithColumn("Description")
             .AsString()
             .WithColumn("ProjectId")
-            .AsInt32();
+            .AsInt32()
+            .Nullable();
     }
 
     public void SetupForeignKey(Migration migration)

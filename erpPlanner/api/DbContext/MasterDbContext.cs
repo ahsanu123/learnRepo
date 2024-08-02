@@ -14,4 +14,5 @@ public class MasterContext : IdentityDbContext<CustomIdentityModel>
     public DbSet<Component> component { get; set; }
     public DbSet<ResourceDoc> resourceDoc { get; set; }
     public DbSet<ProducingStep> producingStep { get; set; }
+    public DbSet<LoggerModel> logger { get; set; }
 }
