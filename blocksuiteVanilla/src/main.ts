@@ -1,6 +1,6 @@
 import '@blocksuite/presets/themes/affine.css';
 
-import { AffineSchemas } from '@blocksuite/blocks';
+import { AffineSchemas, SpecProvider } from '@blocksuite/blocks';
 import { AffineEditorContainer } from '@blocksuite/presets';
 import { Schema } from '@blocksuite/store';
 import { DocCollection, Text } from '@blocksuite/store';
@@ -12,7 +12,7 @@ const customSchema = new Schema()
 const customEditor = new CustomEditorContainer()
 
 
-const schema = new Schema().register([ParagBlockSchema]);
+const schema = new Schema().register([...AffineSchemas, ParagBlockSchema]);
 const collection = new DocCollection({
   schema: schema
 });
@@ -21,7 +21,7 @@ collection.meta.initialize();
 const doc = collection.createDoc();
 const editor = new AffineEditorContainer();
 editor.doc = doc;
-editor.pageSpecs = [...editor.pageSpecs, ParagBlockSpec]
+editor.pageSpecs.push(ParagBlockSpec)
 customEditor.doc = doc;
 document.body.append(editor);
 
@@ -32,14 +32,18 @@ function createDoc() {
     const pageBlockId = doc.addBlock('affine:page', {
       title: new Text('Test'),
     });
-    doc.addBlock('affine:surface', {}, pageBlockId);
+    const surface = doc.addBlock('affine:surface', {}, pageBlockId);
     const noteId = doc.addBlock('affine:note', {}, pageBlockId);
-    doc.addBlock(
+    const helloId = doc.addBlock(
       'affine:paragraph',
       { text: new Text('Hello World!') },
       noteId
     );
-    doc.addBlock("parag:parag", undefined, noteId)
+    doc.addBlock('affine:divider', {}, helloId)
+    doc.addBlock('parag:parag', {
+      text: 'hellyeh',
+      type: 'h2'
+    }, helloId)
   });
 }
 

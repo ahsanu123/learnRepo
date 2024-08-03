@@ -3,15 +3,15 @@ import { BlockComponent } from '@blocksuite/blocks/src/_common/components/block-
 import { defineBlockSchema, SchemaToModel } from '@blocksuite/store'
 import { BlockService, BlockSpec } from '@blocksuite/block-std'
 import { literal } from 'lit/static-html.js'
+import { html } from 'lit'
 
 export type ParagType =
   | 'text'
   | 'h1'
   | 'h2'
 
-
 export const ParagBlockSchema = defineBlockSchema({
-  flavour: 'custom:parag',
+  flavour: 'parag:parag',
   props: internal => ({
     text: internal.Text(),
     type: 'h2' as ParagType
@@ -35,14 +35,16 @@ export class ParagBlockService extends BlockService<ParagBlockModel> {
 
 }
 
-@customElement('custom-component-block')
+@customElement('parag-parag')
 export class ParagComponentBlock extends BlockComponent<
-  ParagBlockModel,
-  ParagBlockService
+  ParagBlockModel
 > {
 
   override render() {
-
+    return html`
+    <h2>parag parag ${this.model.text}</h2>
+    ${this.model.type === 'text' ? 'text' : 'notext'}
+    `
   }
 }
 
@@ -57,11 +59,12 @@ export const ParagBlockSpec: BlockSpec = {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'custom-componet-block': ParagComponentBlock
+    'parag-parag': ParagComponentBlock
   }
   namespace BlockSuite {
     interface BlockModels {
-      'parag:parag': ParagComponentBlock
+      'parag:parag': ParagBlockModel
     }
   }
 }
+
