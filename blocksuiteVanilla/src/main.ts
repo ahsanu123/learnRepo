@@ -1,7 +1,7 @@
 import '@blocksuite/presets/themes/affine.css';
 
 import { AffineSchemas } from '@blocksuite/blocks';
-import { AffineEditorContainer } from '@blocksuite/presets';
+import { AffineEditorContainer, PageEditor } from '@blocksuite/presets';
 import { Schema } from '@blocksuite/store';
 import { DocCollection, Text } from '@blocksuite/store';
 import { IndexeddbPersistence } from 'y-indexeddb';
@@ -12,6 +12,7 @@ collection.meta.initialize();
 
 const doc = collection.createDoc();
 const editor = new AffineEditorContainer();
+editor.mode = 'page'
 editor.doc = doc;
 document.body.append(editor);
 

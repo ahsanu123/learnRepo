@@ -12,6 +12,7 @@
     "@blocksuite/blocks": "0.15.0-canary-202406291027-8aed732",
     "@blocksuite/presets": "0.15.0-canary-202406291027-8aed732",
     "@blocksuite/store": "0.15.0-canary-202406291027-8aed732",
+    "lit": "^3.1.4",
     "y-indexeddb": "^9.0.12",
     "yjs": "^13.6.18"
   },
