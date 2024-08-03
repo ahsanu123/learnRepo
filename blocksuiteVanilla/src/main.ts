@@ -1,19 +1,28 @@
 import '@blocksuite/presets/themes/affine.css';
 
 import { AffineSchemas } from '@blocksuite/blocks';
-import { AffineEditorContainer, PageEditor } from '@blocksuite/presets';
+import { AffineEditorContainer } from '@blocksuite/presets';
 import { Schema } from '@blocksuite/store';
 import { DocCollection, Text } from '@blocksuite/store';
 import { IndexeddbPersistence } from 'y-indexeddb';
+import { CustomEditorContainer } from './editor/custom-editor-container';
+import { ParagBlockSchema, ParagBlockSpec } from './blocks/customComponent1/custom-block';
 
-const schema = new Schema().register(AffineSchemas);
-const collection = new DocCollection({ schema });
+const customSchema = new Schema()
+const customEditor = new CustomEditorContainer()
+
+
+const schema = new Schema().register([ParagBlockSchema]);
+const collection = new DocCollection({
+  schema: schema
+});
 collection.meta.initialize();
 
 const doc = collection.createDoc();
 const editor = new AffineEditorContainer();
-editor.mode = 'page'
 editor.doc = doc;
+editor.pageSpecs = [...editor.pageSpecs, ParagBlockSpec]
+customEditor.doc = doc;
 document.body.append(editor);
 
 function createDoc() {
@@ -30,6 +39,7 @@ function createDoc() {
       { text: new Text('Hello World!') },
       noteId
     );
+    doc.addBlock("parag:parag", undefined, noteId)
   });
 }
 

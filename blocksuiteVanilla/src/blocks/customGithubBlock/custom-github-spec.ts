@@ -1,12 +1,11 @@
-
-import { BlockSpec } from '@blocksuite/block-std';
-
+import { BlockSpec } from "@blocksuite/block-std"
+import { literal } from "lit/static-html.js"
 
 export const CustomGithubBlockSpec: BlockSpec = {
   schema: {
     version: 0,
     model: {
-      flavour: '',
+      flavour: 'custom-me',
       role: 'root',
       children: undefined,
       parent: undefined,
@@ -16,5 +15,8 @@ export const CustomGithubBlockSpec: BlockSpec = {
     transformer: undefined,
     onUpgrade: undefined
   },
-  view: undefined
+  view: {
+
+    component: literal`custom-github-block`
+  }
 }
