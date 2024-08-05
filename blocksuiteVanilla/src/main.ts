@@ -1,6 +1,6 @@
 import '@blocksuite/presets/themes/affine.css';
 
-import { AffineSchemas, SpecProvider } from '@blocksuite/blocks';
+import { AffineSchemas } from '@blocksuite/blocks';
 import { AffineEditorContainer } from '@blocksuite/presets';
 import { Schema } from '@blocksuite/store';
 import { DocCollection, Text } from '@blocksuite/store';
@@ -32,7 +32,7 @@ function createDoc() {
     const pageBlockId = doc.addBlock('affine:page', {
       title: new Text('Test'),
     });
-    const surface = doc.addBlock('affine:surface', {}, pageBlockId);
+    doc.addBlock('affine:surface', {}, pageBlockId);
     const noteId = doc.addBlock('affine:note', {}, pageBlockId);
     const helloId = doc.addBlock(
       'affine:paragraph',
@@ -41,7 +41,7 @@ function createDoc() {
     );
     doc.addBlock('affine:divider', {}, helloId)
     doc.addBlock('parag:parag', {
-      text: 'hellyeh',
+      text: new Text("Parag Parag"),
       type: 'h2'
     }, helloId)
   });
