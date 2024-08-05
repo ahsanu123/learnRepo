@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/ah/personalProject/learnRepo/mlpack/build",
+  "command": "/usr/sbin/c++    -o CMakeFiles/main.dir/src/main.cpp.o -c /home/ah/personalProject/learnRepo/mlpack/src/main.cpp",
+  "file": "/home/ah/personalProject/learnRepo/mlpack/src/main.cpp",
+  "output": "CMakeFiles/main.dir/src/main.cpp.o"
+}
+]
