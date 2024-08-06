@@ -1,0 +1,26 @@
+$slick-autocomplete-max-height: 250px;
+
+// @import '@slickgrid-universal/common/dist/styles/sass/slickgrid-theme-salesforce.scss';
+
+.example11-body {
+  .dropdown-item {
+    cursor: pointer;
+  }
+  .dropdown-item-disabled {
+    color: #afafaf;
+    cursor: default;
+  }
+  .ml-1-negative {
+    margin-left: -5px;
+  }
+  .action-btns {
+    display: inline-block;
+    line-height: 18px;
+  }
+}
+
+.grid11 {
+  .unsaved-editable-field {
+    background-color: #fbfdd1 !important;
+  }
+}
