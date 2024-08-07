@@ -70,7 +70,7 @@ export class RowDetailSlickComponent implements OnInit, OnDestroy {
     rowDetailView: this.rowDetailView,
     autoResize: {
       container: '#demo-container',
-      rightPadding: 10
+      rightPadding: 20
     },
     rowSelectionOptions: {
       selectActiveRow: true
