@@ -1,5 +1,5 @@
 import { Column, FieldType, Formatters, GridOption } from "@slickgrid-universal/common";
-import { IComponent } from "../component-interface";
+import { IComponent } from "./component-interface";
 import { Slicker, SlickVanillaGridBundle } from "@slickgrid-universal/vanilla-bundle";
 import '@slickgrid-universal/common/dist/styles/sass/slickgrid-theme-material.scss';
 
@@ -67,8 +67,6 @@ export class BasicSlickGrid implements IComponent {
       this.option,
       this.data
     )
-    console.log(this.data)
-    console.log(this.grid)
   }
 
 
