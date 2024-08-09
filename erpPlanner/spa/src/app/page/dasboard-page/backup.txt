@@ -1,3 +1,4 @@
+
 <div class="flex flex-col h-screen">
 
   <!--Navbar-->
@@ -33,6 +34,7 @@
 
     <div class="flex-initial w-80 h-full bg-base-300 ">
       <sidebar-component />
+      <p-button label="Submit" />
     </div>
 
     <div class="divider divider-horizontal"></div>

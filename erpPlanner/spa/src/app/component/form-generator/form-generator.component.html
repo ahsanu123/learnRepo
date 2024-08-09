@@ -20,12 +20,14 @@
              [value]="this.data[key].value"
              [formControlName]="key"
              [placeholder]="key"
-             [hidden]="key.includes('id')" />
+             [hidden]="key.includes('id')"
+             p-inputSwitch />
 
       <!-- input for checkbox type -->
       <input *ngIf="this.data[key].type ==='checkbox' "
              class="checkbox"
              type="checkbox"
+             pInputText
              [formControlName]="key"
              [hidden]="key.includes('id')" />
 
@@ -47,7 +49,10 @@
 
         <div *ngIf="showCode"
              class="grid w-96 min-h-96 flex-grow card w-80 bg-base-300 ">
-          <textarea class="textarea textarea-bordered w-full min-h-72"
+          <textarea pInputTextarea
+                    class="w-full"
+                    rows="10"
+                    cols="100"
                     [placeholder]="key"
                     [formControlName]="key"
                     [hidden]="key.includes('id')">
@@ -66,7 +71,8 @@
     </label>
   </div>
 
-  <button type="submit"
+  <button pButton
+          type="submit"
           class="btn btn-primary w-full">
     {{this.submitLabel}}
   </button>

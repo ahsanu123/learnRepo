@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { DasboardComponent } from './page/dasboard/dasboard.component';
+import { DasboardComponent } from './page/dasboard-page/dasboard.component';
 import { ProjectInfoComponent } from './page/project-info/project-info.component';
 import { ProjectPageComponent } from './page/project-page/project-page.component';
 import { DynamicFormComponent } from './component/dynamic-form/dynamic-form.component';

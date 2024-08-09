@@ -5,6 +5,10 @@ import * as icon from '@ng-icons/heroicons/solid';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { MarkdownComponent, provideMarkdown } from 'ngx-markdown';
 import { InputType } from '../../shared';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'form-generator',
@@ -16,6 +20,10 @@ import { InputType } from '../../shared';
     ReactiveFormsModule,
     DatePipe,
     MarkdownComponent,
+    InputTextModule,
+    InputSwitchModule,
+    ButtonModule,
+    InputTextareaModule
   ],
   providers: [
     provideIcons(icon),

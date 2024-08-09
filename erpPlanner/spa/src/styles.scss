@@ -1,8 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
-@tailwind base;
+// @tailwind base;
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
+@import "./../node_modules/primeflex/primeflex.css";
+@import "primeicons/primeicons.css";
+
 
 ul {
   display: block;
@@ -99,8 +102,8 @@ blockquote {
 
 }
 
-@tailwind components;
-@tailwind utilities;
+// @tailwind components;
+// @tailwind utilities;
 
 html,
 body {
