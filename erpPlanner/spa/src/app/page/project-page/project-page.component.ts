@@ -4,6 +4,7 @@ import { ComponentModule } from '../../component/component.module';
 import { GenericForm, Obj2GenericForm } from '../../shared';
 import { ProjectRepositoryService } from '../../repositoryService/project-repository.service';
 import { AsyncPipe, CommonModule } from '@angular/common';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 const dataFromApi: Partial<ProjectModel> = {
   id: 5,
@@ -44,6 +45,7 @@ Simple Breakout Board to Learn Shift Register with Tactile Switch And Rotary Enc
   imports: [
     ComponentModule,
     CommonModule,
+    RouterModule
   ],
   templateUrl: './project-page.component.html',
   styleUrl: './project-page.component.scss'
@@ -52,6 +54,7 @@ export class ProjectPageComponent implements OnInit {
 
   projectById$ = this.projectRepoService.project$
   ngOnInit(): void {
+    console.log(this._router.routerState.snapshot)
   }
 
   OnFormSubmit(data: any) {
@@ -61,6 +64,7 @@ export class ProjectPageComponent implements OnInit {
   formData?: GenericForm<ProjectModel> = Obj2GenericForm(dataFromApi)
 
   constructor(
-    private projectRepoService: ProjectRepositoryService
+    private projectRepoService: ProjectRepositoryService,
+    private _router: Router
   ) { }
 }

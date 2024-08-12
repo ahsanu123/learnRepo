@@ -10,35 +10,6 @@ import { ToastModule } from 'primeng/toast';
   template: `
     <div class="justify-content-center">
           <span class="inline-flex align-items-center gap-1 px-2 py-2">
-              <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
-                  <path d="..." fill="var(--primary-color)" />
-                  <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
-                      <path d="..." fill="var(--primary-color-text)" />
-                  </mask>
-                  <g mask="url(#mask0_1_36)">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="..." fill="var(--primary-color)" />
-                  </g>
-                  <path d="..." fill="var(--primary-color-text)" />
-                  <path d="..." fill="var(--primary-color-text)" />
-                  <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="..."
-                      fill="var(--primary-color-text)"
-                  />
-                  <path d="..." fill="var(--primary-color-text)" />
-                  <path d="..." fill="var(--primary-color-text)" />
-                  <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="..."
-                      fill="var(--primary-color-text)"
-                  />
-                  <path d="..." fill="var(--primary-color-text)" />
-                  <path d="..." fill="var(--primary-color-text)" />
-                  <path d="..." fill="var(--primary-color-text)" />
-                  <path d="..." fill="var(--primary-color-text)" />
-              </svg>
               <span class="font-medium text-xl font-semibold">
                   DJANGKRIK
               </span>
@@ -53,27 +24,34 @@ export class SideBarComponent implements OnInit {
   ngOnInit() {
     this.items = [
       {
-        label: 'Documents',
+        label: 'Project',
         items: [
           {
             label: 'New',
-            icon: 'pi pi-plus'
+            icon: 'pi pi-plus',
+            routerLink: '/project',
+            queryParams: {
+              action: 'new',
+            },
+            state: {
+              action: 'new'
+            }
           },
           {
-            label: 'Search',
+            label: 'List',
             icon: 'pi pi-search'
           }
         ]
       },
       {
-        label: 'Profile',
+        label: 'Administration',
         items: [
           {
             label: 'Settings',
             icon: 'pi pi-cog'
           },
           {
-            label: 'Logout',
+            label: 'Stocks',
             icon: 'pi pi-sign-out'
           }
         ]

@@ -66,13 +66,13 @@ export class TableComponent implements OnDestroy, OnInit {
         width: 70,
         filterable: true,
         editor: {
-          model: Editors.text
+          model: Editors['text']
         }
       },
       {
         id: 'duration',
         name: 'Duration (days)',
-        field: 'duration', formatter: Formatters.decimal,
+        field: 'duration', formatter: Formatters['decimal'],
         params: {
           minDecimal: 1, maxDecimal: 2
         },
@@ -86,14 +86,14 @@ export class TableComponent implements OnDestroy, OnInit {
         name: '% Complete',
         field: 'percentComplete2',
         editor: {
-          model: Editors.slider
+          model: Editors['slider']
         },
-        formatter: Formatters.progressBar,
+        formatter: Formatters['progressBar'],
         type: FieldType.number,
         sortable: true, minWidth: 100,
         filterable: true,
         filter: {
-          model: Filters.slider,
+          model: Filters['slider'],
           operator: '>'
         }
       },
@@ -101,26 +101,26 @@ export class TableComponent implements OnDestroy, OnInit {
         id: 'start',
         name: 'Start',
         field: 'start',
-        formatter: Formatters.dateIso,
+        formatter: Formatters['dateIso'],
         sortable: true,
         type: FieldType.date,
         minWidth: 90,
         exportWithFormatter: true,
         filterable: true,
         filter: {
-          model: Filters.compoundDate
+          model: Filters['compoundDate']
         }
       },
       {
         id: 'finish',
         name: 'Finish',
         field: 'finish',
-        formatter: Formatters.dateIso,
+        formatter: Formatters['dateIso'],
         sortable: true, type: FieldType.date,
         minWidth: 90, exportWithFormatter: true,
         filterable: true,
         filter: {
-          model: Filters.compoundDate
+          model: Filters['compoundDate']
         }
       },
       {
@@ -128,7 +128,7 @@ export class TableComponent implements OnDestroy, OnInit {
         name: 'Effort Driven',
         field: 'effortDriven',
         minWidth: 100,
-        formatter: Formatters.checkmarkMaterial,
+        formatter: Formatters['checkmarkMaterial'],
         type: FieldType.boolean,
         filterable: true,
         sortable: true,
@@ -147,7 +147,7 @@ export class TableComponent implements OnDestroy, OnInit {
               label: 'False'
             }
           ],
-          model: Filters.singleSelect
+          model: Filters['singleSelect']
         }
       }
     ];
