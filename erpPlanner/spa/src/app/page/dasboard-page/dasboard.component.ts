@@ -15,6 +15,10 @@ import {
   TagModule
 } from 'primeng/tag'
 import { CommonModule } from '@angular/common';
+import { MenuBarComponent } from '../../component/menu-bar/menu-bar.component';
+import { SideBarComponent } from '../../component/sidebar-component/sidebar.component';
+import { CardModule } from 'primeng/card';
+import { AccordionModule } from 'primeng/accordion';
 
 @Component({
   selector: 'app-dasboard',
@@ -27,6 +31,10 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     DataViewModule,
     TagModule,
+    MenuBarComponent,
+    CardModule,
+    SideBarComponent,
+    AccordionModule
   ],
   templateUrl: './dasboard.component.html',
   styleUrl: './dasboard.component.scss',

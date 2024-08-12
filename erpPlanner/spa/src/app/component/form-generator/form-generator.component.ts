@@ -23,7 +23,8 @@ import { ButtonModule } from 'primeng/button';
     InputTextModule,
     InputSwitchModule,
     ButtonModule,
-    InputTextareaModule
+    InputTextareaModule,
+    InputTextModule
   ],
   providers: [
     provideIcons(icon),

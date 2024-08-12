@@ -1,17 +1,131 @@
-<div class="grid">
-  <div class="col-2  bg-primary">
-    side
+<div class="grid main-container">
+  <div class="max-w-21 main-sidebar">
+    <sidebar-component />
   </div>
 
-  <div class="col bg-pink-500">
-    <div class="col-12 bg-yellow-500">Header</div>
+  <div class="col ">
+    <div class="col-12 ">
+      <menubar-component />
+    </div>
 
-    <div class="col-12 row-2 bg-green-500">
+    <div class="col-12 row-2 ">
       <div class="grid">
-        <div class="col-9 bg-red-500">
+        <div class="col-9 ">
           <router-outlet></router-outlet>
+
+          <div class="card flex justify-content-center">
+            <p-card header="Simple Card">
+              <p class="m-0">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
+                numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis
+                esse, cupiditate neque
+                quas!
+              </p>
+              <div id="outputholder"
+                   class="loripsum">
+                <h1>id fugiunt, re eadem defendunt, quae Peripatetici, verba.</h1>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc ipsum elegantius poni meliusque potuit.
+                  Sit hoc ultimum bonorum, quod nunc a me defenditur; Duo Reges: constructio interrete. Servari enim
+                  iustitia nisi a forti viro, nisi a sapiente non potest. Itaque hic ipse iam pridem est reiectus; In
+                  quo etsi est magnus, tamen nova pleraque et perpauca de moribus. </p>
+
+                <blockquote cite="http://loripsum.net">
+                  Quos qui tollunt et nihil posse percipi dicunt, ii remotis sensibus ne id ipsum quidem expedire
+                  possunt, quod disserunt.
+                </blockquote>
+
+
+                <ol>
+                  <li>Sed quid attinet de rebus tam apertis plura requirere?</li>
+                  <li>Apparet statim, quae sint officia, quae actiones.</li>
+                  <li>Ab his oratores, ab his imperatores ac rerum publicarum principes extiterunt.</li>
+                </ol>
+
+
+                <pre>Nec tamen exprimi verbum e verbo necesse erit, ut
+                  interpretes indiserti solent, sit verbum, quod idem
+                  declaret, magis usitatum.
+
+                  Claudii libidini, qui tum erat summo ne imperio, dederetur.
+                </pre>
+
+
+                <ul>
+                  <li>Primum cur ista res digna odio est, nisi quod est turpis?</li>
+                  <li>Nec vero alia sunt quaerenda contra Carneadeam illam sententiam.</li>
+                </ul>
+
+
+                <dl>
+                  <dt><dfn>Bork</dfn></dt>
+                  <dd>Cyrenaici quidem non recusant;</dd>
+                  <dt><dfn>Pollicetur certe.</dfn></dt>
+                  <dd>Aliud igitur esse censet gaudere, aliud non dolere.</dd>
+                  <dt><dfn>Bork</dfn></dt>
+                  <dd>Si longus, levis.</dd>
+                  <dt><dfn>Moriatur, inquit.</dfn></dt>
+                  <dd>Quem si tenueris, non modo meum Ciceronem, sed etiam me ipsum abducas licebit.</dd>
+                </dl>
+
+
+                <p>Cave putes quicquam esse verius. Qua ex cognitione facilior facta est investigatio rerum
+                  occultissimarum. Si stante, hoc natura videlicet vult, salvam esse se, quod concedimus; Dici enim
+                  nihil potest verius. </p>
+
+                <h2>De vacuitate doloris eadem sententia erit.</h2>
+
+                <p>A quibus propter discendi cupiditatem videmus ultimas terras esse peragratas. Quae in controversiam
+                  veniunt, de iis, si placet, disseramus. <i>Sed in rebus apertissimis nimium longi sumus.</i> Claudii
+                  libidini, qui tum erat summo ne imperio, dederetur. Earum etiam rerum, quas terra gignit, educatio
+                  quaedam et perfectio est non dissimilis animantium. Quamvis enim depravatae non sint, pravae tamen
+                  esse possunt. </p>
+
+              </div>
+            </p-card>
+          </div>
+
         </div>
-        <div class="col bg-blue-500">Details</div>
+        <div class="col ">
+
+          <h1>
+            Details
+          </h1>
+          <div class="card flex justify-content-center">
+            <p-accordion [activeIndex]="0">
+              <p-accordionTab header="Header I">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                  dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                  aliquip ex ea commodo
+                  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                  nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                  mollit anim id est laborum.
+                </p>
+              </p-accordionTab>
+              <p-accordionTab header="Header II">
+                <p>
+                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
+                  totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta
+                  sunt explicabo. Nemo enim
+                  ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
+                  eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
+                  modi.
+                </p>
+              </p-accordionTab>
+              <p-accordionTab header="Header III">
+                <p>
+                  At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                  deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
+                  provident, similique sunt in culpa
+                  qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est
+                  et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit
+                  quo minus.
+                </p>
+              </p-accordionTab>
+            </p-accordion>
+          </div>
+        </div>
       </div>
     </div>
 

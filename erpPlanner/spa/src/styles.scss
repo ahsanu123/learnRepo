@@ -7,110 +7,110 @@
 @import "primeicons/primeicons.css";
 
 
-ul {
-  display: block;
-  list-style-type: disc;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  padding-inline-start: 40px;
-  unicode-bidi: isolate;
-}
-
-li {
-  display: list-item;
-  text-align: -webkit-match-parent;
-  unicode-bidi: isolate;
-}
-
-ol {
-  display: block;
-  list-style-type: decimal;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  padding-inline-start: 40px;
-  unicode-bidi: isolate;
-}
-
-p {
-  display: block;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  unicode-bidi: isolate;
-}
-
-a {
-  text-decoration: underline;
-  color: #f5d0fe;
-}
-
-/* Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--secondary) var(--primary);
-}
-
-/* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 15px;
-}
-
-*::-webkit-scrollbar-track {
-  background: var(--primary);
-  border-radius: 5px;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: var(--secondary);
-  border-radius: 14px;
-  border: 3px solid var(--primary);
-}
-
-h1 {
-  font-size: 2em;
-}
-
-h2 {
-  font-size: 1.5em;
-}
-
-h3 {
-  font-size: 1.2em;
-}
-
-h4 {
-  font-size: 1em;
-}
-
-h5 {
-  font-size: 0.8em;
-}
-
-h6 {
-  font-size: 0.7
-}
-
-blockquote {
-
-  border-left: solid gray 5px;
-  padding-left: 10px;
-
-}
-
-// @tailwind components;
-// @tailwind utilities;
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
+// ul {
+//   display: block;
+//   list-style-type: disc;
+//   margin-block-start: 1em;
+//   margin-block-end: 1em;
+//   margin-inline-start: 0px;
+//   margin-inline-end: 0px;
+//   padding-inline-start: 40px;
+//   unicode-bidi: isolate;
+// }
+//
+// li {
+//   display: list-item;
+//   text-align: -webkit-match-parent;
+//   unicode-bidi: isolate;
+// }
+//
+// ol {
+//   display: block;
+//   list-style-type: decimal;
+//   margin-block-start: 1em;
+//   margin-block-end: 1em;
+//   margin-inline-start: 0px;
+//   margin-inline-end: 0px;
+//   padding-inline-start: 40px;
+//   unicode-bidi: isolate;
+// }
+//
+// p {
+//   display: block;
+//   margin-block-start: 1em;
+//   margin-block-end: 1em;
+//   margin-inline-start: 0px;
+//   margin-inline-end: 0px;
+//   unicode-bidi: isolate;
+// }
+//
+// a {
+//   text-decoration: underline;
+//   color: #f5d0fe;
+// }
+//
+// /* Firefox */
+// * {
+//   scrollbar-width: thin;
+//   scrollbar-color: var(--secondary) var(--primary);
+// }
+//
+// /* Chrome, Edge, and Safari */
+// *::-webkit-scrollbar {
+//   width: 15px;
+// }
+//
+// *::-webkit-scrollbar-track {
+//   background: var(--primary);
+//   border-radius: 5px;
+// }
+//
+// *::-webkit-scrollbar-thumb {
+//   background-color: var(--secondary);
+//   border-radius: 14px;
+//   border: 3px solid var(--primary);
+// }
+//
+// h1 {
+//   font-size: 2em;
+// }
+//
+// h2 {
+//   font-size: 1.5em;
+// }
+//
+// h3 {
+//   font-size: 1.2em;
+// }
+//
+// h4 {
+//   font-size: 1em;
+// }
+//
+// h5 {
+//   font-size: 0.8em;
+// }
+//
+// h6 {
+//   font-size: 0.7
+// }
+//
+// blockquote {
+//
+//   border-left: solid gray 5px;
+//   padding-left: 10px;
+//
+// }
+//
+// // @tailwind components;
+// // @tailwind utilities;
+//
+// html,
+// body {
+//   height: 100%;
+// }
+//
+// body {
+//   margin: 0;
+//   font-family: Roboto, "Helvetica Neue", sans-serif;
+// }

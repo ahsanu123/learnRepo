@@ -14,22 +14,26 @@
 
       <!-- input for text type      -->
       <input *ngIf="this.data[key].type !== 'textarea' && this.data[key].type !== 'checkbox' "
-             class="input input-bordered w-full max-w-xs"
+             class="w-full "
              [type]="this.data[key].type"
              [checked]="this.data[key].value"
              [value]="this.data[key].value"
              [formControlName]="key"
              [placeholder]="key"
              [hidden]="key.includes('id')"
-             p-inputSwitch />
+             pInputText />
 
       <!-- input for checkbox type -->
       <input *ngIf="this.data[key].type ==='checkbox' "
              class="checkbox"
              type="checkbox"
-             pInputText
+             p-inputSwitch
              [formControlName]="key"
              [hidden]="key.includes('id')" />
+
+      <p-inputSwitch *ngIf="this.data[key].type ==='checkbox' "
+                     [formControlName]="key"
+                     [hidden]="key.includes('id')" />
 
 
       <label class="label cursor-pointer"
@@ -42,33 +46,33 @@
                class="toggle toggle-primary"
                (change)="onShowCode()"
                [checked]="showCode" />
+
       </label>
-      <div *ngIf="this.data[key].type ==='textarea'"
-           class="flex w-full mb-10">
+    </label>
+    <div *ngIf="this.data[key].type ==='textarea'"
+         class="max-w-30rem">
 
 
-        <div *ngIf="showCode"
-             class="grid w-96 min-h-96 flex-grow card w-80 bg-base-300 ">
-          <textarea pInputTextarea
-                    class="w-full"
-                    rows="10"
-                    cols="100"
-                    [placeholder]="key"
-                    [formControlName]="key"
-                    [hidden]="key.includes('id')">
-          </textarea>
-        </div>
-
-        <div *ngIf="!showCode"
-             class="grid min-h-96 flex-grow card bg-base-300 place-items-left px-2 w-80">
-          <markdown emoji
-                    [data]="this.formGroup.value[key]"
-                    class="markdown-project-info text-wrap overflow-y-auto py-5 px-5">
-          </markdown>
-        </div>
+      <div *ngIf="showCode"
+           class="">
+        <textarea pInputTextarea
+                  class="w-full"
+                  rows="10"
+                  cols="100"
+                  [placeholder]="key"
+                  [formControlName]="key"
+                  [hidden]="key.includes('id')">
+        </textarea>
       </div>
 
-    </label>
+      <div *ngIf="!showCode"
+           class="">
+        <markdown emoji
+                  [data]="this.formGroup.value[key]"
+                  class="max-w-6rem">
+        </markdown>
+      </div>
+    </div>
   </div>
 
   <button pButton
@@ -76,4 +80,5 @@
           class="btn btn-primary w-full">
     {{this.submitLabel}}
   </button>
+
 </form>
