@@ -9,6 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'form-generator',
@@ -24,7 +25,8 @@ import { ButtonModule } from 'primeng/button';
     InputSwitchModule,
     ButtonModule,
     InputTextareaModule,
-    InputTextModule
+    InputTextModule,
+    CalendarModule
   ],
   providers: [
     provideIcons(icon),

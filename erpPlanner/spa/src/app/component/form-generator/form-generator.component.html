@@ -1,6 +1,6 @@
 <form [formGroup]="formGroup"
       (ngSubmit)="sendSubmitToParent($event)"
-      class="mx-5 my-4">
+      class="mx-5 my-4 form-generator-container">
   <div *ngFor="let key of formKey;"
        class="mt-2">
     <label [class]="this.data[key].type !== 'textarea' ? 'label':''">
@@ -16,6 +16,7 @@
       <input *ngIf="this.data[key].type !== 'textarea' && this.data[key].type !== 'checkbox' "
              class="w-full "
              [type]="this.data[key].type"
+             ou
              [checked]="this.data[key].value"
              [value]="this.data[key].value"
              [formControlName]="key"
@@ -29,7 +30,7 @@
              type="checkbox"
              p-inputSwitch
              [formControlName]="key"
-             [hidden]="key.includes('id')" />
+             hidden />
 
       <p-inputSwitch *ngIf="this.data[key].type ==='checkbox' "
                      [formControlName]="key"
@@ -42,6 +43,7 @@
           <ng-icon name="heroCodeBracketSquareSolid" />
           {{showCode ? "Hide Preview" : "Show Code"}}
         </span>
+
         <input type="checkbox"
                class="toggle toggle-primary"
                (change)="onShowCode()"
@@ -50,11 +52,10 @@
       </label>
     </label>
     <div *ngIf="this.data[key].type ==='textarea'"
-         class="max-w-30rem">
+         class="max-w-full">
 
 
-      <div *ngIf="showCode"
-           class="">
+      <div *ngIf="showCode">
         <textarea pInputTextarea
                   class="w-full"
                   rows="10"
@@ -66,7 +67,7 @@
       </div>
 
       <div *ngIf="!showCode"
-           class="">
+           class="markdown-container">
         <markdown emoji
                   [data]="this.formGroup.value[key]"
                   class="max-w-6rem">

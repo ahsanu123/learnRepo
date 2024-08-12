@@ -6,6 +6,10 @@
 @import "./../node_modules/primeflex/primeflex.css";
 @import "primeicons/primeicons.css";
 
+img {
+  width: 100% !important;
+  height: auto;
+}
 
 // ul {
 //   display: block;
@@ -95,12 +99,12 @@
 //   font-size: 0.7
 // }
 //
-// blockquote {
-//
-//   border-left: solid gray 5px;
-//   padding-left: 10px;
-//
-// }
+blockquote {
+  border-left: solid gray 5px;
+  padding-left: 10px;
+
+}
+
 //
 // // @tailwind components;
 // // @tailwind utilities;
