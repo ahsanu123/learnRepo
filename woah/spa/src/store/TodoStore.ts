@@ -13,6 +13,7 @@ import { TodoModel } from "../model";
 // All generator functions become flow. (Note that generator functions are not detectable in some transpiler configurations, if flow doesn't work as expected, make sure to specify flow explicitly.)
 // Members marked with false in the overrides argument will not be annotated. For example, using it for read only fields such as identifiers.
 //
+// ref: https://mobx.js.org/observable-state.html
 
 export class TodoStore {
 
