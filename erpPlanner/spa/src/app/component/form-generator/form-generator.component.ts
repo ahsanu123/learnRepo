@@ -37,7 +37,7 @@ import { CalendarModule } from 'primeng/calendar';
 })
 export class FormGeneratorComponent implements OnInit {
   @Input({ required: true }) data!: any
-  @Input() showCode: boolean = true // TODO: enable hide and show code in markdown
+  @Input() showCode: boolean = true
   @Input() submitLabel: string = 'Submit'
 
   @Output() OnSubmit: EventEmitter<any> = new EventEmitter();
@@ -63,6 +63,10 @@ export class FormGeneratorComponent implements OnInit {
 
   sendSubmitToParent(event: any) {
     this.OnSubmit.emit(this.formGroup.value)
+  }
+
+  get getFormValue() {
+    return this.formGroup.value;
   }
 
   camelCase2space(value: string): string {

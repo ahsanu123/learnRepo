@@ -16,7 +16,7 @@ export function Obj2GenericForm<T>(obj: T) {
     else if (typeof obj[key] === 'number')
       inputType = 'number'
 
-    else if (typeof obj[key] === 'string' && (obj[key] as string).length > 10)
+    else if (typeof obj[key] === 'string' && (obj[key] as string).length > 10 || (key as string).includes('description'))
       inputType = 'textarea'
 
     else inputType = 'text'

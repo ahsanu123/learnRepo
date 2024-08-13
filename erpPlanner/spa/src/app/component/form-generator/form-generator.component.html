@@ -2,11 +2,11 @@
       (ngSubmit)="sendSubmitToParent($event)"
       class="mx-5 my-4 form-generator-container">
   <div *ngFor="let key of formKey;"
-       class="mt-2">
+       class="mt-3">
     <label [class]="this.data[key].type !== 'textarea' ? 'label':''">
 
       <div *ngIf="!key.includes('id')"
-           class="label">
+           class="label mb-2">
         <span class="label-text">
           <ng-icon [name]="this.getIconFromType(this.data[key].type)" />
           {{this.camelCase2space(key)}}</span>
@@ -75,11 +75,4 @@
       </div>
     </div>
   </div>
-
-  <button pButton
-          type="submit"
-          class="btn-primary ">
-    {{this.submitLabel}}
-  </button>
-
 </form>

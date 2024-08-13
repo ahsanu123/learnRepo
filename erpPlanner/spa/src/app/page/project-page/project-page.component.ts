@@ -1,10 +1,18 @@
-import { Component, Input, OnInit, input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, input } from '@angular/core';
 import { ProjectModel } from '../../model/project-model';
 import { ComponentModule } from '../../component/component.module';
 import { GenericForm, Obj2GenericForm } from '../../shared';
 import { ProjectRepositoryService } from '../../repositoryService/project-repository.service';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { DividerModule } from 'primeng/divider';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { CreateNewProjectComponent } from './component/create-new-project-page.component';
+import { BaseEventModel, BaseEventModelStatus } from '../../model';
+import { ProjectService } from '../../services/ProjectService';
+import { Observable, takeUntil } from 'rxjs';
 
 const dataFromApi: Partial<ProjectModel> = {
   id: 5,
@@ -45,26 +53,47 @@ Simple Breakout Board to Learn Shift Register with Tactile Switch And Rotary Enc
   imports: [
     ComponentModule,
     CommonModule,
-    RouterModule
+    RouterModule,
+    ButtonModule,
+    DividerModule,
+    DialogModule,
+    InputTextModule,
+    AsyncPipe,
+    CreateNewProjectComponent,
   ],
   templateUrl: './project-page.component.html',
   styleUrl: './project-page.component.scss'
 })
-export class ProjectPageComponent implements OnInit {
+export class ProjectPageComponent implements OnInit, OnDestroy {
 
+  projectData!: Observable<string>
+  visible: boolean = false
   projectById$ = this.projectRepoService.project$
+  showDialog() {
+    this.visible = !this.visible
+  }
+
+  onChildrenConfirmed(event: BaseEventModel) {
+    console.log(event)
+  }
+
   ngOnInit(): void {
-    console.log(this._router.routerState.snapshot)
+    this.projectData = this._projectData.projectData
+  }
+
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
   }
 
   OnFormSubmit(data: any) {
-    console.log(data)
   }
 
-  formData?: GenericForm<ProjectModel> = Obj2GenericForm(dataFromApi)
+  formData?: GenericForm<any> = Obj2GenericForm(dataFromApi)
 
   constructor(
     private projectRepoService: ProjectRepositoryService,
-    private _router: Router
+    private _router: Router,
+    private _projectData: ProjectService,
   ) { }
+
 }
