@@ -31,13 +31,21 @@ FetchContent_Declare(
   GIT_TAG             main
 )
 
+FetchContent_Declare(
+  armadillo
+  URL                 https://sourceforge.net/projects/arma/files/armadillo-14.0.2.tar.xz
+)
+
 FetchContent_MakeAvailable(
   matplotpp
   FLTK
   libusb
+  armadillo
 )
 
+
 include(./cmake/libusb_example.cmake)
+include(./cmake/armadillo_example.cmake)
 
 add_executable(
   main
