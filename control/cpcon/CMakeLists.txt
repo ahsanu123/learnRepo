@@ -36,11 +36,18 @@ FetchContent_Declare(
   URL                 https://sourceforge.net/projects/arma/files/armadillo-14.0.2.tar.xz
 )
 
+FetchContent_Declare(
+  tomlan_control
+  GIT_REPOSITORY      https://github.com/tomlankhorst/control
+  GIT_TAG             master
+)
+
 FetchContent_MakeAvailable(
   matplotpp
   FLTK
   libusb
   armadillo
+  # tomlan_control
 )
 
 
