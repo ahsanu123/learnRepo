@@ -7,8 +7,8 @@ import { BaseUrl } from '../shared';
   providedIn: 'root'
 })
 export class ProjectRepositoryService {
+  constructor(private http: HttpClient) { }
 
   project$ = this.http.get<ProjectModel>(`${BaseUrl}/Project/get/1`)
 
-  constructor(private http: HttpClient) { }
 }

@@ -32,6 +32,8 @@
     "@ng-icons/bootstrap-icons": "^27.2.0",
     "@ng-icons/core": "^27.2.0",
     "@ng-icons/heroicons": "^27.2.0",
+    "@ngrx/effects": "^18.0.2",
+    "@ngrx/store": "^18.0.2",
     "angular-slickgrid": "^8.0.0",
     "bootstrap": "^5.3.3",
     "emoji-toolkit": "^8.0.0",

@@ -1,5 +1,5 @@
 export interface ProjectModel {
-  id: number;
+  id?: number;
   name: string;
   createdDate: Date;
   deadLineDate?: Date;
@@ -11,4 +11,20 @@ export interface ProjectModel {
   finish: boolean;
   profitInPersen: number;
   description: string;
+}
+
+export const initProjectModel = () => {
+  return {
+    name: '',
+    createdDate: new Date(),
+    deadLineDate: new Date(),
+    lastUpdatedDate: new Date(),
+    finishedDate: new Date(),
+    sellPrice: 0.0,
+    capital: 0.0,
+    fail: false,
+    finish: false,
+    profitInPersen: 10,
+    description: ''
+  } as ProjectModel
 }

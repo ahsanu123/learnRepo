@@ -10,7 +10,7 @@ import { ScrollerModule } from 'primeng/scroller';
 import { GenericForm, Obj2GenericForm, initializeProjectModel } from '../../../shared';
 import { FormGeneratorComponent } from '../../../component/form-generator/form-generator.component';
 import { BaseEventModel, BaseEventModelStatus, ProjectModel } from '../../../model';
-import { ProjectService } from '../../../services/ProjectService';
+import { ProjectPageStore } from '../project-page-store';
 
 @Component({
   selector: 'project-page-create-new-project',
@@ -39,7 +39,7 @@ export class CreateNewProjectComponent implements OnInit {
   newProjectData: GenericForm<ProjectModel> = Obj2GenericForm(initializeProjectModel())
 
   constructor(
-    private _projectService: ProjectService
+    private _projectService: ProjectPageStore
   ) {
     for (let i = 0; i < 20; i++) {
       this.field.push(`field ${i}`)
@@ -47,7 +47,7 @@ export class CreateNewProjectComponent implements OnInit {
   }
 
   onConfirm() {
-    this._projectService.setProjectData("changed from new Project")
+    // this._projectService.setProjectData("changed from new Project")
     this.visible = false
   }
 

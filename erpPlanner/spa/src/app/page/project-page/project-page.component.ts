@@ -8,11 +8,49 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
 import { CreateNewProjectComponent } from './component/create-new-project-page.component';
+import { InputTextModule } from 'primeng/inputtext';
 import { BaseEventModel, BaseEventModelStatus } from '../../model';
-import { ProjectService } from '../../services/ProjectService';
 import { Observable, takeUntil } from 'rxjs';
+import { BookListComponent } from '../../component/book/book-list.component';
+import { BookCollectionComponent } from '../../component/book-collection/book-collection.component';
+import { GoogleBooksService } from '../../services/book-service';
+import { Store } from '@ngrx/store';
+import { BooksActions, BooksApiActions } from '../../model/state/book-action';
+import { selectBookCollection, selectBooks } from '../../model/state/book-selector';
+import { Book } from '../../model/book-model';
+
+
+const mockBook: Array<Book> = [
+  {
+    id: '1',
+    volumeInfo: {
+      title: 'hell yeah',
+      authors: ['william minerva']
+    }
+  },
+  {
+    id: '2',
+    volumeInfo: {
+      title: 'hell yeah',
+      authors: ['william minerva']
+    }
+  },
+  {
+    id: '3',
+    volumeInfo: {
+      title: 'hell yeah',
+      authors: ['william minerva']
+    }
+  },
+  {
+    id: '4',
+    volumeInfo: {
+      title: 'hell yeah',
+      authors: ['william minerva']
+    }
+  },
+]
 
 const dataFromApi: Partial<ProjectModel> = {
   id: 5,
@@ -44,7 +82,6 @@ Simple Breakout Board to Learn Shift Register with Tactile Switch And Rotary Enc
 <sup> 27 Juni 2024 19:11 Work In Progress, Made with ♥️ by AH... </sup>
 
 `
-
 }
 
 @Component({
@@ -60,6 +97,8 @@ Simple Breakout Board to Learn Shift Register with Tactile Switch And Rotary Enc
     InputTextModule,
     AsyncPipe,
     CreateNewProjectComponent,
+    BookListComponent,
+    BookCollectionComponent,
   ],
   templateUrl: './project-page.component.html',
   styleUrl: './project-page.component.scss'
@@ -69,6 +108,18 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   projectData!: Observable<string>
   visible: boolean = false
   projectById$ = this.projectRepoService.project$
+
+  books$ = this.store.select(selectBooks);
+  bookCollection$ = this.store.select(selectBookCollection);
+
+  onAdd(bookId: string) {
+    this.store.dispatch(BooksActions.addBook({ bookId }));
+  }
+
+  onRemove(bookId: string) {
+    this.store.dispatch(BooksActions.removeBook({ bookId }));
+  }
+
   showDialog() {
     this.visible = !this.visible
   }
@@ -78,7 +129,13 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.projectData = this._projectData.projectData
+    // this.projectData = this._projectData.projectData
+    // this.booksService
+    //   .getBooks()
+    //   .subscribe((books) => {
+    this.store.dispatch(BooksApiActions.retrievedBookList({ books: mockBook }))
+    // }
+    // );
   }
 
   ngOnDestroy(): void {
@@ -86,6 +143,7 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   }
 
   OnFormSubmit(data: any) {
+    console.log(data)
   }
 
   formData?: GenericForm<any> = Obj2GenericForm(dataFromApi)
@@ -93,7 +151,10 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   constructor(
     private projectRepoService: ProjectRepositoryService,
     private _router: Router,
-    private _projectData: ProjectService,
+    // private _projectData: ProjectService,
+    private _projectRepository: ProjectRepositoryService,
+    private booksService: GoogleBooksService,
+    private store: Store
   ) { }
 
 }
