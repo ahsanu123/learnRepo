@@ -30,6 +30,8 @@ builder.Services.AddPostgresqlDbProvider(postgresConnectionString);
 builder.Services.AddGraphQLProvider();
 builder.Services.AddCors();
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 //==================================================
 //
 //  Application Start
@@ -52,6 +54,8 @@ if (app.Environment.IsDevelopment())
     app.UseCors(option =>
     {
         option.AllowAnyOrigin();
+        option.AllowAnyMethod();
+        option.AllowAnyHeader();
     });
 }
 

@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as icon from '@ng-icons/heroicons/solid';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
@@ -21,7 +21,6 @@ import { CalendarModule } from 'primeng/calendar';
     ReactiveFormsModule,
     DatePipe,
     MarkdownComponent,
-    InputTextModule,
     InputSwitchModule,
     ButtonModule,
     InputTextareaModule,
@@ -35,22 +34,36 @@ import { CalendarModule } from 'primeng/calendar';
   templateUrl: './form-generator.component.html',
   styleUrl: './form-generator.component.scss'
 })
-export class FormGeneratorComponent implements OnInit {
-  @Input({ required: true }) data!: any
-  @Input() showCode: boolean = true
-  @Input() submitLabel: string = 'Submit'
+export class FormGeneratorComponent implements OnInit, AfterViewInit, OnChanges {
+  @Input({ required: true })
+  data!: any
 
-  @Output() OnSubmit: EventEmitter<any> = new EventEmitter();
+  @Input()
+  showCode: boolean = true
+
+  @Output() dataChange: EventEmitter<any> = new EventEmitter()
 
   formGroup!: FormGroup;
   formKey!: Array<string>;
 
   constructor(
-
     private formBuilder: FormBuilder,
   ) { }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    !changes['data'].isFirstChange() && this.initForm()
+    this.showCode = true
+  }
+
+  ngAfterViewInit(): void {
+    this.formGroup.valueChanges.subscribe((value) => this.dataChange.emit(value))
+  }
+
   ngOnInit(): void {
+    this.initForm()
+  }
+
+  initForm() {
     const key = Object.keys(this.data)
     const obj: any = {}
     key.forEach((key) => {
@@ -59,14 +72,6 @@ export class FormGeneratorComponent implements OnInit {
 
     this.formGroup = this.formBuilder.group(obj)
     this.formKey = Object.keys(this.formGroup.controls)
-  }
-
-  sendSubmitToParent(event: any) {
-    this.OnSubmit.emit(this.formGroup.value)
-  }
-
-  get getFormValue() {
-    return this.formGroup.value;
   }
 
   camelCase2space(value: string): string {

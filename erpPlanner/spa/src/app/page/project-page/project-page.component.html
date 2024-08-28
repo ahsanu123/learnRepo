@@ -3,6 +3,7 @@
         style="font-size: 2.5rem"></span>
   Project
 </h1>
+
 <!-- <div *ngIf="projectById$ | async as project; else loading"> -->
 <!--   {{project.name}} -->
 <!--   {{project.description}} -->
@@ -17,15 +18,9 @@
 
 <!-- <form-generator [data]="formData" -->
 <!--                 (OnSubmit)="OnFormSubmit($event)" /> -->
-<p-divider />
 
-<h2>Books</h2>
-<app-book-list class="book-list"
-               [books]="(books$ | async)!"
-               (add)="onAdd($event)"></app-book-list>
-
-<h2>My Collection</h2>
-<app-book-collection class="book-collection"
-                     [books]="(bookCollection$ | async)!"
-                     (remove)="onRemove($event)">
-</app-book-collection>
+<div *ngIf="projects$ | async as projects">
+  <p *ngFor="let project of projects">{{project.name}}</p>
+</div>
+<!-- <button (click)="onNewProject()">Create New Project</button> -->
+<button (click)="onSaveToAPI()">Save To API</button>

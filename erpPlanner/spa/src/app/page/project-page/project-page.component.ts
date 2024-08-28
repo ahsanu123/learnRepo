@@ -19,6 +19,9 @@ import { Store } from '@ngrx/store';
 import { BooksActions, BooksApiActions } from '../../model/state/book-action';
 import { selectBookCollection, selectBooks } from '../../model/state/book-selector';
 import { Book } from '../../model/book-model';
+import { projectPageSelectProjects } from './state/project-page-selector-collection';
+import { projectPageActionCollection } from './state/project-page-action-collection';
+import { DataViewModule } from 'primeng/dataview';
 
 
 const mockBook: Array<Book> = [
@@ -99,6 +102,7 @@ Simple Breakout Board to Learn Shift Register with Tactile Switch And Rotary Enc
     CreateNewProjectComponent,
     BookListComponent,
     BookCollectionComponent,
+    DataViewModule
   ],
   templateUrl: './project-page.component.html',
   styleUrl: './project-page.component.scss'
@@ -109,8 +113,9 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   visible: boolean = false
   projectById$ = this.projectRepoService.project$
 
-  books$ = this.store.select(selectBooks);
-  bookCollection$ = this.store.select(selectBookCollection);
+  books$ = this.store.select(selectBooks)
+  bookCollection$ = this.store.select(selectBookCollection)
+  projects$ = this.store.select(projectPageSelectProjects)
 
   onAdd(bookId: string) {
     this.store.dispatch(BooksActions.addBook({ bookId }));
@@ -118,6 +123,10 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
 
   onRemove(bookId: string) {
     this.store.dispatch(BooksActions.removeBook({ bookId }));
+  }
+
+  onSaveToAPI() {
+    this.store.dispatch(projectPageActionCollection.upsertProjectLists({}))
   }
 
   showDialog() {
@@ -129,17 +138,10 @@ export class ProjectPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.projectData = this._projectData.projectData
-    // this.booksService
-    //   .getBooks()
-    //   .subscribe((books) => {
-    this.store.dispatch(BooksApiActions.retrievedBookList({ books: mockBook }))
-    // }
-    // );
+    this.store.dispatch(projectPageActionCollection.getProjectLists({}))
   }
 
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
   }
 
   OnFormSubmit(data: any) {
