@@ -51,7 +51,11 @@ export class FormGeneratorComponent implements OnInit, AfterViewInit, OnChanges 
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    !changes['data'].isFirstChange() && this.initForm()
+    if (!changes['data'].isFirstChange()) {
+      this.initForm()
+      // dont know if this good method 
+      this.formGroup.valueChanges.subscribe((value) => this.dataChange.emit(value))
+    }
     this.showCode = true
   }
 

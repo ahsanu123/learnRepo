@@ -1,7 +1,4 @@
-import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ProjectModel } from "../model";
-import { BaseUrl } from "../shared";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { ProjectRepositoryService } from "../repositoryService/project-repository.service";
 import { projectPageActionCollection } from "../page/project-page/state/project-page-action-collection";

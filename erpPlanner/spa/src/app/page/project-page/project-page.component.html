@@ -20,7 +20,5 @@
 <!--                 (OnSubmit)="OnFormSubmit($event)" /> -->
 
 <div *ngIf="projects$ | async as projects">
-  <p *ngFor="let project of projects">{{project.name}}</p>
+  <project-list-component [lists]="projects" />
 </div>
-<!-- <button (click)="onNewProject()">Create New Project</button> -->
-<button (click)="onSaveToAPI()">Save To API</button>

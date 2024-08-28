@@ -1,7 +1,61 @@
-<p-dataView [value]="lists">
+<div class="card">
+  <p-dataView #dw
+              [value]="lists"
+              [rows]="3"
+              [paginator]="true">
 
-  <h3 *ngFor="let project of lists">
-    {{project.name}}
-  </h3>
+    <ng-template pTemplate="list"
+                 let-lists>
+      <div class="flex flex-column">
 
-</p-dataView>
+        <div *ngFor="let item of lists; let first = first"
+             class="my-2">
+          <p-card [header]="item.name"
+                  [subheader]="getDate(item.createdDate)"
+                  [style]="{ width: '100%' }">
+            <ng-template pTemplate="header">
+              <!-- <img alt="Card" -->
+              <!--      src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" /> -->
+            </ng-template>
+            <p>
+
+            </p>
+            <ng-template pTemplate="footer">
+              <div class="flex gap-3 mt-1">
+                <!-- <p-button label="Cancel" -->
+                <!--           severity="secondary" -->
+                <!--           class="w-full" -->
+                <!--           styleClass="w-full" /> -->
+                <!-- <p-button label="Save" -->
+                <!--           class="w-full" -->
+                <!--           styleClass="w-full" /> -->
+              </div>
+            </ng-template>
+          </p-card>
+        </div>
+
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>
+
+<p-table [value]="lists"
+         [tableStyle]="{ 'min-width': '50rem' }">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Name</th>
+      <th>Created Date</th>
+      <th>Dead Line Date</th>
+      <th>Sell Price</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body"
+               let-lists>
+    <tr>
+      <td>{{ lists.name}}</td>
+      <td>{{ lists.createdDate}}</td>
+      <td>{{ lists.deadLineDate}}</td>
+      <td>{{ lists.sellPrice}}</td>
+    </tr>
+  </ng-template>
+</p-table>

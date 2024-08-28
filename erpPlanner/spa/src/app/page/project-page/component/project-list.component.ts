@@ -1,14 +1,21 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { DataViewModule } from "primeng/dataview";
 import { ProjectModel } from "../../../model";
-import { CommonModule } from "@angular/common";
+import { CommonModule, DatePipe } from "@angular/common";
+import { CardModule } from "primeng/card";
+import { ButtonModule } from "primeng/button";
+import { TableModule } from "primeng/table";
 
 @Component({
   selector: 'project-list-component',
   standalone: true,
   imports: [
     DataViewModule,
-    CommonModule
+    CommonModule,
+    CardModule,
+    ButtonModule,
+    DatePipe,
+    TableModule
   ],
   templateUrl: './project-list.component.html',
   styleUrl: './project-list.component.scss'
@@ -16,6 +23,15 @@ import { CommonModule } from "@angular/common";
 export class ProjectListComponent implements OnInit {
   @Input({ required: true })
   lists!: ProjectModel[]
+
+  getDate(text: string) {
+    return new Date(text).toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+  }
 
   ngOnInit(): void {
   }

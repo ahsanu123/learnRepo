@@ -32,9 +32,8 @@ import { Subject, takeUntil } from 'rxjs';
   templateUrl: './create-new-project-page.component.html',
   styleUrl: './create-new-project-page.component.scss'
 })
-export class CreateNewProjectComponent implements OnInit, OnDestroy {
+export class CreateNewProjectComponent implements OnInit {
 
-  private destroy$: Subject<boolean> = new Subject<boolean>()
   currentProjectData?: ProjectModel
   visible: boolean = false
 
@@ -42,13 +41,7 @@ export class CreateNewProjectComponent implements OnInit, OnDestroy {
 
   constructor(
     private _store: Store,
-    private _projectRepository: ProjectRepositoryService
   ) { }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true)
-    this.destroy$.unsubscribe()
-  }
 
   onConfirm() {
     this.currentProjectData && this._store.dispatch(projectPageActionCollection.createNewProject({
@@ -69,7 +62,6 @@ export class CreateNewProjectComponent implements OnInit, OnDestroy {
     }
     this.visible = !this.visible
   }
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }
