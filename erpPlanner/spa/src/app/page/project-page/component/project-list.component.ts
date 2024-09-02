@@ -5,6 +5,11 @@ import { CommonModule, DatePipe } from "@angular/common";
 import { CardModule } from "primeng/card";
 import { ButtonModule } from "primeng/button";
 import { TableModule } from "primeng/table";
+import { TagModule } from 'primeng/tag';
+import { ChipsModule } from 'primeng/chips';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'project-list-component',
@@ -15,7 +20,12 @@ import { TableModule } from "primeng/table";
     CardModule,
     ButtonModule,
     DatePipe,
-    TableModule
+    TagModule,
+    TableModule,
+    ChipsModule,
+    FloatLabelModule,
+    ToggleButtonModule,
+    CheckboxModule,
   ],
   templateUrl: './project-list.component.html',
   styleUrl: './project-list.component.scss'
