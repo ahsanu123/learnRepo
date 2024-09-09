@@ -1,7 +1,18 @@
 import { Box, Heading, StateLabel } from '@primer/react'
-import '../../index.scss'
+import './Dashboard.scss'
+import { useMainStore } from '../../store/useMainStore'
+import { observer } from 'mobx-react-lite';
 
-function DashboardPage() {
+const DashboardPageImpl: React.FC = () => {
+
+  const {
+    dashboardPageStore
+  } = useMainStore();
+
+  const handleOnclick = () => {
+    dashboardPageStore.setTitle()
+    console.log("does this work")
+  }
 
   return (
     <>
@@ -10,10 +21,17 @@ function DashboardPage() {
           Hello, world!
         </Heading>
         <StateLabel status="pullOpened">Open</StateLabel>
+        <h2>{dashboardPageStore.title}</h2>
+
         <p>This will get Primer text styles.</p>
+        <button
+          onClick={handleOnclick}
+        >
+          click Me
+        </button>
       </Box>
     </>
   )
 }
 
-export default DashboardPage
+export const DashboardPage = observer(DashboardPageImpl);
