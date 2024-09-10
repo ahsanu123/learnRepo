@@ -1,6 +1,0 @@
-export * from './dynamic-form.model'
-export * from './dynamic-table-model'
-export * from './material-model'
-export * from './project-model'
-export * from './sidebar-model'
-export * from './baseEventModel'

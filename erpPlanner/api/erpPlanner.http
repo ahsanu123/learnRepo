@@ -1,6 +1,0 @@
-@erpPlanner_HostAddress = http://localhost:5000
-
-GET {{erpPlanner_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
