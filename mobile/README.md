@@ -38,6 +38,7 @@ sudo gradle tasks
 ```
 - accept all license with `sdkmanager --license`, if gradle not detecting accepted license (for example when build project) try to copy license folder from `ANDROID_SDK_ROOT` to your top build directory as described [here](https://developer.android.com/studio/intro/update#download-with-gradle)
 - then you can try to install on wireless connected device with `sudo gradle installDebug`
+- to auto reload (hot-reload) you can add `--continuous` to your command `sudo gradle installDebug --continuous`
 
 
 ## Notes 
