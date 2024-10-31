@@ -1,11 +1,9 @@
-
-import './style.scss'
-import { schema } from 'prosemirror-schema-basic'
 import { EditorState } from 'prosemirror-state'
 import { EditorView, NodeView } from 'prosemirror-view'
 import { Node as ProseNode, Schema } from 'prosemirror-model'
-import { addListNodes } from 'prosemirror-schema-list'
-import { exampleSetup } from 'prosemirror-example-setup'
+import { addListNodes, schema } from './schemas'
+import { exampleSetup } from './setup'
+import './style.scss'
 
 declare global {
   interface Window {
