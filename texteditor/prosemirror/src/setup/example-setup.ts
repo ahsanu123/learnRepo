@@ -1,14 +1,15 @@
-import { keymap } from "prosemirror-keymap"
-import { history } from "prosemirror-history"
-import { baseKeymap } from "prosemirror-commands"
 import { Plugin } from "prosemirror-state"
-import { dropCursor } from "prosemirror-dropcursor"
-import { gapCursor } from "prosemirror-gapcursor"
-import { menuBar, MenuElement } from "prosemirror-menu"
 import { Schema } from "prosemirror-model"
+
+import { history } from "./prose-history"
 import { buildInputRules } from "./input-rules"
 import { buildMenuItems } from "./menu"
 import { buildKeymap } from "./keymaps"
+import { baseKeymap } from "./prose-command"
+import { keymap } from "./prose-keymap"
+import { dropCursor } from "./prose-dropcursor"
+import { gapCursor } from "./prose-gapcursor"
+import { menuBar, MenuElement } from "./prose-menu"
 
 /// The resulting array will include the following plugins:
 ///

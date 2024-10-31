@@ -1,10 +1,10 @@
 import {
   wrapIn, setBlockType, chainCommands, toggleMark, exitCode,
   joinUp, joinDown, lift, selectParentNode
-} from "prosemirror-commands"
-import { wrapInList, splitListItem, liftListItem, sinkListItem } from "prosemirror-schema-list"
-import { undo, redo } from "prosemirror-history"
-import { undoInputRule } from "prosemirror-inputrules"
+} from "./prose-command"
+import { wrapInList, splitListItem, liftListItem, sinkListItem } from "./prose-schema-list"
+import { undo, redo } from "./prose-history"
+import { undoInputRule } from "./prose-input-rule"
 import { Command } from "prosemirror-state"
 import { Schema } from "prosemirror-model"
 
@@ -38,8 +38,8 @@ const mac = typeof navigator != "undefined" ? /Mac|iP(hone|[oa]d)/.test(navigato
 /// argument, which maps key names (say `"Mod-B"` to either `false`, to
 /// remove the binding, or a new key name string.
 export function buildKeymap(schema: Schema, mapKeys?: { [key: string]: false | string }) {
-  const keys: { [key: string]: Command } = {};
-  let type;
+  const keys: { [key: string]: Command } = {}
+  let type
   function bind(key: string, cmd: Command) {
     if (mapKeys) {
       const mapped = mapKeys[key]
@@ -48,7 +48,6 @@ export function buildKeymap(schema: Schema, mapKeys?: { [key: string]: false | s
     }
     keys[key] = cmd
   }
-
   bind("Mod-z", undo)
   bind("Shift-Mod-z", redo)
   bind("Backspace", undoInputRule)
@@ -58,25 +57,30 @@ export function buildKeymap(schema: Schema, mapKeys?: { [key: string]: false | s
   bind("Alt-ArrowDown", joinDown)
   bind("Mod-BracketLeft", lift)
   bind("Escape", selectParentNode)
-
-  if (type === schema.marks.strong) {
+  type = schema.marks.strong
+  if (type) {
     bind("Mod-b", toggleMark(type))
     bind("Mod-B", toggleMark(type))
   }
-  if (type === schema.marks.em) {
+  type = schema.marks.em
+  if (type) {
     bind("Mod-i", toggleMark(type))
     bind("Mod-I", toggleMark(type))
   }
-  if (type === schema.marks.code)
+  type = schema.marks.code
+  if (type)
     bind("Mod-`", toggleMark(type))
-
-  if (type === schema.nodes.bullet_list)
+  type = schema.nodes.bullet_list
+  if (type)
     bind("Shift-Ctrl-8", wrapInList(type))
-  if (type === schema.nodes.ordered_list)
+  type = schema.nodes.ordered_list
+  if (type)
     bind("Shift-Ctrl-9", wrapInList(type))
-  if (type === schema.nodes.blockquote)
+  type = schema.nodes.blockquote
+  if (type)
     bind("Ctrl->", wrapIn(type))
-  if (type === schema.nodes.hard_break) {
+  type = schema.nodes.hard_break
+  if (type) {
     const br = type, cmd = chainCommands(exitCode, (state, dispatch) => {
       if (dispatch) dispatch(state.tr.replaceSelectionWith(br.create()).scrollIntoView())
       return true
@@ -85,18 +89,23 @@ export function buildKeymap(schema: Schema, mapKeys?: { [key: string]: false | s
     bind("Shift-Enter", cmd)
     if (mac) bind("Ctrl-Enter", cmd)
   }
-  if (type === schema.nodes.list_item) {
+  type = schema.nodes.list_item
+  if (type) {
     bind("Enter", splitListItem(type))
     bind("Mod-[", liftListItem(type))
     bind("Mod-]", sinkListItem(type))
   }
-  if (type === schema.nodes.paragraph)
+  type = schema.nodes.paragraph
+  if (type)
     bind("Shift-Ctrl-0", setBlockType(type))
-  if (type === schema.nodes.code_block)
+  type = schema.nodes.code_block
+  if (type)
     bind("Shift-Ctrl-\\", setBlockType(type))
-  if (type === schema.nodes.heading)
+  type = schema.nodes.heading
+  if (type)
     for (let i = 1; i <= 6; i++) bind("Shift-Ctrl-" + i, setBlockType(type, { level: i }))
-  if (type === schema.nodes.horizontal_rule) {
+  type = schema.nodes.horizontal_rule
+  if (type) {
     const hr = type
     bind("Mod-_", (state, dispatch) => {
       if (dispatch) dispatch(state.tr.replaceSelectionWith(hr.create()).scrollIntoView())

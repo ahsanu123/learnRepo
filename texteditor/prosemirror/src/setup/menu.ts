@@ -2,11 +2,11 @@
 import {
   wrapItem, blockTypeItem, Dropdown, DropdownSubmenu, joinUpItem, liftItem,
   selectParentNodeItem, undoItem, redoItem, icons, MenuItem, MenuElement, MenuItemSpec
-} from "prosemirror-menu"
+} from "./prose-menu"
 import { NodeSelection, EditorState, Command } from "prosemirror-state"
 import { Schema, NodeType, MarkType } from "prosemirror-model"
-import { toggleMark } from "prosemirror-commands"
-import { wrapInList } from "prosemirror-schema-list"
+import { toggleMark } from "./prose-command"
+import { wrapInList } from "./prose-schema-list"
 import { TextField, openPrompt } from "./prompt"
 
 // Helpers to create specific types of items

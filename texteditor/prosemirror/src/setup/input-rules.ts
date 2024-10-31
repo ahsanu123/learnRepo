@@ -3,7 +3,7 @@
 import {
   inputRules, wrappingInputRule, textblockTypeInputRule,
   smartQuotes, emDash, ellipsis
-} from "prosemirror-inputrules"
+} from "./prose-input-rule"
 import { NodeType, Schema } from "prosemirror-model"
 
 /// Given a blockquote node type, returns an input rule that turns `"> "`
