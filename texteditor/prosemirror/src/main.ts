@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { EditorState } from 'prosemirror-state'
 import { EditorView, NodeView } from 'prosemirror-view'
-import { Node as ProseNode, Schema } from 'prosemirror-model'
-import { addListNodes, schema } from './schemas'
+import { DOMParser as ProseDOMParser, Node as ProseNode, Schema } from 'prosemirror-model'
+import { schema } from './schemas'
 import { exampleSetup } from './setup'
 import './style.scss'
 
@@ -29,19 +30,15 @@ class ImageView implements NodeView {
 const app = document.querySelector<HTMLDivElement>('#app')!
 
 const mySchema = new Schema({
-  nodes: addListNodes(schema.spec.nodes, "paragraph block*", "block"),
+  nodes: schema.spec.nodes,
   marks: schema.spec.marks
 })
 
-const state = EditorState.create({
-  schema: schema,
-  plugins: exampleSetup({
-    schema: mySchema,
-    menuBar: false
-  })
-})
 const view = new EditorView(app, {
-  state: state,
+  state: EditorState.create({
+    doc: ProseDOMParser.fromSchema(mySchema).parse(new DOMParser().parseFromString("<h2>hello</h2>", 'text/html')),
+    plugins: exampleSetup({ schema: mySchema })
+  })
 })
 
 window.view = view;
