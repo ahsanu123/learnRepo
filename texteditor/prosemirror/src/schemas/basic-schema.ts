@@ -111,7 +111,10 @@ export const nodes: KeyedNodeSpec = {
         };
       }
     }],
-    toDOM(node) { const { src, alt, title } = node.attrs; return ["img", { src, alt, title }]; }
+    toDOM(node) {
+      const { src, alt, title } = node.attrs;
+      return ["img", { src, alt, title }];
+    }
   },
 
   hard_break: {
