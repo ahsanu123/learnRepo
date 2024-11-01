@@ -4,20 +4,35 @@ import Token from "markdown-it/lib/token.mjs"
 import { schema } from "./prose-markdown-schema"
 import { Mark, MarkType, Node, Attrs, Schema, NodeType } from "prosemirror-model"
 
+interface MarkdownStack {
+  type: NodeType,
+  attrs: Attrs | null,
+  content: Node[],
+  marks: readonly Mark[]
+}
+
+interface TokenHandler {
+  [token: string]: (stat: MarkdownParseState, token: Token, tokens: Token[], i: number) => void
+}
+
 function maybeMerge(a: Node, b: Node): Node | undefined {
   if (a.isText && b.isText && Mark.sameSet(a.marks, b.marks))
     return (a as any).withText(a.text! + b.text!)
 }
 
-// Object used to track the context of a running parse.
 class MarkdownParseState {
-  stack: { type: NodeType, attrs: Attrs | null, content: Node[], marks: readonly Mark[] }[]
+  stack: MarkdownStack[]
 
   constructor(
     readonly schema: Schema,
-    readonly tokenHandlers: { [token: string]: (stat: MarkdownParseState, token: Token, tokens: Token[], i: number) => void }
+    readonly tokenHandlers: TokenHandler
   ) {
-    this.stack = [{ type: schema.topNodeType, attrs: null, content: [], marks: Mark.none }]
+    this.stack = [{
+      type: schema.topNodeType,
+      attrs: null,
+      content: [],
+      marks: Mark.none
+    }]
   }
 
   top() {
@@ -28,8 +43,6 @@ class MarkdownParseState {
     if (this.stack.length) this.top().content.push(elt)
   }
 
-  // Adds the given text to the current position in the document,
-  // using the current marks as styling.
   addText(text: string) {
     if (!text) return
     const top = this.top(), nodes = top.content, last = nodes[nodes.length - 1]
@@ -39,13 +52,11 @@ class MarkdownParseState {
     else nodes.push(node)
   }
 
-  // Adds the given mark to the set of active marks.
   openMark(mark: Mark) {
     const top = this.top()
     top.marks = mark.addToSet(top.marks)
   }
 
-  // Removes the given mark from the set of active marks.
   closeMark(mark: MarkType) {
     const top = this.top()
     top.marks = mark.removeFromSet(top.marks)
@@ -61,7 +72,6 @@ class MarkdownParseState {
     }
   }
 
-  // Add a node at the current position.
   addNode(type: NodeType, attrs: Attrs | null, content?: readonly Node[]) {
     const top = this.top()
     const node = type.createAndFill(attrs, content, top ? top.marks : [])
@@ -70,12 +80,10 @@ class MarkdownParseState {
     return node
   }
 
-  // Wrap subsequent content in a node of the given type.
   openNode(type: NodeType, attrs: Attrs | null) {
     this.stack.push({ type: type, attrs: attrs, content: [], marks: Mark.none })
   }
 
-  // Close and return the node that is currently on top of the stack.
   closeNode() {
     const info = this.stack.pop()!
     return this.addNode(info.type, info.attrs, info.content)
@@ -84,13 +92,11 @@ class MarkdownParseState {
 
 function attrs(spec: ParseSpec, token: Token, tokens: Token[], i: number) {
   if (spec.getAttrs) return spec.getAttrs(token, tokens, i)
-  // For backwards compatibility when `attrs` is a Function
+
   else if (spec.attrs instanceof Function) return spec.attrs(token)
   else return spec.attrs
 }
 
-// Code content is represented as a single token with a `content`
-// property in Markdown-it.
 function noCloseToken(spec: ParseSpec, type: string) {
   return spec.noCloseToken || type == "code_inline" || type == "code_block" || type == "fence"
 }
@@ -102,7 +108,7 @@ function withoutTrailingNewline(str: string) {
 function noOp() { }
 
 function tokenHandlers(schema: Schema, tokens: { [token: string]: ParseSpec }) {
-  const handlers: { [token: string]: (stat: MarkdownParseState, token: Token, tokens: Token[], i: number) => void } =
+  const handlers: TokenHandler =
     Object.create(null)
   for (const type in tokens) {
     const spec = tokens[type]
@@ -152,81 +158,27 @@ function tokenHandlers(schema: Schema, tokens: { [token: string]: ParseSpec }) {
   return handlers
 }
 
-/// Object type used to specify how Markdown tokens should be parsed.
 export interface ParseSpec {
-  /// This token maps to a single node, whose type can be looked up
-  /// in the schema under the given name. Exactly one of `node`,
-  /// `block`, or `mark` must be set.
   node?: string
-
-  /// This token (unless `noCloseToken` is true) comes in `_open`
-  /// and `_close` variants (which are appended to the base token
-  /// name provides a the object property), and wraps a block of
-  /// content. The block should be wrapped in a node of the type
-  /// named to by the property's value. If the token does not have
-  /// `_open` or `_close`, use the `noCloseToken` option.
   block?: string
-
-  /// This token (again, unless `noCloseToken` is true) also comes
-  /// in `_open` and `_close` variants, but should add a mark
-  /// (named by the value) to its content, rather than wrapping it
-  /// in a node.
   mark?: string
-
-  /// Attributes for the node or mark. When `getAttrs` is provided,
-  /// it takes precedence.
   attrs?: Attrs | null
-
-  /// A function used to compute the attributes for the node or mark
-  /// that takes a [markdown-it
-  /// token](https://markdown-it.github.io/markdown-it/#Token) and
-  /// returns an attribute object.
   getAttrs?: (token: Token, tokenStream: Token[], index: number) => Attrs | null
-
-  /// Indicates that the [markdown-it
-  /// token](https://markdown-it.github.io/markdown-it/#Token) has
-  /// no `_open` or `_close` for the nodes. This defaults to `true`
-  /// for `code_inline`, `code_block` and `fence`.
   noCloseToken?: boolean
-
-  /// When true, ignore content for the matched token.
   ignore?: boolean
 }
 
-/// A configuration of a Markdown parser. Such a parser uses
-/// [markdown-it](https://github.com/markdown-it/markdown-it) to
-/// tokenize a file, and then runs the custom rules it is given over
-/// the tokens to create a ProseMirror document tree.
 export class MarkdownParser {
-  /// @internal
   tokenHandlers: { [token: string]: (stat: MarkdownParseState, token: Token, tokens: Token[], i: number) => void }
 
-  /// Create a parser with the given configuration. You can configure
-  /// the markdown-it parser to parse the dialect you want, and provide
-  /// a description of the ProseMirror entities those tokens map to in
-  /// the `tokens` object, which maps token names to descriptions of
-  /// what to do with them. Such a description is an object, and may
-  /// have the following properties:
   constructor(
-    /// The parser's document schema.
     readonly schema: Schema,
-    /// This parser's markdown-it tokenizer.
     readonly tokenizer: MarkdownIt,
-    /// The value of the `tokens` object used to construct this
-    /// parser. Can be useful to copy and modify to base other parsers
-    /// on.
     readonly tokens: { [name: string]: ParseSpec }
   ) {
     this.tokenHandlers = tokenHandlers(schema, tokens)
   }
 
-  /// Parse a string as [CommonMark](http://commonmark.org/) markup,
-  /// and create a ProseMirror document as prescribed by this parser's
-  /// rules.
-  ///
-  /// The second argument, when given, is passed through to the
-  /// [Markdown
-  /// parser](https://markdown-it.github.io/markdown-it/#MarkdownIt.parse).
   parse(text: string, markdownEnv: any) {
     const state = new MarkdownParseState(this.schema, this.tokenHandlers)
     let doc
@@ -242,8 +194,6 @@ function listIsTight(tokens: readonly Token[], i: number) {
   return false
 }
 
-/// A parser parsing unextended [CommonMark](http://commonmark.org/),
-/// without inline HTML, and producing a document in the basic schema.
 export const defaultMarkdownParser = new MarkdownParser(schema, MarkdownIt("commonmark", { html: false }), {
   blockquote: { block: "blockquote" },
   paragraph: { block: "paragraph" },

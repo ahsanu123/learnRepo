@@ -467,8 +467,8 @@ function buildSVG(root: Document | ShadowRoot, name: string, data: IconSpecWithW
   let collection = doc.getElementById(prefixIcon + "-collection") as Element
   if (!collection) {
     collection = doc.createElementNS(SVG, "svg")
-    collection.id = prefixIcon + "-collection"
-      ; (collection as HTMLElement).style.display = "none"
+    collection.id = prefixIcon + "-collection";
+    (collection as HTMLElement).style.display = "none"
     top.insertBefore(collection, top.firstChild)
   }
   const sym = doc.createElementNS(SVG, "symbol")

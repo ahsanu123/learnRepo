@@ -94,7 +94,6 @@ function getValues(fields: { [name: string]: Field }, domFields: readonly HTMLEl
 }
 
 function reportInvalid(dom: HTMLElement, message: string) {
-  // FIXME this is awful and needs a lot more work
   const parent = dom.parentNode!
   const msg = parent.appendChild(document.createElement("div"))
   msg.style.left = (dom.offsetLeft + dom.offsetWidth + 2) + "px"
@@ -104,41 +103,22 @@ function reportInvalid(dom: HTMLElement, message: string) {
   setTimeout(() => parent.removeChild(msg), 1500)
 }
 
-/// The type of field that `openPrompt` expects to be passed to it.
+interface FieldOption {
+  value?: any
+  label: string
+  required?: boolean
+  validate?: (value: any) => string | null
+  clean?: (value: any) => any
+}
+
 export abstract class Field {
-  /// Create a field with the given options. Options support by all
-  /// field types are:
   constructor(
-    /// @internal
-    readonly options: {
-      /// The starting value for the field.
-      value?: any
-
-      /// The label for the field.
-      label: string
-
-      /// Whether the field is required.
-      required?: boolean
-
-      /// A function to validate the given value. Should return an
-      /// error message if it is not valid.
-      validate?: (value: any) => string | null
-
-      /// A cleanup function for field values.
-      clean?: (value: any) => any
-    }
+    readonly options: FieldOption
   ) { }
 
-  /// Render the field to the DOM. Should be implemented by all subclasses.
   abstract render(): HTMLElement
-
-  /// Read the field's value from its DOM node.
   read(dom: HTMLElement) { return (dom as any).value }
-
-  /// A field-type-specific validation function.
   validateType(value: any): string | null { return null }
-
-  /// @internal
   validate(value: any): string | null {
     if (!value && this.options.required)
       return "Required field"
@@ -150,7 +130,6 @@ export abstract class Field {
   }
 }
 
-/// A field class for single-line text fields.
 export class TextField extends Field {
   render() {
     const input = document.createElement("input")
@@ -162,11 +141,6 @@ export class TextField extends Field {
   }
 }
 
-
-/// A field class for dropdown fields based on a plain `<select>`
-/// tag. Expects an option `options`, which should be an array of
-/// `{value: string, label: string}` objects, or a function taking a
-/// `ProseMirror` instance and returning such an array.
 export class SelectField extends Field {
   render() {
     const select = document.createElement("select");

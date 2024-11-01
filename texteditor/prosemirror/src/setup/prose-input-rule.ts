@@ -5,45 +5,17 @@ import { EditorView } from "prosemirror-view"
 import { findWrapping, canJoin } from "prosemirror-transform"
 import { NodeType, Node, Attrs } from "prosemirror-model"
 
-/// Input rules are regular expressions describing a piece of text
-/// that, when typed, causes something to happen. This might be
-/// changing two dashes into an emdash, wrapping a paragraph starting
-/// with `"> "` into a blockquote, or something entirely different.
 export class InputRule {
-  /// @internal
   handler: (state: EditorState, match: RegExpMatchArray, start: number, end: number) => Transaction | null
 
-  /// @internal
   undoable: boolean
   inCode: boolean | "only"
 
-  // :: (RegExp, union<string, (state: EditorState, match: [string], start: number, end: number) → ?Transaction>)
-  /// Create an input rule. The rule applies when the user typed
-  /// something and the text directly in front of the cursor matches
-  /// `match`, which should end with `$`.
-  ///
-  /// The `handler` can be a string, in which case the matched text, or
-  /// the first matched group in the regexp, is replaced by that
-  /// string.
-  ///
-  /// Or a it can be a function, which will be called with the match
-  /// array produced by
-  /// [`RegExp.exec`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec),
-  /// as well as the start and end of the matched range, and which can
-  /// return a [transaction](#state.Transaction) that describes the
-  /// rule's effect, or null to indicate the input was not handled.
   constructor(
-    /// @internal
     readonly match: RegExp,
     handler: string | ((state: EditorState, match: RegExpMatchArray, start: number, end: number) => Transaction | null),
     options: {
-      /// When set to false,
-      /// [`undoInputRule`](#inputrules.undoInputRule) doesn't work on
-      /// this rule.
       undoable?: boolean,
-      /// By default, input rules will not apply inside nodes marked
-      /// as [code](#model.NodeSpec.code). Set this to true to change
-      /// that, or to `"only"` to _only_ match in such nodes.
       inCode?: boolean | "only"
     } = {}
   ) {
@@ -73,11 +45,10 @@ function stringHandler(string: string) {
 
 const MAX_MATCH = 500
 
-type PluginState = { transform: Transaction, from: number, to: number, text: string } | null
+type PluginState =
+  { transform: Transaction, from: number, to: number, text: string }
+  | null
 
-/// Create an input rules plugin. When enabled, it will cause text
-/// input that matches any of the given rules to trigger the rule's
-/// action.
 export function inputRules({ rules }: { rules: readonly InputRule[] }) {
   const plugin: Plugin<PluginState> = new Plugin<PluginState>({
     state: {
@@ -192,12 +163,6 @@ export function wrappingInputRule(
   })
 }
 
-/// Build an input rule that changes the type of a textblock when the
-/// matched text is typed into it. You'll usually want to start your
-/// regexp with `^` to that it is only matched at the start of a
-/// textblock. The optional `getAttrs` parameter can be used to compute
-/// the new node's attributes, and works the same as in the
-/// `wrappingInputRule` function.
 export function textblockTypeInputRule(
   regexp: RegExp,
   nodeType: NodeType,
@@ -212,19 +177,11 @@ export function textblockTypeInputRule(
       .setBlockType(start, start, nodeType, attrs)
   })
 }
-/// Converts double dashes to an emdash.
 export const emDash = new InputRule(/--$/, "—")
-/// Converts three dots to an ellipsis character.
 export const ellipsis = new InputRule(/\.\.\.$/, "…")
-/// “Smart” opening double quotes.
 export const openDoubleQuote = new InputRule(/(?:^|[\s{[(<'"\u2018\u201C])(")$/, "“")
-/// “Smart” closing double quotes.
 export const closeDoubleQuote = new InputRule(/"$/, "”")
-/// “Smart” opening single quotes.
 export const openSingleQuote = new InputRule(/(?:^|[\s{[(<'"\u2018\u201C])(')$/, "‘")
-/// “Smart” closing single quotes.
 export const closeSingleQuote = new InputRule(/'$/, "’")
-
-/// Smart-quote related input rules.
 export const smartQuotes: readonly InputRule[] = [openDoubleQuote, closeDoubleQuote, openSingleQuote, closeSingleQuote]
 

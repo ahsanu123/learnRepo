@@ -1,32 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import RopeSequence from "rope-sequence"
+import { Command, EditorState, Plugin, PluginKey, SelectionBookmark, Transaction } from "prosemirror-state"
 import { Mapping, Step, StepMap, Transform } from "prosemirror-transform"
-import { Plugin, Command, PluginKey, EditorState, Transaction, SelectionBookmark } from "prosemirror-state"
+import RopeSequence from "rope-sequence"
 
-// ProseMirror's history isn't simply a way to roll back to a previous
-// state, because ProseMirror supports applying changes without adding
-// them to the history (for example during collaboration).
-//
-// To this end, each 'Branch' (one for the undo history and one for
-// the redo history) keeps an array of 'Items', which can optionally
-// hold a step (an actual undoable change), and always hold a position
-// map (which is needed to move changes below them to apply to the
-// current document).
-//
-// An item that has both a step and a selection bookmark is the start
-// of an 'event' — a group of changes that will be undone or redone at
-// once. (It stores only the bookmark, since that way we don't have to
-// provide a document until the selection is actually applied, which
-// is useful when compressing.)
-
-// Used to schedule history compression
 const max_empty_items = 500
 
 class Branch {
   constructor(readonly items: RopeSequence<Item>, readonly eventCount: number) { }
 
-  // Pop the latest event off the branch's history and apply it
-  // to a document transform.
   popEvent(state: EditorState, preserveItems: boolean) {
     if (this.eventCount == 0) return null
 
@@ -81,7 +62,6 @@ class Branch {
     return { remaining: remaining!, transform, selection: selection! }
   }
 
-  // Create a new branch with the given transform added.
   addTransform(transform: Transform, selection: SelectionBookmark | undefined,
     histOptions: Required<HistoryOptions>, preserveItems: boolean) {
     const newItems = []
@@ -127,10 +107,6 @@ class Branch {
     return new Branch(this.items.append(array.map(map => new Item(map))), this.eventCount)
   }
 
-  // When the collab module receives remote changes, the history has
-  // to know about those, so that it can adjust the steps that were
-  // rebased on top of the remote changes, and include the position
-  // maps for the remote changes in its array of items.
   rebased(rebasedTransform: Transform, rebasedCount: number) {
     if (!this.eventCount) return this
 
@@ -174,12 +150,6 @@ class Branch {
     return count
   }
 
-  // Compressing a branch means rewriting it to push the air (map-only
-  // items) out. During collaboration, these naturally accumulate
-  // because each remote change adds one. The `upto` argument is used
-  // to ensure that only the items below a given level are compressed,
-  // because `rebased` relies on a clean, untouched set of items in
-  // order to associate old items with rebased steps.
   compress(upto = this.items.length) {
     const remap = this.remapping(0, upto)
     const items: Item[] = []
@@ -227,16 +197,9 @@ function cutOffEvents(items: RopeSequence<Item>, n: number) {
 
 class Item {
   constructor(
-    // The (forward) step map for this item.
     readonly map: StepMap,
-    // The inverted step
     readonly step?: Step,
-    // If this is non-null, this item is the start of a group, and
-    // this selection is the starting selection for the group (the one
-    // that was active before the first step was applied)
     readonly selection?: SelectionBookmark,
-    // If this item is the inverse of a previous mapping on the stack,
-    // this points at the inverse's offset
     readonly mirrorOffset?: number
   ) { }
 
@@ -248,9 +211,6 @@ class Item {
   }
 }
 
-// The value of the state field that tracks undo/redo history for that
-// state. Will be stored in the plugin state when the history plugin
-// is active.
 class HistoryState {
   constructor(
     readonly done: Branch,
@@ -263,7 +223,6 @@ class HistoryState {
 
 const DEPTH_OVERFLOW = 20
 
-// Record a transformation in undo history.
 function applyTransaction(history: HistoryState, state: EditorState, tr: Transaction, options: Required<HistoryOptions>) {
   const historyTr = tr.getMeta(historyKey)
   const rebased: number = tr.getMeta("rebased")
@@ -284,7 +243,7 @@ function applyTransaction(history: HistoryState, state: EditorState, tr: Transac
       return new HistoryState(history.done, history.undone.addTransform(tr, undefined, options, mustPreserveItems(state)),
         null, history.prevTime, history.prevComposition)
   } else if (tr.getMeta("addToHistory") !== false && !(appended && appended.getMeta("addToHistory") === false)) {
-    // Group transforms that occur in quick succession into one event.
+
     const composition = tr.getMeta("composition")
     const newGroup = history.prevTime == 0 ||
       (!appended && history.prevComposition != composition &&
@@ -294,8 +253,7 @@ function applyTransaction(history: HistoryState, state: EditorState, tr: Transac
       options, mustPreserveItems(state)),
       Branch.empty, prevRanges, tr.time, composition == null ? history.prevComposition : composition)
   } else if (rebased) {
-    // Used by the collab module to tell the history that some of its
-    // content has been rebased.
+
     return new HistoryState(history.done.rebased(tr, rebased),
       history.undone.rebased(tr, rebased),
       mapRanges(history.prevRanges!, tr.mapping), history.prevTime, history.prevComposition)
@@ -335,8 +293,6 @@ function mapRanges(ranges: readonly number[], mapping: Mapping) {
   return result
 }
 
-// Apply the latest event from one branch to the document and shift the event
-// onto the other branch.
 function histTransaction(history: HistoryState, state: EditorState, redo: boolean): Transaction | null {
   const preserveItems = mustPreserveItems(state)
   const histOptions = (historyKey.get(state)!.spec as any).config as Required<HistoryOptions>
@@ -352,10 +308,7 @@ function histTransaction(history: HistoryState, state: EditorState, redo: boolea
 }
 
 let cachedPreserveItems = false, cachedPreserveItemsPlugins: readonly Plugin[] | null = null
-// Check whether any plugin in the given state has a
-// `historyPreserveItems` property in its spec, in which case we must
-// preserve steps exactly as they came in, so that they can be
-// rebased.
+
 function mustPreserveItems(state: EditorState) {
   const plugins = state.plugins
   if (cachedPreserveItemsPlugins != plugins) {
@@ -369,9 +322,6 @@ function mustPreserveItems(state: EditorState) {
   return cachedPreserveItems
 }
 
-/// Set a flag on the given transaction that will prevent further steps
-/// from being appended to an existing history event (so that they
-/// require a separate undo command to undo).
 export function closeHistory(tr: Transaction) {
   return tr.setMeta(closeHistoryKey, true)
 }
@@ -380,23 +330,10 @@ const historyKey = new PluginKey("history")
 const closeHistoryKey = new PluginKey("closeHistory")
 
 interface HistoryOptions {
-  /// The amount of history events that are collected before the
-  /// oldest events are discarded. Defaults to 100.
   depth?: number
-
-  /// The delay between changes after which a new group should be
-  /// started. Defaults to 500 (milliseconds). Note that when changes
-  /// aren't adjacent, a new group is always started.
   newGroupDelay?: number
 }
 
-/// Returns a plugin that enables the undo history for an editor. The
-/// plugin will track undo and redo stacks, which can be used with the
-/// [`undo`](#history.undo) and [`redo`](#history.redo) commands.
-///
-/// You can set an `"addToHistory"` [metadata
-/// property](#state.Transaction.setMeta) of `false` on a transaction
-/// to prevent it from being rolled back by undo.
 export function history(config: HistoryOptions = {}): Plugin {
   config = {
     depth: config.depth || 100,
@@ -443,27 +380,19 @@ function buildCommand(redo: boolean, scroll: boolean): Command {
   }
 }
 
-/// A command function that undoes the last change, if any.
 export const undo = buildCommand(false, true)
 
-/// A command function that redoes the last undone change, if any.
 export const redo = buildCommand(true, true)
 
-/// A command function that undoes the last change. Don't scroll the
-/// selection into view.
 export const undoNoScroll = buildCommand(false, false)
 
-/// A command function that redoes the last undone change. Don't
-/// scroll the selection into view.
 export const redoNoScroll = buildCommand(true, false)
 
-/// The amount of undoable events available in a given state.
 export function undoDepth(state: EditorState) {
   const hist = historyKey.getState(state)
   return hist ? hist.done.eventCount : 0
 }
 
-/// The amount of redoable events available in a given editor state.
 export function redoDepth(state: EditorState) {
   const hist = historyKey.getState(state)
   return hist ? hist.undone.eventCount : 0

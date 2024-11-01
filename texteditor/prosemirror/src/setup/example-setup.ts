@@ -7,7 +7,6 @@ import { buildMenuItems } from "./menu"
 import { buildKeymap } from "./keymaps"
 import { baseKeymap } from "./prose-command"
 import { keymap } from "./prose-keymap"
-import { dropCursor } from "./prose-dropcursor"
 import { gapCursor } from "./prose-gapcursor"
 import { menuBar, MenuElement } from "./prose-menu"
 
@@ -59,7 +58,7 @@ export function exampleSetup(options: {
     buildInputRules(options.schema),
     keymap(buildKeymap(options.schema, options.mapKeys)),
     keymap(baseKeymap),
-    dropCursor(),
+    // dropCursor(),
     gapCursor()
   ]
   if (options.menuBar !== false)

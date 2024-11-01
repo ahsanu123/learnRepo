@@ -1,42 +1,21 @@
-import {
-  wrapIn, setBlockType, chainCommands, toggleMark, exitCode,
-  joinUp, joinDown, lift, selectParentNode
-} from "./prose-command"
-import { wrapInList, splitListItem, liftListItem, sinkListItem } from "./prose-schema-list"
-import { undo, redo } from "./prose-history"
-import { undoInputRule } from "./prose-input-rule"
-import { Command } from "prosemirror-state"
 import { Schema } from "prosemirror-model"
+import { Command } from "prosemirror-state"
+import {
+  chainCommands,
+  exitCode,
+  joinDown,
+  joinUp,
+  lift, selectParentNode,
+  setBlockType,
+  toggleMark,
+  wrapIn
+} from "./prose-command"
+import { redo, undo } from "./prose-history"
+import { undoInputRule } from "./prose-input-rule"
+import { liftListItem, sinkListItem, splitListItem, wrapInList } from "./prose-schema-list"
 
 const mac = typeof navigator != "undefined" ? /Mac|iP(hone|[oa]d)/.test(navigator.platform) : false
 
-/// Inspect the given schema looking for marks and nodes from the
-/// basic schema, and if found, add key bindings related to them.
-/// This will add:
-///
-/// * **Mod-b** for toggling [strong](#schema-basic.StrongMark)
-/// * **Mod-i** for toggling [emphasis](#schema-basic.EmMark)
-/// * **Mod-`** for toggling [code font](#schema-basic.CodeMark)
-/// * **Ctrl-Shift-0** for making the current textblock a paragraph
-/// * **Ctrl-Shift-1** to **Ctrl-Shift-Digit6** for making the current
-///   textblock a heading of the corresponding level
-/// * **Ctrl-Shift-Backslash** to make the current textblock a code block
-/// * **Ctrl-Shift-8** to wrap the selection in an ordered list
-/// * **Ctrl-Shift-9** to wrap the selection in a bullet list
-/// * **Ctrl->** to wrap the selection in a block quote
-/// * **Enter** to split a non-empty textblock in a list item while at
-///   the same time splitting the list item
-/// * **Mod-Enter** to insert a hard break
-/// * **Mod-_** to insert a horizontal rule
-/// * **Backspace** to undo an input rule
-/// * **Alt-ArrowUp** to `joinUp`
-/// * **Alt-ArrowDown** to `joinDown`
-/// * **Mod-BracketLeft** to `lift`
-/// * **Escape** to `selectParentNode`
-///
-/// You can suppress or map these bindings by passing a `mapKeys`
-/// argument, which maps key names (say `"Mod-B"` to either `false`, to
-/// remove the binding, or a new key name string.
 export function buildKeymap(schema: Schema, mapKeys?: { [key: string]: false | string }) {
   const keys: { [key: string]: Command } = {}
   let type

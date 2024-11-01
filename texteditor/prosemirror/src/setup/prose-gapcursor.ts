@@ -1,15 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { keydownHandler } from "./prose-keymap"
-import { TextSelection, NodeSelection, Selection, Plugin, Command, EditorState } from "prosemirror-state"
-import { Fragment, Slice, ResolvedPos, Node } from "prosemirror-model"
+import { Fragment, Node, ResolvedPos, Slice } from "prosemirror-model"
+import { Command, EditorState, NodeSelection, Plugin, Selection, TextSelection } from "prosemirror-state"
 import { Decoration, DecorationSet, EditorView } from "prosemirror-view"
+import { keydownHandler } from "./prose-keymap"
 
 import { Mappable } from "prosemirror-transform"
 
-/// Gap cursor selections are represented using this class. Its
-/// `$anchor` and `$head` properties both point at the cursor position.
 export class GapCursor extends Selection {
-  /// Create a gap cursor.
   constructor($pos: ResolvedPos) {
     super($pos, $pos)
   }
@@ -29,16 +26,13 @@ export class GapCursor extends Selection {
     return { type: "gapcursor", pos: this.head }
   }
 
-  /// @internal
   static fromJSON(doc: Node, json: any): GapCursor {
     if (typeof json.pos != "number") throw new RangeError("Invalid input for GapCursor.fromJSON")
     return new GapCursor(doc.resolve(json.pos))
   }
 
-  /// @internal
   getBookmark() { return new GapBookmark(this.anchor) }
 
-  /// @internal
   static valid($pos: ResolvedPos) {
     const parent = $pos.parent
     if (parent.isTextblock || !closedBefore($pos) || !closedAfter($pos)) return false
@@ -48,12 +42,11 @@ export class GapCursor extends Selection {
     return deflt && deflt.isTextblock
   }
 
-  /// @internal
   static findGapCursorFrom($pos: ResolvedPos, dir: number, mustMove = false) {
     search: for (; ;) {
       if (!mustMove && GapCursor.valid($pos)) return $pos
       let pos = $pos.pos, next = null
-      // Scan up from this position
+
       for (let d = $pos.depth; ; d--) {
         const parent = $pos.node(d)
         if (dir > 0 ? $pos.indexAfter(d) < parent.childCount : $pos.index(d) > 0) {
@@ -67,7 +60,6 @@ export class GapCursor extends Selection {
         if (GapCursor.valid($cur)) return $cur
       }
 
-      // And then down into the next node
       for (; ;) {
         const inside: Node | null = dir > 0 ? next.firstChild : next.lastChild
         if (!inside) {
@@ -89,9 +81,8 @@ export class GapCursor extends Selection {
   }
 }
 
-GapCursor.prototype.visible = false
-
-  ; (GapCursor as any).findFrom = GapCursor.findGapCursorFrom
+GapCursor.prototype.visible = false;
+(GapCursor as any).findFrom = GapCursor.findGapCursorFrom
 
 Selection.jsonID("gapcursor", GapCursor)
 
@@ -110,18 +101,16 @@ class GapBookmark {
 function closedBefore($pos: ResolvedPos) {
   for (let d = $pos.depth; d >= 0; d--) {
     const index = $pos.index(d), parent = $pos.node(d)
-    // At the start of this parent, look at next one
+
     if (index == 0) {
       if (parent.type.spec.isolating) return true
       continue
     }
-    // See if the node before (or its first ancestor) is closed
     for (let before = parent.child(index - 1); ; before = before.lastChild!) {
       if ((before.childCount == 0 && !before.inlineContent) || before.isAtom || before.type.spec.isolating) return true
       if (before.inlineContent) return false
     }
   }
-  // Hit start of document
   return true
 }
 
@@ -140,13 +129,6 @@ function closedAfter($pos: ResolvedPos) {
   return true
 }
 
-/// Create a gap cursor plugin. When enabled, this will capture clicks
-/// near and arrow-key-motion past places that don't have a normally
-/// selectable position nearby, and create a gap cursor selection for
-/// them. The cursor is drawn as an element with class
-/// `ProseMirror-gapcursor`. You can either include
-/// `style/gapcursor.css` from the package's directory or add your own
-/// styles to make it visible.
 export function gapCursor(): Plugin {
   return new Plugin({
     props: {
@@ -198,10 +180,6 @@ function handleClick(view: EditorView, pos: number, event: MouseEvent) {
   return true
 }
 
-// This is a hack that, when a composition starts while a gap cursor
-// is active, quickly creates an inline context for the composition to
-// happen in, to avoid it being aborted by the DOM selection being
-// moved into a valid position.
 function beforeinput(view: EditorView, event: InputEvent) {
   if (event.inputType != "insertCompositionText" || !(view.state.selection instanceof GapCursor)) return false
 
