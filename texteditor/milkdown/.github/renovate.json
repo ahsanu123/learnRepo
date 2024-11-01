@@ -1,0 +1,5 @@
+{
+  "extends": ["config:base", ":preserveSemverRanges", "group:all"],
+  "postUpdateOptions": ["pnpmDedupe"],
+  "ignoreDeps": ["mermaid"]
+}
