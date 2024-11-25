@@ -291,7 +291,8 @@ export const exitCode: Command = (state, dispatch) => {
 }
 
 export const createParagraphNear: Command = (state, dispatch) => {
-  const sel = state.selection, { $from, $to } = sel
+  const sel = state.selection
+  const { $from, $to } = sel
   if (sel instanceof AllSelection || $from.parent.inlineContent || $to.parent.inlineContent) return false
   const type = defaultBlockAt($to.parent.contentMatchAt($to.indexAfter()))
   if (!type || !type.isTextblock) return false
@@ -557,10 +558,14 @@ function removeInlineAtoms(ranges: readonly SelectionRange[]): readonly Selectio
   return result
 }
 
-export function toggleMark(markType: MarkType, attrs: Attrs | null = null, options?: {
-  removeWhenPresent?: boolean
-  enterInlineAtoms?: boolean
-}): Command {
+export function toggleMark(
+  markType: MarkType,
+  attrs: Attrs | null = null,
+  options?: {
+    removeWhenPresent?: boolean
+    enterInlineAtoms?: boolean
+  }
+): Command {
   const removeWhenPresent = (options && options.removeWhenPresent) !== false
   const enterAtoms = (options && options.enterInlineAtoms) !== false
   return function (state, dispatch) {

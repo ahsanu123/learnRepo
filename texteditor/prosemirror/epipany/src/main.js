@@ -26,7 +26,6 @@ import dayjs from "dayjs"
 import relativeTime from "dayjs/plugin/relativeTime"
 import { findParentNode } from "@tiptap/core";
 import UpdateTimer from "./update_timer"
-import { createId } from '@paralleldrive/cuid2';
 import { djot2prosemirror, prosemirror2djot } from './djot'
 import * as djot from '@djot/djot'
 import { tauri_invoke, tauri_dialog } from "./tauri_mock"

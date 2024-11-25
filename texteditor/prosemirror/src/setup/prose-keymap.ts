@@ -40,7 +40,11 @@ function modifiers(name: string, event: KeyboardEvent, shift = true) {
 }
 
 export function keymap(bindings: { [key: string]: Command }): Plugin {
-  return new Plugin({ props: { handleKeyDown: keydownHandler(bindings) } })
+  return new Plugin({
+    props: {
+      handleKeyDown: keydownHandler(bindings)
+    }
+  })
 }
 
 export function keydownHandler(bindings: { [key: string]: Command }): (view: EditorView, event: KeyboardEvent) => boolean {
