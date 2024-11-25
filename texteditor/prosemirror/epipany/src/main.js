@@ -2,10 +2,6 @@ import { keymap } from "prosemirror-keymap"
 import { EditorState, Selection, NodeSelection } from "prosemirror-state"
 import { EditorView } from "prosemirror-view"
 import { DOMParser } from "prosemirror-model"
-import 'prosemirror-view/style/prosemirror.css'
-import 'prosemirror-menu/style/menu.css'
-import 'prosemirror-gapcursor/style/gapcursor.css'
-import './style.css'
 import { baseKeymap } from "prosemirror-commands"
 import TagsView from "./tags"
 import GalleryView from "./gallery"
@@ -34,6 +30,11 @@ import { createId } from '@paralleldrive/cuid2';
 import { djot2prosemirror, prosemirror2djot } from './djot'
 import * as djot from '@djot/djot'
 import { tauri_invoke, tauri_dialog } from "./tauri_mock"
+
+import 'prosemirror-view/style/prosemirror.css'
+import 'prosemirror-menu/style/menu.css'
+import 'prosemirror-gapcursor/style/gapcursor.css'
+import './style.css'
 //https://pictogrammers.com/library/mdi/
 
 dayjs.extend(relativeTime);
@@ -343,30 +344,6 @@ document.body.addEventListener(
   true
 );
 
-const data = {
-  children: [
-    {
-      name: 'fruits', children: [
-        { name: 'apples', children: [] },
-        {
-          name: 'oranges', children: [
-            { name: 'tangerines', children: [] },
-            { name: 'mandarins', children: [] },
-            { name: 'pomelo', children: [] },
-            { name: 'blood orange', children: [] },
-          ]
-        }
-      ]
-    },
-    {
-      name: 'vegetables', children: [
-        { name: 'brocolli', children: [] },
-      ]
-    },
-  ]
-}
-
-
 document.getElementById('fold-menu-button').onclick = (e) => {
   if (!menuFolded) {
     document.getElementById('sidebar-container').visibility = 'hidden';
@@ -559,22 +536,22 @@ async function saveDocument(currentLoadedNodeId) {
 }
 
 
-document.getElementById("new-page-button").onclick = async (e) => {
-  if (tree && workspaceData) {
-    try {
-      const cuid = createId();
-      await tauri_invoke('create_new_file', { newFileId: cuid });
-      workspaceData.content_table.push({ name: 'Unnamed Note', id: cuid, children: [], filename: cuid + '.djot' });
-      tree.update();
-      let clonedWorkspace = deepClone(workspaceData);
-      console.log("before saving", clonedWorkspace);
-      await tauri_invoke('update_workspace_content', { newWorkspaceContent: clonedWorkspace });
-    }
-    catch (err) {
-      console.log(err);
-    }
-  }
-}
+// document.getElementById("new-page-button").onclick = async (e) => {
+//   if (tree && workspaceData) {
+//     try {
+//       const cuid = createId();
+//       await tauri_invoke('create_new_file', { newFileId: cuid });
+//       workspaceData.content_table.push({ name: 'Unnamed Note', id: cuid, children: [], filename: cuid + '.djot' });
+//       tree.update();
+//       let clonedWorkspace = deepClone(workspaceData);
+//       console.log("before saving", clonedWorkspace);
+//       await tauri_invoke('update_workspace_content', { newWorkspaceContent: clonedWorkspace });
+//     }
+//     catch (err) {
+//       console.log(err);
+//     }
+//   }
+// }
 
 (async () => {
   try {
@@ -590,72 +567,72 @@ document.getElementById("new-page-button").onclick = async (e) => {
   }
 })();
 
-const resizeBar = document.getElementById('resize-bar');
-let resizeBarMouseX = 0;
-
-let resizeBarOnMouseMove = function (e) {
-  e.stopPropagation();
-  e.preventDefault();
-  const dx = e.screenX - resizeBarMouseX;
-  const panelLeft = document.getElementById('sidebar-container').getBoundingClientRect().width;
-  let left = panelLeft + dx;
-  if (left > 240) {
-    left = 240;
-  }
-
-  document.getElementById('sidebar-container').style.width = `${left}px`;
-
-  if (left <= 60) {
-    document.getElementById('fold-menu-button').style.marginLeft = `${60 - left + 6}px`;
-  }
-  else {
-    document.getElementById('fold-menu-button').style.marginLeft = `${6}px`;
-  }
-  resizeBarMouseX = e.screenX;
-};
-
-let resizeBarOnMouseUp = function (event) {
-  event.stopPropagation();
-  event.preventDefault();
-  document.removeEventListener("mousemove", resizeBarOnMouseMove);
-  document.removeEventListener("mouseup", resizeBarOnMouseUp);
-
-  const panelLeft = document.getElementById('sidebar-container').getBoundingClientRect().width;
-  if (panelLeft < 80) {
-
-
-
-    document.getElementById('sidebar-container').visibility = 'hidden';
-    document.getElementById('sidebar-container').style.transition = 'width 0.5s';
-    document.getElementById('sidebar-container').style.width = '0px';
-
-    document.getElementById('fold-menu-button').innerHTML = '<i class="icon icon-right-open">&#x31;</i>';
-    document.getElementById('fold-menu-button').style.transition = 'width 0.5s';
-
-    menuFolded = true;
-    document.getElementById('editor-top-padding').style.display = 'inline-block';
-  }
-  else if (panelLeft > 160) {
-    document.getElementById('sidebar-container').visibility = 'visible';
-    document.getElementById('fold-menu-button').innerHTML = '<i class="icon icon-left-open-1">&#x31;</i>';
-    document.getElementById('fold-menu-button').style.transition = 'width 0.5s';
-
-    menuFolded = false;
-    document.getElementById('editor-top-padding').style.display = 'none';
-    document.getElementById('sidebar-container').style.transition = 'width 0.5s';
-    document.getElementById('sidebar-container').style.width = '240px';
-  }
-
-};
-
-resizeBar.onmousedown = (e) => {
-  resizeBarMouseX = e.screenX;
-  document.addEventListener("mousemove", resizeBarOnMouseMove);
-  document.addEventListener("mouseup", resizeBarOnMouseUp);
-  e.stopPropagation();
-  e.preventDefault();
-  document.getElementById('sidebar-container').style.display = 'flex';
-  document.getElementById('sidebar-container').style.transition = null;
-  document.getElementById('fold-menu-button').style.transition = null;
-}
-
+// const resizeBar = document.getElementById('resize-bar');
+// let resizeBarMouseX = 0;
+//
+// let resizeBarOnMouseMove = function (e) {
+//   e.stopPropagation();
+//   e.preventDefault();
+//   const dx = e.screenX - resizeBarMouseX;
+//   const panelLeft = document.getElementById('sidebar-container').getBoundingClientRect().width;
+//   let left = panelLeft + dx;
+//   if (left > 240) {
+//     left = 240;
+//   }
+//
+//   document.getElementById('sidebar-container').style.width = `${left}px`;
+//
+//   if (left <= 60) {
+//     document.getElementById('fold-menu-button').style.marginLeft = `${60 - left + 6}px`;
+//   }
+//   else {
+//     document.getElementById('fold-menu-button').style.marginLeft = `${6}px`;
+//   }
+//   resizeBarMouseX = e.screenX;
+// };
+//
+// let resizeBarOnMouseUp = function (event) {
+//   event.stopPropagation();
+//   event.preventDefault();
+//   document.removeEventListener("mousemove", resizeBarOnMouseMove);
+//   document.removeEventListener("mouseup", resizeBarOnMouseUp);
+//
+//   const panelLeft = document.getElementById('sidebar-container').getBoundingClientRect().width;
+//   if (panelLeft < 80) {
+//
+//
+//
+//     document.getElementById('sidebar-container').visibility = 'hidden';
+//     document.getElementById('sidebar-container').style.transition = 'width 0.5s';
+//     document.getElementById('sidebar-container').style.width = '0px';
+//
+//     document.getElementById('fold-menu-button').innerHTML = '<i class="icon icon-right-open">&#x31;</i>';
+//     document.getElementById('fold-menu-button').style.transition = 'width 0.5s';
+//
+//     menuFolded = true;
+//     document.getElementById('editor-top-padding').style.display = 'inline-block';
+//   }
+//   else if (panelLeft > 160) {
+//     document.getElementById('sidebar-container').visibility = 'visible';
+//     document.getElementById('fold-menu-button').innerHTML = '<i class="icon icon-left-open-1">&#x31;</i>';
+//     document.getElementById('fold-menu-button').style.transition = 'width 0.5s';
+//
+//     menuFolded = false;
+//     document.getElementById('editor-top-padding').style.display = 'none';
+//     document.getElementById('sidebar-container').style.transition = 'width 0.5s';
+//     document.getElementById('sidebar-container').style.width = '240px';
+//   }
+//
+// };
+//
+// resizeBar.onmousedown = (e) => {
+//   resizeBarMouseX = e.screenX;
+//   document.addEventListener("mousemove", resizeBarOnMouseMove);
+//   document.addEventListener("mouseup", resizeBarOnMouseUp);
+//   e.stopPropagation();
+//   e.preventDefault();
+//   document.getElementById('sidebar-container').style.display = 'flex';
+//   document.getElementById('sidebar-container').style.transition = null;
+//   document.getElementById('fold-menu-button').style.transition = null;
+// }
+//
