@@ -1,6 +1,7 @@
 *.suo
 *.user
 *.dotCover
+puml/
 
 .vs
 

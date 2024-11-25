@@ -86,7 +86,6 @@ const state = EditorState.create(
   }
 );
 
-
 const view = new EditorView(app, {
   state,
 })
