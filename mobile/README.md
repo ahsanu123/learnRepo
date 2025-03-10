@@ -181,4 +181,33 @@ adb connect <ip:port>
 
 # Build & install app
 ./gradlew installDebug --continuous
-``` 
+```
+
+## 🚀 Jetpack Visual Hierarchy Overview
+
+```shell
+├── Architecture
+│   ├── Lifecycle (Manages activity/fragment lifecycle)
+│   ├── LiveData (Observable data holder)
+│   ├── ViewModel (Holds UI-related data)
+│   ├── Room (SQLite object mapping)
+│   └── WorkManager (Background work)
+│
+├── UI
+│   ├── Jetpack Compose (Declarative UI)
+│   │   ├── UI Toolkit (Layout, Material components)
+│   │   ├── Animation (Motion and transitions)
+│   │   └── Tooling (Preview, Debugging)
+│   ├── AppCompat (Backward compatibility)
+│   └── Fragment (UI modularity)
+│
+├── Behavior
+│   ├── Notifications (Alerts and messaging)
+│   ├── Permissions (Runtime permissions)
+│   └── Sharing (Content sharing between apps)
+│
+└── Foundation
+    ├── Android KTX (Kotlin extensions for Android APIs)
+    ├── App Startup (Initialize components quickly)
+    └── Test (JUnit extensions, Espresso, etc.)
+```
