@@ -1,49 +1,184 @@
-## Introduction 
-This is a Kotlin Multiplatform project targeting Android, iOS.
+# 📱 **Android Development with Kotlin + Neovim (No Android Studio)**
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+_Arch Linux / Linux General Setup - Kotlin Multiplatform Compatible_
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+----------
 
+## 🔧 **Environment Setup**
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+### 1. **Install Android SDK (Command Line Tools Only)**
 
-## Environment Setup (Kotlin Multiplatform tested on arch linux)
-- setup android sdk (read more about setup [sdk without android studio](https://benshapi.ro/post/android-sdk-without-android-studio/))
-- create new project with [wizard](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html?_gl=1%2Asve7ee%2A_ga%2AMjA1MjU5OTgzNC4xNzIxNjE0NjI3%2A_ga_9J976DJZ68%2AMTcyODU1ODc5OC45LjEuMTcyODU1ODg1Ni4xMi4wLjA.%2A_gcl_au%2ANjY4NjU5NTI5LjE3Mjg1NTg4MDg.#create-the-project-with-a-wizard), then extract in your root folder
-- install `platform-tools` with `sdkmanager platform-tools` (then append to your path `/opt/android-sdk/platform-tools/`), do same thing to `build-tools`
+You **don't** need Android Studio! Download **Command Line Tools** directly from Google:
+
+-   **Download link**:  
+    👉 [Android SDK Command-Line Tools](https://developer.android.com/tools/releases/cmdline-tools)
+    
+-   **Extract and move to `/opt` (optional):**
+        
+    ```shell
+    sudo mkdir -p /opt/android-sdk/cmdline-tools/latest
+    sudo unzip commandlinetools-linux-*.zip -d /opt/android-sdk/cmdline-tools/latest
+    ``` 
+    
+-   **Set environment variables** (add these to your `.bashrc` / `.zshrc`):
+  
+    
+    ```shell
+    export ANDROID_SDK_ROOT=/opt/android-sdk
+    export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+    export PATH=$ANDROID_SDK_ROOT/platform-tools:$PATH
+    export PATH=$ANDROID_SDK_ROOT/build-tools/33.0.2:$PATH
+    ` 
+    
+
+----------
+
+### 2. **Install Required SDK Packages**
+
+Make sure you have `sdkmanager` (inside `cmdline-tools/latest/bin`).
 
 ```shell
-//install all this `packages`, and accept the license (sure, choose latest version)
-sdkmanager "platforms;android-33"
-sdkmanager "platform-tools"
-sdkmanager "build-tools;33.0.2"
-sdkmanager "system-images;android-33;google_apis;x86_64"
+sdkmanager --update
+
+sdkmanager "platform-tools" \
+           "build-tools;33.0.2" \
+           "platforms;android-33" \
+           "system-images;android-33;google_apis;x86_64"
+``` 
+
+#### Accept Licenses:
+
+`sdkmanager --licenses` 
+
+----------
+
+### 3. **Kotlin Multiplatform Project Setup**
+
+#### Option 1: **Use Kotlin Wizard (Optional)**
+
+Use JetBrains Kotlin Wizard to generate the project (if you want a template): 👉 [Kotlin Multiplatform Wizard](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app.html)
+
+
+```shell
+curl -s https://get.sdkman.io | bash
+sdk install kotlin
+``` 
+
+Extract or move the generated project to your working folder.
+
+#### Option 2: **Manual Gradle Init**
+
+Or start a minimal Kotlin project manually and add Android targets in Gradle.
+
+----------
+
+### 4. **Connect Your Android Device (Wireless ADB)**
+
+-   Enable **Developer Options** → **Wireless Debugging** on your Android phone.
+-   Pair device:
+    
+    `adb pair <ip:port> <pairing-code>` 
+    
+    Example:    
+    `adb pair 192.168.0.107:38303 408434` 
+    
+-   Connect: 
+    `adb connect 192.168.0.107:43847` 
+    
+
+#### Confirm connection: 
+
+`adb devices` 
+
+----------
+
+### 5. **Building and Installing the App**
+
+Run Gradle tasks to build and install the app:
+
+
+```shell
+./gradlew tasks   # View available tasks
+./gradlew assembleDebug
+./gradlew installDebug
+```
+
+Wireless-connected devices will receive the app directly.
+
+#### Hot Reload (Optional Continuous Build):
+ 
+
+`./gradlew installDebug --continuous` 
+
+It will automatically install new builds when files change.
+
+----------
+
+### 6. **Fix License Issues (If Gradle Complains)**
+
+If you get license errors like:
+ 
+`You have not accepted the license agreements of the following SDK components` 
+
+#### Fix 1: Accept licenses manually:
+ 
+
+`sdkmanager --licenses` 
+
+#### Fix 2: Manually copy licenses (sometimes required by Gradle):
+ 
+
+`cp -r $ANDROID_SDK_ROOT/licenses ./licenses` 
+
+Put it in the **project root** where Gradle can find it.
+
+----------
+
+## 📝 **Notes & Resources**
+
+-   ✅ [Android SDK without Android Studio](https://benshapi.ro/post/android-sdk-without-android-studio/) _(mirror or archive recommended!)_
+-   ✅ [AUR Package: android-sdk-cmdline-tools-latest](https://aur.archlinux.org/packages/android-sdk-cmdline-tools-latest)
+-   ✅ [ADB over WSL2](https://stackoverflow.com/a/67097784/19270838)
+-   ✅ [Pair Android Device over Wireless ADB](https://medium.com/@liwp.stephen/pairing-android-device-with-adb-from-command-line-11d71d94c441)
+
+----------
+
+## ✅ **Recommended Tools (Optional)**
+
+-   **Emulators (Optional)**
+    
+ 
+    
+    ```shell
+    sdkmanager "emulator"
+    avdmanager create avd -n test -k "system-images;android-33;google_apis;x86_64"
+    emulator -avd test
+    ```
+    
+
+----------
+
+## 🔥 **TL;DR Step-by-Step**
+
+```shell
+# Download & extract command-line tools
+sudo mkdir -p /opt/android-sdk/cmdline-tools/latest
+sudo unzip commandlinetools-linux-*.zip -d /opt/android-sdk/cmdline-tools/latest
+
+# Set environment variables
+export ANDROID_SDK_ROOT=/opt/android-sdk
+export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+export PATH=$ANDROID_SDK_ROOT/platform-tools:$PATH
+
+# Install SDK components
+sdkmanager --update
+sdkmanager "platform-tools" "build-tools;33.0.2" "platforms;android-33"
 sdkmanager --licenses
-```
 
-- enable developer mode on your phone, and turn on wireless debugging, 
-- then pair with this command `adb pair 192.168.0.107:38303 408434` _ip port and paircode will diference_ `adb pair <ip:port> <paircode>`
-- after pair _connect_ with your device `adb connect 192.168.0.107:43847` (sure change with correct ip and port)
-- you can list all `tasks` with (linux may need sudo)
+# Wireless debugging
+adb pair <ip:port> <pairing-code>
+adb connect <ip:port>
 
-```shell
-sudo gradle tasks
-```
-- accept all license with `sdkmanager --license`, if gradle not detecting accepted license (for example when build project) try to copy license folder from `ANDROID_SDK_ROOT` to your top build directory as described [here](https://developer.android.com/studio/intro/update#download-with-gradle)
-- then you can try to install on wireless connected device with `sudo gradle installDebug`
-- to auto reload (hot-reload) you can add `--continuous` to your command `sudo gradle installDebug --continuous`
-
-
-## Notes 
-
-- [android sdk without android studio](https://benshapi.ro/post/android-sdk-without-android-studio/)
-- [aur android-sdk-cmdline-tools-latest](https://aur.archlinux.org/packages/android-sdk-cmdline-tools-latest)
-- [adb from wsl2](https://stackoverflow.com/a/67097784/19270838)
-- [medium wireless pair android device with adb](https://medium.com/@liwp.stephen/pairing-android-device-with-adb-from-command-line-11d71d94c441)
+# Build & install app
+./gradlew installDebug --continuous
+``` 
